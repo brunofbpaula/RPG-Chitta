@@ -90,6 +90,12 @@
     @reference flex justify-start items-center;
   }
 
+  /* BACKGROUND */
+  .bg-cyberpunk{
+    background-image: url('../public/assets/images/cyberpunk.jpg');
+    background-size: contain;
+  }
+
   .custom-scrollbar::-webkit-scrollbar {
     width: 3px;
     height: 3px;
