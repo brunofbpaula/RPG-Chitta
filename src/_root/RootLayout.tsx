@@ -1,8 +1,10 @@
+import Navbar from '@/components/shared/Navbar'
 import React from 'react'
 
 const RootLayout = () => {
   return (
-    <div>RootLayout</div>
+    <section className='flex flex-auto bg-blackwall'>
+    </section>
   )
 }
 

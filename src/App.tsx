@@ -1,9 +1,9 @@
-import './globals.css';
 import { Route, Routes } from 'react-router-dom';
 import { Home } from './_root/pages';
 import LoginForm from './_auth/forms/LoginForm';
 import AuthLayout from './_auth/AuthLayout';
 import RootLayout from './_root/RootLayout';
+import { Toaster } from "@/components/ui/sonner"
 
 
 const App = () => {
@@ -21,6 +21,7 @@ const App = () => {
               <Route index element={<Home/>}/>
             </Route>
         </Routes>
+        <Toaster />
     </main>
   )
 }
