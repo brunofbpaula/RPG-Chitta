@@ -18,11 +18,15 @@ export async function getCurrentUser() {
         
         if(!currentAccount) throw Error('No account found');
 
+        console.log(currentAccount)
+
         const currentUser = await databases.listDocuments(
             appwriteConfig.databaseId,
             appwriteConfig.playerCollection,
             [Query.equal('accountId', currentAccount.$id)]
         )
+
+        console.log(currentUser);
 
         if (!currentUser) throw Error('No user found');
 

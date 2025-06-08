@@ -39,7 +39,7 @@ const LoginForm = () => {
     })
 
     if(!session){
-      return toast.error("Não foi possível logar. Tente novamente.")
+      return toast.error("Credenciais inválidas.")
     }
 
     const isLoggedIn = await checkAuthUser();
@@ -48,77 +48,78 @@ const LoginForm = () => {
       form.reset();
       navigate('/');
     } else {
-      return toast.error("Não foi possível logar. Tente novamente.")
+      return toast.error("Não foi possivel logar.")
     }
   
   };
 
 
   return (
-    <Form {...form}>
-      <div className="form-black flex flex-col items-center justify-center text-center text-white">
-        <img src={logo} alt="logo" className="h-40 w-auto mx-auto" />
+    <div className="form-black flex items-center justify-center text-center text-white gap-x-30">
+      <div>
+        <img src={logo} alt="logo" className="h-68 w-auto mx-auto" />
         <h2 className="h3-bold md:h2-bold pt-5 sm:pt-5">
           Pague o preço da liberdade.
-        </h2>
-        <p className="text-light-3 small-medium md:base-regular mt-2">
-          Entre com sua conta.
-        </p>
-        <form
-          onSubmit={form.handleSubmit(handleSignIn)}
-          className="flex flex-col gap-5 w-full mt-4">
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="shad-form_label">Email</FormLabel>
-                <FormControl>
-                  <Input type="text" className="shad-input" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-            />
-
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="shad-form_label">Senha</FormLabel>
-                <FormControl>
-                  <Input type="password" className="shad-input" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-            />
-
-          <Button type="submit" className="shad-button_primary bg-white text-black">
-            {isSigningIn ? (
-              <div className="flex-center gap-2">
-                <Loader /> Carregando...
-              </div>
-            ) : (
-              "Entrar"
-            )}
-          </Button>
-
-          <p className="text-small-regular text-light-2 text-center mt-2">
-            Não sabe sua conta? 
-            Consulte no Discord.
-          </p>
-          <p>
-            <Link
-              to="/discord"
-              className="text-primary-500 text-small-semibold ml-1">
-              Discord
-            </Link>
-          </p>
-        </form>
+        </h2> 
       </div>
-    </Form>
+
+      <div className="flex flex-col items-center justify-center w-80">
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(handleSignIn)}
+            className="flex flex-col gap-5 w-full mt-4">
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="shad-form_label">Email</FormLabel>
+                  <FormControl>
+                    <Input type="text" className="shad-input bg-white text-black" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+              />
+
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="shad-form_label">Senha</FormLabel>
+                  <FormControl>
+                    <Input type="password" className="shad-input bg-white text-black rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+              />
+
+            <Button type="submit" className="shad-button_primary bg-white text-black rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500">
+              {isSigningIn ? (
+                <div className="flex-center gap-2">
+                  <Loader />
+                </div>
+              ) : (
+                "Entrar"
+              )}
+            </Button>
+
+            <p className="text-small-regular text-light-2 text-center mt-2">
+              Consulte seu login no Discord.
+            </p>
+            <p>
+              <Link
+                to="/discord"
+                className="text-primary-500 text-small-semibold ml-1">
+                Discord
+              </Link>
+            </p>
+          </form>
+        </Form>
+        </div>
+    </div>
   )
 }
 
