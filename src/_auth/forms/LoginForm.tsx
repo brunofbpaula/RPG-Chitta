@@ -1,5 +1,6 @@
 import { useUserContext } from '@/context/AuthContext';
 import logo from '@/assets/icons/samurai.png';
+import discord from '@/assets/icons/discord.png';
 import { toast } from "sonner";
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom';
@@ -75,7 +76,7 @@ const LoginForm = () => {
                 <FormItem>
                   <FormLabel className="shad-form_label">Email</FormLabel>
                   <FormControl>
-                    <Input type="text" className="shad-input bg-white text-black" {...field} />
+                    <Input placeholder="player@rpg.com" type="text" className="shad-input bg-white text-black" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -89,7 +90,7 @@ const LoginForm = () => {
                 <FormItem>
                   <FormLabel className="shad-form_label">Senha</FormLabel>
                   <FormControl>
-                    <Input type="password" className="shad-input bg-white text-black rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500" {...field} />
+                    <Input placeholder="••••••••••" type="password" className="shad-input bg-white text-black rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -109,11 +110,11 @@ const LoginForm = () => {
             <p className="text-small-regular text-light-2 text-center mt-2">
               Consulte seu login no Discord.
             </p>
-            <p>
+            <p className='flex justify-center'>
               <Link
-                to="/discord"
+                to="https://discord.com/channels/1306386412207079466/1328257170701287435"
                 className="text-primary-500 text-small-semibold ml-1">
-                Discord
+                <img src={discord} alt="logo" className="h-5 w-5" />
               </Link>
             </p>
           </form>
