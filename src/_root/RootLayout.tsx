@@ -1,9 +1,14 @@
-import Navbar from '@/components/shared/Navbar'
-import React from 'react'
+import React from 'react';
+import { Outlet } from 'react-router-dom';
+import videoBg from '@/assets/video/Phantom Liberty.webm';
 
 const RootLayout = () => {
   return (
-    <section className='flex flex-auto bg-blackwall'>
+    <section className='"main w-full md:flex'>
+      <video src={videoBg} autoPlay loop muted className="overlay"></video>
+      <div className='content'>
+        <Outlet/>
+      </div>
     </section>
   )
 }
