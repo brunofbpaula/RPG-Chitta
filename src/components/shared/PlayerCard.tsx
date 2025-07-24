@@ -1,10 +1,10 @@
 import React from 'react';
 import aaron from '@/assets/players/aaron.png';
-import HealthBar from './HealthBar';
+import SanityBar from './SanityBar';
 
 const PlayerCard = () => {
   return (
-    <div className="player-card">
+    <div className="player-card"> 
       <div className="card-content">
         <div className="card-header">
           <h1 className="player-name">Aaron</h1>
@@ -18,7 +18,7 @@ const PlayerCard = () => {
       <div className="card-image">
         <img src={aaron} alt="Aaron" className="player-card-img" />
       </div>
-      <HealthBar health={85} />
+      <SanityBar sanity={100}/>
     </div>
   );
 };
