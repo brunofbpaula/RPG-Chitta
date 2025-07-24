@@ -1,5 +1,4 @@
 import Inventary from '@/components/shared/Inventary'
-import InventarioPainel from '@/components/shared/AI-Generated';
 import PlayerCard from '@/components/shared/PlayerCard';
 import SkillChart from '@/components/shared/SkillChart';
 import React from 'react';
