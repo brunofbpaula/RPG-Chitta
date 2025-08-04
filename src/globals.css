@@ -30,7 +30,7 @@ video {
   padding: 1rem;
 }
 
-.inventary-card{
+.inventory-card{
   position: relative;
   background-color: rgba(0, 0, 0, 0.8);
   display: flex;
@@ -40,7 +40,7 @@ video {
 
   max-width: 80%;
   margin: auto;
-  height: 400px;
+  height: 325px;
   border-radius: 12px 0 12px 12px;
 
   border-bottom: 3px solid #f50a1c;

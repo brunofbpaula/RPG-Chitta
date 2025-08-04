@@ -1,4 +1,4 @@
-import Inventary from '@/components/shared/Inventary'
+import Inventary from '@/components/shared/Inventory'
 import PlayerCard from '@/components/shared/PlayerCard';
 import SkillChart from '@/components/shared/SkillChart';
 import React from 'react';
