@@ -17,6 +17,7 @@ video {
 
 .content {
   position: absolute;
+  justify-content: center;
   left: 0;
   right: 0;
   bottom: 0;
@@ -40,7 +41,7 @@ video {
 
   max-width: 80%;
   margin: auto;
-  height: 325px;
+  height: 375px;
   border-radius: 12px 0 12px 12px;
 
   border-bottom: 3px solid #f50a1c;
@@ -69,13 +70,29 @@ video {
   background: #ff3b3b;
 }
 
+.skills-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.skills-scrollbar::-webkit-scrollbar-track {
+  background: black;
+}
+
+.skills-scrollbar::-webkit-scrollbar-thumb {
+  background: white;
+  border-radius: 10px;
+}
+
 .utility-box{
-  width: 10%;
+  width: 45%;
+  max-width: 45%;
 }
 
 .player-box{
   width: 45%;
+  max-width: 45%;
 }
+
 
 .player-card {
   position: relative;
@@ -85,8 +102,7 @@ video {
   justify-content: flex-start;
   align-items: center;
 
-  width: 80%;
-  max-width: 500px;
+  max-width: 600px;
   margin: 25px auto;
   height: 400px;
   border-radius: 12px 0 12px 12px;
@@ -130,6 +146,7 @@ video {
   font-size: 1.25rem;
 }
 
+
 .player-age {
   padding: 0.25rem 0.5rem;
   border-radius: 0.375rem;
@@ -159,6 +176,14 @@ video {
   display: block;
 }
 
+.skills-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
 .skill-chart {
   position: relative;
   background-color: rgba(0, 0, 0, 0.8);
@@ -167,8 +192,8 @@ video {
   justify-content: flex-start;
   align-items: center;
 
-  width: 80%;
-  max-width: 500px;
+  width: 100%;
+  max-width: 600px;
   margin: 25px auto;
   height: 170px;
   border-radius: 12px 0 12px 12px;

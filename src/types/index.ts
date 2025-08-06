@@ -22,5 +22,27 @@ export type IPlayer = {
     health: number;
     cyberpsychosis: boolean;
     imageUrl: string;
+    cyberImageUrl: string;
+    sanity: number;
+    strength: number;
+    stealthiness: number;
+    intelligence: number;
+    moral: number;
+    resilience: number;
 };
-  
+
+export type INewPlayer = {
+    email: string;
+    password: string;
+    name: string;
+    age: number;
+    goal: string;
+    image: File;
+    sanity: number;
+    health: number
+    strength: number;
+    stealthiness: number;
+    intelligence: number;
+    moral: number;
+    resilience: number;
+}

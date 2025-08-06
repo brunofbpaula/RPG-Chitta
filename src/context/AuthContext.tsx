@@ -1,6 +1,6 @@
 import { getCurrentUser } from '@/lib/appwrite/api'
 import { IContextType, IPlayer } from '@/types'
-import { create } from 'domain'
+import { cy } from 'date-fns/locale'
 import { createContext, useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -12,7 +12,14 @@ export const INITIAL_USER = {
     goal: '',
     health: 0,
     cyberpsychosis: false,
-    imageUrl: ''
+    imageUrl: '',
+    cyberImageUrl: '',
+    sanity: 0,
+    intelligence: 0,
+    strength: 0,
+    stealthiness: 0,
+    moral: 0,
+    resilience: 0
 }
 
 export const INITIAL_STATE = {
@@ -48,7 +55,14 @@ const AuthProvider = ({children}: {children: React.ReactNode} ) => {
           goal: currentAccount.goal,
           health: currentAccount.health,
           cyberpsychosis: currentAccount.cyberpsychosis,
-          imageUrl: currentAccount.imageUrl
+          imageUrl: currentAccount.imageUrl,
+          cyberImageUrl: currentAccount.cyberImageUrl,
+          sanity: currentAccount.sanity,
+          intelligence: currentAccount.intelligence,
+          strength: currentAccount.strength,
+          stealthiness: currentAccount.stealthiness,
+          moral: currentAccount.moral,
+          resilience: currentAccount.resilience
         })
         setIsAuthenticated(true);
   

@@ -1,14 +1,16 @@
 import React from 'react'
 import PolarAreaChart from '../charts/Polar';
+import { useUserContext } from '@/context/AuthContext';
 
 const SkillChart = () => {
+  const { user }  = useUserContext();
+
   const playerAttributes = {
-    intelligence: 65,
-    strength: 40,
-    stealth: 40,
-    resilience: 25,
-    agility: 70,
-    moral: 50
+    strength: user?.strength,
+    stealth: user?.stealthiness,
+    intelligence: user?.intelligence,
+    moral: user?.moral,
+    resilience: user?.resilience,
   };
 
   return (

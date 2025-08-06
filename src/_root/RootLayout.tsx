@@ -1,6 +1,6 @@
-import React from 'react';
 import { Outlet } from 'react-router-dom';
 import videoBg from '@/assets/video/Phantom Liberty.webm';
+import PhantomLiberty from "@/assets/audio/Phantom-Liberty.mp3";
 
 const RootLayout = () => {
   return (
