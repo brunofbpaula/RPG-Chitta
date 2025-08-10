@@ -4,7 +4,7 @@ import videoBg from '@/assets/video/Phantom Liberty.webm';
 const RootLayout = () => {
   return (
     <section className='"main w-full md:flex'>
-      <video src={videoBg} autoPlay loop muted className="overlay"></video>
+      <video src={"https://drbl5lmt8mq0ufbl.public.blob.vercel-storage.com/Phantom%20Liberty.webm"} autoPlay loop muted className="overlay"></video>
       <div className='content'>
         <Outlet/>
       </div>
