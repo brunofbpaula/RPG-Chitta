@@ -63,17 +63,20 @@ const AuthProvider = ({children}: {children: React.ReactNode} ) => {
           stealthiness: currentAccount.stealthiness,
           moral: currentAccount.moral,
           resilience: currentAccount.resilience
-        })
+        });
         setIsAuthenticated(true);
-  
         return true;
+      } else {
+        // Não tem usuário, limpa tudo
+        setUser(INITIAL_USER);
+        setIsAuthenticated(false);
+        return false;
       }
 
-      return false;
-
-
     } catch (error) {
-      console.log(error);
+      console.log("Erro ao verificar usuário:", error);
+      setUser(INITIAL_USER);
+      setIsAuthenticated(false);
       return false;
     } finally {
       setIsLoading(false);
@@ -81,17 +84,26 @@ const AuthProvider = ({children}: {children: React.ReactNode} ) => {
   };
 
   useEffect(() => {
-    const cookieFallback = localStorage.getItem("cookieFallback");
-    if (
-      cookieFallback === "[]" ||
-      cookieFallback === null ||
-      cookieFallback === undefined
-    ) {
-      navigate("/login");
-    }
+    (async () => {
+      // Primeiro checa o fallback do cookie (se for seu controle local)
+      const cookieFallback = localStorage.getItem("cookieFallback");
 
-    checkAuthUser();
-  }, []);
+      // Executa a verificação real de autenticação
+      const loggedIn = await checkAuthUser();
+
+      // Se não está logado, redireciona para login, exceto se já estiver em /register
+      if(!loggedIn){
+        if(location.pathname !== "/register"){
+          navigate("/login");
+        }
+      } else {
+        // Se estiver logado e estiver em /login ou /register, pode redirecionar para home ou dashboard, se quiser
+        if(location.pathname === "/login" || location.pathname === "/register"){
+          navigate("/");
+        }
+      }
+    })();
+  }, [navigate]);
 
   const value = {
     user,

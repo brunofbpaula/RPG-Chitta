@@ -1,17 +1,22 @@
 interface Props {
-    sanity: number;
+  sanity: number;
 }
 
 export default function SanityBar({ sanity }: Props) {
-    
-    return (
-        <div className="relative h-4 w-60 b-4 bg-white rounded-md flex">
-            <div 
-                className="absolute h-4 w-40 bg-red-500 rounded-md flex justify-center"
-                style={{ width: `${sanity}%`, fontSize: '10px', fontWeight: 'bold' }}
-            >
-                {sanity}%
-            </div>
+  const isCyberpsychotic = sanity === 0;
+
+  return (
+    <div className="relative h-4 w-70 bg-red-400 rounded-md flex items-center justify-center">
+      {isCyberpsychotic ? (
+        <span className="text-red-950 text-xs font-bold">CYBERPSICÓTICO</span>
+      ) : (
+        <div
+          className="absolute left-0 top-0 h-4 bg-red-500 rounded-md flex justify-center items-center"
+          style={{ width: `${sanity}%` }}
+        >
+          <span className="text-white text-[10px] font-bold">{sanity}%</span>
         </div>
-    )
+      )}
+    </div>
+  );
 }

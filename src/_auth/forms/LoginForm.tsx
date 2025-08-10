@@ -2,7 +2,6 @@ import { useUserContext } from '@/context/AuthContext';
 import logo from '@/assets/icons/samurai.png';
 import discord from '@/assets/icons/discord.png';
 import { toast } from "sonner";
-import React from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -17,7 +16,7 @@ import { Input } from '@/components/ui/input';
 
 const LoginForm = () => {
 
-  const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
+  const { checkAuthUser } = useUserContext();
   const navigate = useNavigate();
 
   const { mutateAsync: signInAccount, isPending: isSigningIn } = useSignInAccount();
@@ -100,7 +99,7 @@ const LoginForm = () => {
             <Button type="submit" className="shad-button_primary bg-white text-black rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500">
               {isSigningIn ? (
                 <div className="flex-center gap-2">
-                  <Loader />
+                  <Loader size={24}/>
                 </div>
               ) : (
                 "Entrar"
@@ -115,6 +114,11 @@ const LoginForm = () => {
                 to="https://discord.com/channels/1306386412207079466/1328257170701287435"
                 className="text-primary-500 text-small-semibold ml-1">
                 <img src={discord} alt="logo" className="h-5 w-5" />
+              </Link>
+            </p>
+            <p className="text-small-regular text-center">
+              <Link to="/register" className="text-primary-500 underline hover:text-primary-700">
+                Primeira vez? Clique aqui para criar sua ficha
               </Link>
             </p>
           </form>

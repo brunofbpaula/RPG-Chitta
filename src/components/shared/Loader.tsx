@@ -1,17 +1,20 @@
 import loader from "@/assets/icons/loader.svg";
 
+type LoaderProps = {
+  size: number;
+};
 
-const Loader = () => {
+const Loader = ({ size }: LoaderProps) => {
   return (
     <div className='flex-center w-full'>
-        <img 
-            src={loader}
-            width={24}
-            height={24}
-        />
-
+      <img 
+        src={loader}
+        width={size}
+        height={size}
+        alt="Loading..."
+      />
     </div>
-  )
-}
+  );
+};
 
-export default Loader
+export default Loader;

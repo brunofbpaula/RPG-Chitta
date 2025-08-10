@@ -62,12 +62,8 @@ video {
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: transparent;
-  border-radius: 10px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #ff3b3b;
+  border-radius: 10px;
 }
 
 .skills-scrollbar::-webkit-scrollbar {
@@ -156,19 +152,22 @@ video {
 .player-quote {
   font-size: 0.875rem;
   color: white;
-  margin-top: 0.5rem;
+  margin-top: 4px;
+  margin-bottom: 10px;
 }
 
 .card-image {
   display: flex;
   justify-content: center;
-  width: 100%;
-  padding-bottom: 0.5rem;
+  max-height: 225px;
+  width: auto;
+  padding: 4px;
+  margin-bottom: 20px;
 }
 
 .player-card-img {
   flex-shrink: 0;
-  max-height: 250px;          /* ocupa espaço sem ultrapassar */
+  max-height: 225;
   max-width: 100%;
   width: auto;
   height: auto;

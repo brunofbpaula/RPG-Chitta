@@ -7,8 +7,8 @@ const Home = () => {
   return (
     <>
       <div className='utility-box'>
-        <SkillsModal/>
         <Inventary/>
+        <SkillsModal/>
       </div>
       <div className='player-box'>
         <PlayerCard/>

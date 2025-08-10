@@ -10,7 +10,7 @@ const PolarAreaChart: React.FC<PolarAreaChartProps> = ({ data, title = 'Polar Ar
   const label_map: { [key: string]: string } = {
   'intelligence': 'Inteligência',
   'strength': 'Força',
-  'stealth': 'Furtividade',
+  'stealthiness': 'Furtividade',
   'resilience': 'Resilência',
   'moral': 'Moral'
 }

@@ -221,12 +221,20 @@ const SignUpForm = () => {
                         </FormLabel>
                         <FormControl>
                         <Input
-                            type="number"
-                            min={0}
-                            max={100}
-                            className="max-h-7 bg-white text-black rounded-md border border-gray-300"
-                            {...field}
-                            onChange={e => field.onChange(e.target.value === '' ? undefined : Number(e.target.value))}
+                          type="number"
+                          min={0}
+                          max={100}
+                          className="max-h-7 bg-white text-black rounded-md border border-gray-300"
+                          {...field}
+                          onChange={e => {
+                              const rawValue = e.target.value;
+                              const value = rawValue === '' ? undefined : Number(rawValue);
+
+                              // Clamp entre 0 e 100
+                              const clamped = value !== undefined ? Math.max(0, Math.min(100, value)) : undefined;
+
+                              field.onChange(clamped);
+                          }}
                         />
                         </FormControl>
                         <FormMessage />
@@ -243,7 +251,7 @@ const SignUpForm = () => {
             >
                 {(isCreatingAccount || isSigningInUser) ? (
                 <div className="flex-center gap-2">
-                    <Loader />
+                    <Loader size={24}/>
                 </div>
                 ) : (
                 "Criar Jogador"
