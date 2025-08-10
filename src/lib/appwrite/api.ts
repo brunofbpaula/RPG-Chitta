@@ -1,6 +1,6 @@
-import { ID, ImageGravity, Query } from 'appwrite';
+import { ID, Query } from 'appwrite';
 import { INewPlayer } from '@/types';
-import { account, appwriteConfig, avatars, databases, storage } from './config';
+import { account, appwriteConfig, databases, storage } from './config';
 
 export async function uploadFile(file: File) {
     try {

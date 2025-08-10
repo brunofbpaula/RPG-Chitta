@@ -1,6 +1,5 @@
 import { getCurrentUser } from '@/lib/appwrite/api'
 import { IContextType, IPlayer } from '@/types'
-import { cy } from 'date-fns/locale'
 import { createContext, useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -85,9 +84,6 @@ const AuthProvider = ({children}: {children: React.ReactNode} ) => {
 
   useEffect(() => {
     (async () => {
-      // Primeiro checa o fallback do cookie (se for seu controle local)
-      const cookieFallback = localStorage.getItem("cookieFallback");
-
       // Executa a verificação real de autenticação
       const loggedIn = await checkAuthUser();
 

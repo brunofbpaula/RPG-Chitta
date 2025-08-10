@@ -1,8 +1,7 @@
 import { INewPlayer } from '@/types';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { createItem, createNote, createUserAccount, deleteItem, deleteNote, getCurrentUser, signInAccount, updateItems } from '../appwrite/api';
+import { createItem, createNote, createUserAccount, deleteItem, deleteNote, getCurrentUser, signInAccount } from '../appwrite/api';
 import { QUERY_KEYS } from './queryKeys';
-import { create } from 'domain';
 
 export const useSignInAccount = () => {
   return useMutation({

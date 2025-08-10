@@ -11,8 +11,7 @@ import {
   CircularProgress,
   Box,
 } from "@mui/material";
-import { getPlayerRelics, updateRelics } from "@/lib/appwrite/api";
-import { useUserContext } from "@/context/AuthContext";
+import { updateRelics } from "@/lib/appwrite/api";
 import { useGetCurrentUser } from "@/lib/react-query/queriesAndMutation";
 import Loader from "./Loader";
 

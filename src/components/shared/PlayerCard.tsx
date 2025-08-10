@@ -1,5 +1,3 @@
-import React from 'react';
-import aaron from '@/assets/players/aaron.png';
 import SanityBar from './SanityBar';
 import { useUserContext } from '@/context/AuthContext';
 import Loader from './Loader';

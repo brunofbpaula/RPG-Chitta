@@ -22,12 +22,11 @@ import { Button } from '@/components/ui/button';
 import Loader from '@/components/shared/Loader';
 import { Input } from '@/components/ui/input';
 import { SignupValidation } from '@/lib/validation';
-import { Models } from "appwrite";
 import FileUploader from '@/components/shared/FileUploader';
 
 const SignUpForm = () => {
   const navigate = useNavigate();
-  const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
+  const { checkAuthUser } = useUserContext();
 
   const form = useForm<z.infer<typeof SignupValidation>>({
     resolver: zodResolver(SignupValidation),

@@ -1,6 +1,5 @@
 import { useCallback, useState } from "react";
 import { FileWithPath, useDropzone } from "react-dropzone";
-import { Button } from "@/components/ui/button";
 import { convertFileToUrl } from "@/lib/utils";
 import file_upload from "@/assets/icons/file-upload.svg";
 
@@ -10,7 +9,6 @@ type FileUploaderProps = {
 };
 
 const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
-  const [file, setFile] = useState<File>(new File([], ""));
   const [fileUrl, setFileUrl] = useState<string>(mediaUrl);
 
   const onDrop = useCallback(
@@ -18,8 +16,6 @@ const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
       if (acceptedFiles.length === 0) return;
 
       const file = acceptedFiles[0];
-
-      setFile(file);
       fieldChange(file);
       setFileUrl(convertFileToUrl(file));
     },
