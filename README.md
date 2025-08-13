@@ -1,54 +1,40 @@
-# React + TypeScript + Vite
+# 🎲 RPG-Chitta
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Um RPG de mesa digital e personalizado, criado especialmente para um amigo (*Chitta*), onde é possível criar e gerenciar fichas de personagens, evoluir habilidades, adicionar itens e registrar o progresso da aventura.  
+Desenvolvido com **React**, **TypeScript**, **Vite**, **Tailwind CSS** e **Appwrite**.
 
-Currently, two official plugins are available:
+## ✨ Funcionalidades
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 📜 **Criação de ficha**: defina atributos, características e foto do personagem.
+- ⚔️ **Evolução**: aumente habilidades conforme a campanha avança.
+- 🎒 **Inventário**: adicione ou remova itens.
+- 📝 **Anotações**: registre acontecimentos importantes e progresso da história.
+- ☁️ **Sincronização**: dados salvos e carregados através do Appwrite.
 
-## Expanding the ESLint configuration
+## 🛠️ Tecnologias
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- [React](https://react.dev/) — Biblioteca para interfaces.
+- [TypeScript](https://www.typescriptlang.org/) — Tipagem estática.
+- [Vite](https://vitejs.dev/) — Bundler rápido e moderno.
+- [Tailwind CSS](https://tailwindcss.com/) — Estilização utilitária.
+- [Appwrite](https://appwrite.io/) — Backend-as-a-Service para autenticação e banco de dados.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 📂 Estrutura do projeto
+
+```plaintext
+src/
+ ├── _auth/           # Páginas e componentes de autenticação
+ ├── _root/           # Layouts e páginas principais
+ ├── assets/          # Imagens, ícones e outros recursos estáticos
+ ├── components/      # Componentes reutilizáveis da interface
+ ├── context/         # Contextos globais do React (estado compartilhado)
+ ├── lib/
+ │   ├── appwrite/    # Configuração e serviços do Appwrite
+ │   ├── react-query/ # Configuração e hooks do React Query
+ │   ├── validation/  # Schemas e validações de dados
+ │   └── utils.ts     # Funções utilitárias
+ └── types/           # Tipos TypeScript globais
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+## 🌐 Deploy
+O projeto está hospedado na [Vercel](https://rpg-chitta.vercel.app/login).
