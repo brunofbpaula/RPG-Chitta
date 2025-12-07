@@ -281,7 +281,7 @@ const SignUpForm = () => {
               </p>
               <p className="flex justify-center">
                   <Link
-                  to="https://discord.com/channels/1306386412207079466/1328257170701287435"
+                  to="https://discord.com/channels/1446227269776445583/1446750847429120080"
                   className="text-primary-500 text-sm font-semibold ml-1"
                   >
                   <img src={discord} alt="logo" className="h-5 w-5" />
