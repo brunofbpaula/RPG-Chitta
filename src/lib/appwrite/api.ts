@@ -1,7 +1,6 @@
 import { ID, Query } from 'appwrite';
 import { INewPlayer } from '@/types';
 import { account, appwriteConfig, databases, storage } from './config';
-import { tr } from 'date-fns/locale';
 
 export async function uploadFile(file: File) {
     try {
