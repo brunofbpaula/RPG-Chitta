@@ -19,13 +19,13 @@ export type IPlayer = {
     name: string;
     age: number;
     goal: string;
-    health: number;
-    cyberpsychosis: boolean;
+    currentHealth: number;
+    maxHealth: number;
     imageUrl: string;
     cyberImageUrl: string;
-    sanity: number;
+    cyberpsychosis: number;
     strength: number;
-    stealthiness: number;
+    agility: number;
     intelligence: number;
     moral: number;
     resilience: number;
@@ -38,10 +38,11 @@ export type INewPlayer = {
     age: number;
     goal: string;
     image: File;
-    sanity: number;
-    health: number
+    cyberpsychosis: number;
+    currentHealth: number;
+    maxHealth: number;
     strength: number;
-    stealthiness: number;
+    agility: number;
     intelligence: number;
     moral: number;
     resilience: number;

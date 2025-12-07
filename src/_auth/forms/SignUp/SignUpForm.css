@@ -1,0 +1,37 @@
+.main-form{
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 30px;
+    color: white;
+    height: 100vh;
+    max-height: 100vh;
+    width: 80vw;
+    max-width: 80vw;
+    gap: 5vw;
+    border-radius: 15px;
+    border: 1px solid white;
+}
+
+.left-box{
+    border-radius: 5px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.logo {
+    height: auto;
+    max-height: auto;
+    width: 15vw;
+}
+
+.error-message{
+    position: relative;
+    font-size: 8px;
+}

@@ -1,6 +1,7 @@
 import { ID, Query } from 'appwrite';
 import { INewPlayer } from '@/types';
 import { account, appwriteConfig, databases, storage } from './config';
+import { tr } from 'date-fns/locale';
 
 export async function uploadFile(file: File) {
     try {
@@ -31,7 +32,6 @@ export function getFilePreview(fileId: string) {
             appwriteConfig.storageId,
             fileId
         )
-        console.log(fileUrl)
         return fileUrl;
     } catch (error) {
         console.log(error);
@@ -60,7 +60,7 @@ export async function savePlayerToDB(player: {
     sanity: number;
     intelligence: number;
     strength: number;
-    stealthiness: number;
+    agility: number;
     moral: number;
     resilience: number;
 }) {
@@ -127,7 +127,7 @@ export async function createUserAccount(user: INewPlayer) {
             sanity: 100,
             intelligence: user.intelligence,
             strength: user.strength,
-            stealthiness: user.stealthiness,
+            agility: user.agility,
             moral: user.moral,
             resilience: user.resilience
         })
@@ -153,6 +153,16 @@ export async function signInAccount(user: {email: string; password: string;}) {
         console.log(error)
     }
 }
+export async function signOutAccount() {
+  try {
+    const session = await account.deleteSession("current");
+
+    return session;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 
 export async function getCurrentUser() {
     try {

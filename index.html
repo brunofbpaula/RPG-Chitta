@@ -6,25 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>RPG</title>
   </head>
-  <body>
-    <audio id="divAudio">
-      <source src="src/assets/audio/Phantom-Liberty.mp3" type="audio/mp3">
-    </audio>
-
-    <script>
-      var vAudio = document.getElementById("divAudio");
-      vAudio.volume = 0.03;
-      var hasInit = false;
-      function playMusic()
-      {
-          if(!hasInit)
-          {
-              hasInit = true;
-              vAudio.play();
-          }
-      }
-    </script>
-    <div onmouseover="playMusic()">
+  <body>  
+    <div>
       <div id="root"></div>
       <script type="module" src="/src/main.tsx"></script>
     </div>

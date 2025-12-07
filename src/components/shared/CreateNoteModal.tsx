@@ -65,13 +65,18 @@ const CreateNoteModal: React.FC<CreateNoteModalProps> = ({ open, onClose, player
         sx: {
           backgroundColor: "rgba(0,0,0,0.8)",
           border: "1px solid #ef4444",
-          backdropFilter: "blur(6px)",
           borderRadius: "12px",
           padding: "16px",
           maxWidth: "500px",
           width: "500px",
         },
       }}
+      BackdropProps={{
+          sx: {
+            backgroundColor: "rgba(0, 0, 0, 0.6)",
+            backdropFilter: "blur(6px)",
+          }
+        }}
     >
       <DialogContent
         sx={{

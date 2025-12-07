@@ -9,14 +9,15 @@ export const INITIAL_USER = {
     name: '',
     age: 0,
     goal: '',
-    health: 0,
-    cyberpsychosis: false,
+    maxHealth: 100,
+    currentHealth: 10,
+    cyberpsychosis: 0,
     imageUrl: '',
     cyberImageUrl: '',
     sanity: 0,
     intelligence: 0,
     strength: 0,
-    stealthiness: 0,
+    agility: 0,
     moral: 0,
     resilience: 0
 }
@@ -52,14 +53,14 @@ const AuthProvider = ({children}: {children: React.ReactNode} ) => {
           name: currentAccount.name,
           age: currentAccount.age,
           goal: currentAccount.goal,
-          health: currentAccount.health,
+          currentHealth: currentAccount.currentHealth,
+          maxHealth: currentAccount.maxHealth,
           cyberpsychosis: currentAccount.cyberpsychosis,
           imageUrl: currentAccount.imageUrl,
           cyberImageUrl: currentAccount.cyberImageUrl,
-          sanity: currentAccount.sanity,
           intelligence: currentAccount.intelligence,
           strength: currentAccount.strength,
-          stealthiness: currentAccount.stealthiness,
+          agility: currentAccount.agility,
           moral: currentAccount.moral,
           resilience: currentAccount.resilience
         });
@@ -83,23 +84,17 @@ const AuthProvider = ({children}: {children: React.ReactNode} ) => {
   };
 
   useEffect(() => {
-    (async () => {
-      // Executa a verificação real de autenticação
-      const loggedIn = await checkAuthUser();
+    const cookieFallback = localStorage.getItem("cookieFallback");
+    if (
+      cookieFallback === "[]" ||
+      cookieFallback === null ||
+      cookieFallback === undefined
+    ) {
+      navigate("/login");
+    }
 
-      // Se não está logado, redireciona para login, exceto se já estiver em /register
-      if(!loggedIn){
-        if(location.pathname !== "/register"){
-          navigate("/login");
-        }
-      } else {
-        // Se estiver logado e estiver em /login ou /register, pode redirecionar para home ou dashboard, se quiser
-        if(location.pathname === "/login" || location.pathname === "/register"){
-          navigate("/");
-        }
-      }
-    })();
-  }, [navigate]);
+    checkAuthUser();
+  }, []);
 
   const value = {
     user,

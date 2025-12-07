@@ -20,9 +20,9 @@ const CreateItemModal: React.FC<CreateModalProps> = ({ open, onClose, playerId }
   const createItemMutation = useCreateItem();
   
   const imageOptions = [
-      "https://fra.cloud.appwrite.io/v1/storage/buckets/67e997fe001920450224/files/6896caaa00103b71bd01/view?project=67d9eaea00378fb3eb2f&mode=admin",
-      "https://fra.cloud.appwrite.io/v1/storage/buckets/67e997fe001920450224/files/6896cd2a00063d0f20a6/view?project=67d9eaea00378fb3eb2f&mode=admin",
-      "https://fra.cloud.appwrite.io/v1/storage/buckets/67e997fe001920450224/files/6896cd55000c625c7a61/view?project=67d9eaea00378fb3eb2f&mode=admin"
+      "https://fra.cloud.appwrite.io/v1/storage/buckets/67e997fe001920450224/files/6935fa250029c4948262/view?project=67d9eaea00378fb3eb2f&mode=admin",
+      "https://fra.cloud.appwrite.io/v1/storage/buckets/67e997fe001920450224/files/6935f7d80039bf21e491/view?project=67d9eaea00378fb3eb2f&mode=admin",
+      "https://fra.cloud.appwrite.io/v1/storage/buckets/67e997fe001920450224/files/6935f9e60019e281e50e/view?project=67d9eaea00378fb3eb2f&mode=admin"
   ];
 
   const [formData, setFormData] = useState({
@@ -81,6 +81,12 @@ const CreateItemModal: React.FC<CreateModalProps> = ({ open, onClose, playerId }
           padding: "16px",
           maxWidth: "500px",
           width: "500px",
+        },
+      }}
+      BackdropProps={{
+        style: {
+          backgroundColor: "rgba(0,0,0,0.8)",
+          backdropFilter: "blur(6px)",
         },
       }}
     >

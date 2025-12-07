@@ -96,7 +96,7 @@ const LoginForm = () => {
               )}
               />
 
-            <Button type="submit" className="shad-button_primary bg-white text-black rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500">
+            <Button type="submit" className="shad-button_primary bg-gray-400 text-black rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500">
               {isSigningIn ? (
                 <div className="flex-center gap-2">
                   <Loader size={24}/>

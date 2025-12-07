@@ -8,14 +8,26 @@ type PolarAreaChartProps = {
 
 const PolarAreaChart: React.FC<PolarAreaChartProps> = ({ data, title = 'Polar Area Chart' }) => {
   const label_map: { [key: string]: string } = {
-  'intelligence': 'Inteligência',
-  'strength': 'Força',
-  'stealthiness': 'Furtividade',
-  'resilience': 'Resilência',
-  'moral': 'Moral'
-}
-  const labels = Object.keys(data).map(key => label_map[key]);
-  const values = Object.values(data);
+    intelligence: 'Inteligência',
+    strength: 'Força',
+    agility: 'Agilidade',
+    resilience: 'Resiliência',
+    moral: 'Moral'
+  };
+
+  const keys = Object.keys(data);
+
+  const labels = keys.map(key => label_map[key] ?? key);
+  const values = keys.map(key => {
+    const n = Number(data[key]);
+    return Number.isFinite(n) ? n : 0;
+  });
+
+  if (labels.length !== values.length) {
+    console.warn("PolarAreaChart ERROR: labels e values não combinam");
+  }
+
+
   
   const chartOptions: ApexCharts.ApexOptions = {
     chart: {

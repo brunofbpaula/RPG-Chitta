@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import heart from '@/assets/images/heart.png';
+import brain from '@/assets/icons/cerebro.png';
 import {
   Dialog,
   DialogTitle,
@@ -25,7 +25,7 @@ type SkillKey =
   | "autopsy" | "medicine" | "investigation" | "hacking" | "electronics"
   | "science" | "linguistics" | "programming" | "aiAnalysis" | "digitalMemory"
   | "negotiation" | "intimidation" | "persuasion" | "deception" | "empathy"
-  | "leadership" | "stealth" | "lockpicking" | "theft" | "disguise"
+  | "leadership" | "agility" | "lockpicking" | "theft" | "disguise"
   | "counterSurveillance" | "meleeCombat" | "firearms" | "heavyWeapons"
   | "throwing" | "piloting" | "acrobatics" | "physicalResistance"
   | "streetwise" | "urbanSurvival" | "tactics" | "droneControl"
@@ -48,7 +48,7 @@ const skillLabels: Record<SkillKey, string> = {
   deception: "Enganação",
   empathy: "Empatia",
   leadership: "Liderança",
-  stealth: "Furtividade",
+  agility: "Agilidade",
   lockpicking: "Arrombamento",
   theft: "Roubo",
   disguise: "Disfarce",
@@ -82,18 +82,28 @@ export default function Skills() {
   const [saving, setSaving] = useState(false);
   useEffect(() => {
     async function loadRelics() {
+      if (!currentUser) return;
+
       setLoading(true);
+
       try {
-        const relicData = currentUser!.relics;
+        // Pode vir null!
+        const relicData = currentUser.relics ?? {};
+
         const filteredRelics: Partial<Record<SkillKey, number>> = Object.keys(skillLabels).reduce(
           (acc, key) => {
-            acc[key as SkillKey] = relicData[key] ?? 0;
+            acc[key as SkillKey] = relicData[key] ?? 0; // seguro
             return acc;
           },
           {} as Partial<Record<SkillKey, number>>
         );
 
-        setRelics(currentUser!.relics);
+        // Garante que relics sempre tem um $id
+        setRelics({
+          $id: currentUser.$id,
+          ...relicData
+        });
+
         setAttributes(filteredRelics as Record<SkillKey, number>);
 
       } catch (err) {
@@ -105,6 +115,7 @@ export default function Skills() {
 
     loadRelics();
   }, [currentUser]);
+
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -119,13 +130,21 @@ export default function Skills() {
   };
 
   const handleSave = async () => {
-    if (!relics) return;
     setSaving(true);
+
+    if (!relics) {
+      console.warn("Sem perícias, não é possível salvar.");
+      setSaving(false);
+      return;
+    }
+
     try {
       const relicData: Record<string, number> = {};
+
       Object.entries(attributes).forEach(([key, value]) => {
         relicData[key] = value;
-      });        
+      });
+
       await updateRelics(relics.$id, relicData);
       setIsModalOpen(false);
     } catch (error) {
@@ -135,49 +154,30 @@ export default function Skills() {
     }
   };
 
+
   return (
-    <div className="pd-20 flex justify-center items-center flex-col">
+    <div className="relics">
       <div
         onClick={openModal}
-        style={{
-          cursor: "pointer",
-          padding: "10px 20px",
-          background: "#060606",
-          color: "white",
-          border: "3px solid #f50a1c",
-          borderRadius: "8px",
-          userSelect: "none",
-          fontWeight: "bold",
-          fontSize: "16px",
-          width: "80%",
-          maxWidth: "600px",
-          height: "185px",
-          marginTop: "30px",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          textAlign: "center",
-        }}
+        className="relics-inner"
       >
-      {
-        currentUser ? (
+        {currentUser ? (
           <>
             Perícias
             <img
-              src={heart}
-              alt="heart"
+              src={brain}
+              alt="brain"
               style={{
-                maxWidth: "120px",
-                maxHeight: "120px",
-                marginTop: "20px",
+                marginTop: "10px",
+                maxWidth: "100px",
+                maxHeight: "100px",
               }}
             />
           </>
         ) : (
-        <div className='flex items-center justify-center h-full'>
-          <Loader size={40}/>
-        </div>
+          <div className="flex items-center justify-center h-full">
+            <Loader size={40} />
+          </div>
         )
       }
       </div>
@@ -191,8 +191,8 @@ export default function Skills() {
           sx: {
             backgroundColor: "#000",
             color: "#fff",
-            border: "3px solid #f50a1c",
-            borderRadius: 2,
+            border: "3px solid white",
+            borderRadius: 3,
           },
         }}
         BackdropProps={{
@@ -257,7 +257,7 @@ export default function Skills() {
                           fontWeight: "500"
                         },
                         "& .MuiOutlinedInput-root": {
-                          "& fieldset": { borderColor: "#fff", color: "#fff" },
+                          "& fieldset": { borderColor: "red", color: "#fff" },
                           "&:hover fieldset": { borderColor: "red", color: "#fff" },
                           "&.Mui-focused fieldset": { borderColor: "red", color: "#fff" },
                         },
@@ -296,8 +296,13 @@ export default function Skills() {
               maxWidth: "150px",
               backgroundColor: "#f50a1c",
               "&:hover": { backgroundColor: "#d90d1b" },
-            }}
-          >
+              "&.Mui-disabled": {
+                backgroundColor: "#a00",
+                color: "#fff",
+                opacity: 0.7,
+              },
+              }}
+            >
             {saving ? "Salvando..." : "Salvar"}
           </Button>
         </DialogActions>

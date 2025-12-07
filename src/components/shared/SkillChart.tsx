@@ -13,7 +13,7 @@ const SkillChart = () => {
   const [saving, setSaving] = useState(false);
   const [attributes, setAttributes] = useState({
     strength: 0,
-    stealthiness: 0,
+    agility: 0,
     intelligence: 0,
     moral: 0,
     resilience: 0,
@@ -21,7 +21,7 @@ const SkillChart = () => {
 
   const attributeLabels = {
     strength: "Força",
-    stealthiness: "Furtividade",
+    agility: "Agilidade",
     intelligence: "Inteligência",
     moral: "Moral",
     resilience: "Resiliência",
@@ -30,11 +30,11 @@ const SkillChart = () => {
   useEffect(() => {
     if (user) {
       setAttributes({
-        strength: user.strength,
-        stealthiness: user.stealthiness,
-        intelligence: user.intelligence,
-        moral: user.moral,
-        resilience: user.resilience,
+        strength: Number(user.strength) || 0,
+        agility: Number(user.agility) || 0,
+        intelligence: Number(user.intelligence) || 0,
+        moral: Number(user.moral) || 0,
+        resilience: Number(user.resilience) || 0,
       });
     }
   }, [user]);
@@ -42,7 +42,7 @@ const SkillChart = () => {
   const handleOpenEditor = () => {
     setAttributes({
       strength: user?.strength || 0,
-      stealthiness: user?.stealthiness || 0,
+      agility: user?.agility || 0,
       intelligence: user?.intelligence || 0,
       moral: user?.moral || 0,
       resilience: user?.resilience || 0,
@@ -65,7 +65,7 @@ const SkillChart = () => {
     try {
       await updateUser(user.id, {
         strength: attributes.strength,
-        stealthiness: attributes.stealthiness,
+        agility: attributes.agility,
         intelligence: attributes.intelligence,
         moral: attributes.moral,
         resilience: attributes.resilience,

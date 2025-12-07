@@ -86,8 +86,8 @@ const Inventory = () => {
                 className={`flex items-center justify-center h-16 rounded-md text-2xl cursor-pointer transition overflow-hidden ${
                   item.image
                     ? selectedItem === index
-                      ? "border-4 border-red-500 bg-[#141413]"
-                      : "border-none bg-[#0c0c0c]"
+                      ? "border-4 border-red-500 bg-black"
+                      : "border-1 bg-black border-red-500"
                     : "border-none bg-black text-gray-500"
                 }`}
               >
@@ -159,7 +159,9 @@ const Inventory = () => {
                       })}
                     </span>
                   </div>
-                  <p className="text-white text-sm leading-snug">{note.text}</p>
+                  <p className="text-white text-sm leading-snug break-words overflow-hidden">
+                    {note.text}
+                  </p>
                 </div>
               ))
             ) : (

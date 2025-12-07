@@ -10,6 +10,7 @@ type FileUploaderProps = {
 
 const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
   const [fileUrl, setFileUrl] = useState<string>(mediaUrl);
+  const [fileName, setFileName] = useState<string>("");
 
   const onDrop = useCallback(
     (acceptedFiles: FileWithPath[]) => {
@@ -18,6 +19,8 @@ const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
       const file = acceptedFiles[0];
       fieldChange(file);
       setFileUrl(convertFileToUrl(file));
+      setFileName(file.name);
+
     },
     [fieldChange]
   );
@@ -33,23 +36,32 @@ const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
   return (
     <div
       {...getRootProps()}
-      className="flex flex-col items-center justify-center gap-4 bg-dark-3 rounded-xl cursor-pointer p-2 border-2 border-dashed border-gray-600 hover:border-gray-400 transition">
+      className="w-auto h-30 max-h-30 flex flex-col items-center justify-center gap-2 bg-dark-3 
+                  rounded-xl cursor-pointer p-2 border-2 border-dashed border-gray-600
+                  bg-white
+                 hover:border-gray-400 transition overflow-hidden"
+      >
       <input {...getInputProps()} className="cursor-pointer" />
 
       {fileUrl ? (
         <>
+          {fileName && (
+            <p className="font-medium text-black text-xs">
+              {fileName}
+            </p>
+          )}
           <div className="overflow-hidden rounded-md shadow-sm">
             <img
               src={fileUrl}
-              width={30}
-              height={30}
+              width={45}
+              height="auto"
               alt="uploaded"
               className="object-cover"
             />
           </div>
-          <p className="text-sm text-light-4 text-center mt-1">
-            Clique aqui para trocar a foto
-          </p>
+          <h3 className="font-medium text-black text-xs">
+            Trocar foto
+          </h3>
         </>
       ) : (
         <div className="flex flex-col items-center justify-center text-center gap-3">
@@ -61,7 +73,7 @@ const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
             className="opacity-80"
           />
 
-          <h3 className="font-medium text-light-2 text-xs">
+          <h3 className="font-medium text-black text-xs">
             Adicionar foto
           </h3>
         </div>

@@ -23,6 +23,7 @@
     "noUncheckedSideEffectImports": true,
     
     /*SHADCN */
+    "ignoreDeprecations": "6.0",
     "baseUrl": ".",
     "paths": {
       "@/*": [
