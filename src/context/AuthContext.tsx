@@ -14,7 +14,6 @@ export const INITIAL_USER = {
     cyberpsychosis: 0,
     imageUrl: '',
     cyberImageUrl: '',
-    sanity: 0,
     intelligence: 0,
     strength: 0,
     agility: 0,

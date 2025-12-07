@@ -56,7 +56,6 @@ export async function savePlayerToDB(player: {
     age: number;
     goal: string;
     imageUrl: string;
-    sanity: number;
     intelligence: number;
     strength: number;
     agility: number;
@@ -92,7 +91,7 @@ export async function createPlayerRelics(playerId: string) {
 
     }
     catch (error) {
-        console.log(error);        
+        console.log(error);
     }
 }
 
@@ -123,7 +122,6 @@ export async function createUserAccount(user: INewPlayer) {
             age: user.age,
             goal: user.goal,
             imageUrl: imageUrl,
-            sanity: 100,
             intelligence: user.intelligence,
             strength: user.strength,
             agility: user.agility,
