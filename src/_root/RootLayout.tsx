@@ -41,7 +41,7 @@ const RootLayout = () => {
       ></video>
 
       <audio ref={audioRef}>
-        <source src="src/assets/audio/Phantom-Liberty.mp3" type="audio/mp3" />
+        <source src="https://drbl5lmt8mq0ufbl.public.blob.vercel-storage.com/Phantom-Liberty.mp3" type="audio/mp3" />
       </audio>
 
       {/* Botão de Logout */}
