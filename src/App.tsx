@@ -8,7 +8,7 @@ import SignUpForm from './_auth/forms/SignUp/SignUpForm';
 
 const App = () => {
   return (
-    <main className='flex h-screen'>
+    <main className='main flex'>
         <Routes>
             {/*Public Routes*/}
             <Route element={<AuthLayout/>}>
@@ -20,18 +20,7 @@ const App = () => {
               <Route index element={<Home/>}/>
             </Route>
         </Routes>
-        <Toaster 
-          theme="light"
-          richColors
-          position="bottom-right"
-          toastOptions={{
-            style: {
-              background: "#f50a1c",
-              color: "white",
-              width: "fit-content",
-            },
-          }}
-        />
+        
     </main>
   )
 }
