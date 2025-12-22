@@ -47,3 +47,24 @@ export type INewPlayer = {
     moral: number;
     resilience: number;
 }
+
+export interface Contato {
+  id: string;
+  nome: string;
+  avatar: string;
+  ultimaMensagem: string;
+}
+
+export interface Mensagem {
+  id: string;
+  texto: string;
+  autor: "eu" | "outro";
+  data?: string;
+}
+
+export interface ItemInventario {
+  id: string;
+  nome: string;
+  descricao: string;
+  imagem: string;
+}

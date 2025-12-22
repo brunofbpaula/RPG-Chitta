@@ -1,13 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { FaPlay, FaPause } from 'react-icons/fa';
-import { FiLogOut } from "react-icons/fi";
 import { useSignOutAccount } from '@/lib/react-query/queriesAndMutation';
-import { Tooltip } from '@mui/material';
 import Avatar from '@/components/ui/avatar';
-import { MyTabs } from '@/components/ui/tabs';
 import EuModal from '@/components/modals/EuModal';
 import PericiasModal from '@/components/modals/PericiasModal';
+import { ResponsiveTabs } from '@/components/ui/ResponsiveTabs';
 
 const RootLayout = () => {
   const navigate = useNavigate();
@@ -71,7 +68,9 @@ const RootLayout = () => {
                 <div className="atributo">
                   <p className="label-atributo">Força</p>
                   <div className="barra-atributo">
-                    <span>0%</span>
+                    <div className="progresso-barra">
+                      <span className='numero-progresso'></span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -84,21 +83,24 @@ const RootLayout = () => {
           </svg>
         </div>
         <div className="box-conteudo">
-          <MyTabs />
+          <ResponsiveTabs />
         </div>
       </div>
 
+    
       {/* Modais */}
-      <EuModal
-        open={EuModalOpen}
-        onClose={() => setEuModalOpen(false)}
-        playerId={""}
-      />
-      <PericiasModal
-        open={PericiasModalOpen}
-        onClose={() => setPericiasModalOpen(false)}
-        playerId={""}
-      />
+      <div className="modais-custom">
+        <EuModal
+          open={EuModalOpen}
+          onClose={() => setEuModalOpen(false)}
+          playerId={""}
+        />
+        <PericiasModal
+          open={PericiasModalOpen}
+          onClose={() => setPericiasModalOpen(false)}
+          playerId={""}
+        />
+      </div>
 
     </div>
   );
