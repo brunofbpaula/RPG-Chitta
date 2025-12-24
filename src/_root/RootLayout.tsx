@@ -5,22 +5,23 @@ import Avatar from '@/components/ui/avatar';
 import EuModal from '@/components/modals/EuModal';
 import PericiasModal from '@/components/modals/PericiasModal';
 import { ResponsiveTabs } from '@/components/ui/ResponsiveTabs';
+import { useUserContext } from '@/context/AuthContext';
+import { updateUser } from '@/lib/appwrite/api';
 
 const RootLayout = () => {
   const navigate = useNavigate();
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-
+  const { user, setUser } = useUserContext();
   const { mutate: signOut, isSuccess } = useSignOutAccount();
-
-  useEffect(() => {
-    if (isSuccess) navigate(0);
-  }, [isSuccess]);
+  const [EuModalOpen, setEuModalOpen] = useState(false);
+  const [PericiasModalOpen, setPericiasModalOpen] = useState(false);
+  
   
   const toggleMusic = () => {
     if (!audioRef.current) return;
     audioRef.current.loop = true;
-
+    
     if (isPlaying) {
       audioRef.current.pause();
       setIsPlaying(false);
@@ -30,10 +31,20 @@ const RootLayout = () => {
       setIsPlaying(true);
     }
   };
-
-  const [EuModalOpen, setEuModalOpen] = useState(false);
-  const [PericiasModalOpen, setPericiasModalOpen] = useState(false);
-
+  
+  const handleUpdateUser = async (data: Record<string, number>) => {
+    if (!user) return;
+    await updateUser(user.id, data);
+    setUser((prev) =>
+      prev ? {...prev, ...data} : prev
+    );
+  };
+  
+  useEffect(() => {
+    if (isSuccess) navigate(0);
+  }, [isSuccess]);
+  
+  
   return (
     <div className="container-rpg">
       <div className="video-bg">
@@ -49,7 +60,7 @@ const RootLayout = () => {
 
           <div className="personagem">
             <div className="personagem-dados">
-              <Avatar img="/src/assets/images/avatar.png" />
+              <Avatar img={user.imageUrl} />
               <div className="grupo-btn-personagem">
                 <button className="btn-personagem tp" onClick={() => setEuModalOpen(true)}>
                   EU
@@ -93,7 +104,8 @@ const RootLayout = () => {
         <EuModal
           open={EuModalOpen}
           onClose={() => setEuModalOpen(false)}
-          playerId={""}
+          player={user}
+          onSave={handleUpdateUser}
         />
         <PericiasModal
           open={PericiasModalOpen}

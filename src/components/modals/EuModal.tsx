@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Dialog,
   IconButton,
@@ -6,21 +6,29 @@ import {
   Tooltip,
 } from "@mui/material";
 import { Fingerprint, Save, SquarePen, X } from "lucide-react";
+import { IPlayer } from "@/types";
 
 interface EuModalProps {
   open: boolean;
   onClose: () => void;
-  playerId: string;
+  player: IPlayer;
+  onSave: (data: Record<string, number>) => Promise<void>;
 }
 
-const EuModal: React.FC<EuModalProps> = ({ open, onClose, playerId }) => {
+const EuModal: React.FC<EuModalProps> = ({ open, onClose, player, onSave }) => {
   const [editarDados, setEditarDados] = useState(false);
+  const [dadosEditaveis, setDadosEditaveis] = useState<IPlayer>(player);
+
+  useEffect(() => {
+  setDadosEditaveis(player);
+  }, [player, open]);
+
   const atributos = {
-    forca: {
+    strength: {
       label: "Força",
       icone: "/src/assets/icons/icon-atributo-forca.svg",
     },
-    inteligencia: {
+    intelligence: {
       label: "Inteligência",
       icone: "/src/assets/icons/icon-atributo-inteligencia.svg",
     },
@@ -28,33 +36,42 @@ const EuModal: React.FC<EuModalProps> = ({ open, onClose, playerId }) => {
       label: "Moral",
       icone: "/src/assets/icons/icon-atributo-moral.svg",
     },
-    resiliencia: {
+    resilience: {
       label: "Resiliência",
       icone: "/src/assets/icons/icon-atributo-resiliencia.svg",
     },
-    agilidade: {
+    agility: {
       label: "Agilidade",
       icone: "/src/assets/icons/icon-atributo-agilidade.svg",
     },
-    vida_maxima: {
+    currentHealth: {
+      label: "Vida Atual",
+      icone: "/src/assets/icons/icon-atributo-forca.svg",
+    },
+    maxHealth: {
       label: "Vida Máxima",
       icone: "/src/assets/icons/icon-atributo-forca.svg",
     },
 
   }
-  const [dados, setDados] = useState({
-    nome: "JOGADOR",
-    idade: 21,
-    cyberpsicose: 0,
-    atributos: {
-      forca: 0,
-      inteligencia: 0,
-      moral: 0,
-      resiliencia: 0,
-      agilidade: 0,
-      vida_maxima: 100
-    },
-  });
+  
+  const handleSalvar = async () => {
+    const payload: Record<string, number> = {
+      cyberpsychosis: dadosEditaveis.cyberpsychosis,
+      strength: dadosEditaveis.strength,
+      agility: dadosEditaveis.agility,
+      intelligence: dadosEditaveis.intelligence,
+      moral: dadosEditaveis.moral,
+      resilience: dadosEditaveis.resilience,
+      currentHealth: dadosEditaveis.currentHealth,
+      maxHealth: dadosEditaveis.maxHealth,
+    };
+
+    await onSave(payload);
+    setEditarDados(false);
+  };
+
+
 
   return (
     <Dialog
@@ -81,8 +98,11 @@ const EuModal: React.FC<EuModalProps> = ({ open, onClose, playerId }) => {
       {/* TOPO */}
       <div className="topo-modal">
         <Tooltip title={editarDados ? "Salvar" : "Editar dados"}>
-          <IconButton onClick={() => setEditarDados(!editarDados)} color="primary">
-            { editarDados ?  <Save /> : <SquarePen />}
+          <IconButton
+            color="primary"
+            onClick={editarDados ? handleSalvar : () => setEditarDados(true)}
+          >
+            {editarDados ? <Save /> : <SquarePen />}
           </IconButton>
         </Tooltip>
         <IconButton onClick={onClose} color="primary">
@@ -98,15 +118,12 @@ const EuModal: React.FC<EuModalProps> = ({ open, onClose, playerId }) => {
           <TextField
             className="valor-dado"
             variant="standard"
-            value={dados.nome}
-            onChange={(e) =>
-              setDados({ ...dados, nome: e.target.value })
-            }
-            InputProps={{
-              readOnly: !editarDados,
-              disableUnderline: !editarDados,
-            }}
+            value={player.name}
             color="primary"
+            InputProps={{
+              readOnly: true,
+              disableUnderline: true,
+            }}
           />
         </div>
 
@@ -117,13 +134,10 @@ const EuModal: React.FC<EuModalProps> = ({ open, onClose, playerId }) => {
             className="valor-dado"
             variant="standard"
             type="number"
-            value={dados.idade}
-            onChange={(e) =>
-              setDados({ ...dados, idade: Number(e.target.value) })
-            }
+            value={player.age}
             InputProps={{
-              readOnly: !editarDados,
-              disableUnderline: !editarDados,
+              readOnly: true,
+              disableUnderline: true,
             }}
           />
         </div>
@@ -135,11 +149,11 @@ const EuModal: React.FC<EuModalProps> = ({ open, onClose, playerId }) => {
             className="valor-dado"
             variant="standard"
             type="number"
-            value={dados.cyberpsicose}
+            value={dadosEditaveis.cyberpsychosis}
             onChange={(e) =>
-              setDados({
-                ...dados,
-                cyberpsicose: Number(e.target.value),
+              setDadosEditaveis({
+                ...dadosEditaveis,
+                cyberpsychosis: Number(e.target.value),
               })
             }
             InputProps={{
@@ -164,14 +178,11 @@ const EuModal: React.FC<EuModalProps> = ({ open, onClose, playerId }) => {
               className="valor-atributo"
               variant="standard"
               type="number"
-              value={dados.atributos.forca}
+              value={dadosEditaveis[key as keyof IPlayer]}
               onChange={(e) =>
-                setDados({
-                  ...dados,
-                  atributos: {
-                    ...dados.atributos,
-                    [key]: Number(e.target.value),
-                  },
+                setDadosEditaveis({
+                  ...dadosEditaveis,
+                  [key]: Number(e.target.value),
                 })
               }
               InputProps={{
