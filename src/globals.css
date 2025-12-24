@@ -11,6 +11,12 @@
   src: url('/src/assets/fonts/Rajdhani-Regular.ttf');
 }
 
+.font-cyberpunk{
+  font-family: Rajdhani !important;
+  font-size: 1.25rem !important;
+  font-weight: 600 !important;
+  line-height: normal !important;
+}
 
 .main{
   min-height: 100vh;
@@ -63,6 +69,11 @@
 .box-dados {
   max-width: 400px;
   width: 100%;
+}
+
+.content-painel{
+  overflow: auto;
+  max-height: 100%;
 }
 
 
@@ -192,7 +203,7 @@
   top: 0;
   width: 100%;
   height: 100%;
-  border: 1px solid #ffeb00;
+  border: 3px solid #ffeb00;
   clip-path: polygon(
     0% 8%,      /* topo esquerdo */
     70% 8%,     /* topo horizontal */
@@ -212,7 +223,7 @@
 .titulo-atributos{
   color: #5EF6FF;
   padding: 4px 10px;
-  border-bottom: 1px solid #ffeb00;
+  border-bottom: 3px solid #ffeb00;
   clip-path: polygon(0% 100%, 0% 0%, 85% 0%, 70% 100%);
   font-family: Rajdhani;
 }
@@ -303,7 +314,6 @@
 
 .tab-cyberpunk div[role="tablist"]{
   gap: 20px;
-  justify-content: space-between;
 }
 
 .tab-cyberpunk div[role="tabpanel"]{
@@ -318,13 +328,12 @@
   background-color: #C5003C;
   color: #5EF6FF;
   position: relative;
-  padding: 12px 40px;
+  padding: 12px 35px;
   line-height: normal;
   z-index: 999;
   min-height: auto;
   font-weight: 600;
   font-family: Rajdhani;
-  flex-basis: 30%;
   font-size: 1.18rem;
   transition: all 0.2s ease;
 }
@@ -371,6 +380,29 @@
   clip-path: polygon(0 4%, 7% 4%, 8% 0, 85% 0%, 100% 0, 100% 15%, 100% 90%, 89% 100%, 72% 100%, 15% 100%, 4% 100%, 0 97%);
   top: 0;
   left: 0;
+  z-index: -1;
+}
+.titulo-modulo::before{
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #FFD600;
+  clip-path: polygon(100% 0%, 94% 0%, 84.3% 100%, 100% 100%);
+  top: 0;
+  right: 0;
+  z-index: -1;
+}
+
+.btn-modulo::before{
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #C5003C;
+  clip-path: polygon(10.5% 0%, 0% 0%, -1% 100%, 0% 100%, 0.5% 100%);
+  top: 0;
+  right: 0;
   z-index: -1;
 }
 
@@ -516,14 +548,17 @@ input::-webkit-inner-spin-button {
 .form-pericias .MuiFormControl-root .MuiInputBase-root.Mui-focused{
   color: #ffffff !important;
 }
+.accordion-inventario{
+  position: relative;
+}
 
 .list-inventario {
   margin-top: 20px !important;
 }
-/* 
-.list-inventario  .MuiButtonBase-root{
-  background-color: #C5003C !important;
-} */
+
+.icon-item-excluir{
+  padding-bottom: 0 !important ;
+}
 
 .chat-body {
   display: flex;
@@ -533,6 +568,17 @@ input::-webkit-inner-spin-button {
 
 .chat-contact.active {
   background: #eee;
+}
+
+.div-tabs-desktop{
+  height: 78%;
+}
+
+.avatar-chat{
+  width: 34px !important;
+  height: 34px !important;
+  background-color: #ffffff !important;
+  color:#C5003C !important;
 }
 
 *::-webkit-scrollbar {

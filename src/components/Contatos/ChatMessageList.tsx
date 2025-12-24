@@ -33,8 +33,8 @@ export function ChatMessageList({ mensagens }: Props) {
             borderRadius: 2,
             background:
               msg.autor === "eu"
-                ? "rgb(255 0 80 / 35%)"
-                : "rgb(255 255 255 / 15%)",
+                ? "rgb(255 235 0 / 40%)"
+                : "rgb(84 219 228 / 40%)",
           }}
         >
           <Typography sx={{ color: "#fff" }}>

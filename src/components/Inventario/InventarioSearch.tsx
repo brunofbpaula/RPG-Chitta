@@ -1,4 +1,4 @@
-import { Box, InputBase, IconButton } from "@mui/material";
+import { InputBase, IconButton, Divider, Paper } from "@mui/material";
 import { Search } from "lucide-react";
 
 interface Props {
@@ -8,20 +8,33 @@ interface Props {
 
 export function InventarioSearch({ value, onChange }: Props) {
   return (
-    <Box
-      display="flex"
-      alignItems="center"
-      sx={{ background: "#3a4048", px: 2, py: 1, mb: 3 }}
+    <Paper
+      component="form"
+      onSubmit={(e) => e.preventDefault()}
+      sx={{
+        p: "2px 4px",
+        display: "flex",
+        alignItems: "center",
+        background: "rgb(0 255 255 / 15%)",
+        borderRadius: 0,
+        marginBottom: 3
+      }}
     >
       <InputBase
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        placeholder="Buscar item..."
-        sx={{ flex: 1, color: "#fff" }}
+        sx={{ ml: 1, flex: 1, color: "#fff" }}
+        placeholder="Buscar Item..."
       />
-      <IconButton>
-        <Search color="#5eead4" />
+
+      <Divider
+        sx={{ height: 28, m: 0.5, borderColor: "rgb(255 255 255 / 25%)" }}
+        orientation="vertical"
+      />
+
+      <IconButton sx={{ color: "rgb(0 255 255)" }} aria-label="search">
+        <Search />
       </IconButton>
-    </Box>
+    </Paper>
   );
 }

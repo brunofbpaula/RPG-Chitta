@@ -1,0 +1,78 @@
+import React, { useState, forwardRef } from "react";
+import {
+  BottomNavigation,
+  BottomNavigationAction,
+  Dialog,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  Slide,
+} from "@mui/material";
+import { TransitionProps } from "@mui/material/transitions";
+import { X } from "lucide-react";
+import { TABS } from "./tabs.config";
+
+const Transition = forwardRef(function Transition(
+  props: TransitionProps & { children: React.ReactElement },
+  ref: React.Ref<unknown>
+) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
+export function MobileTabs() {
+  const [value, setValue] = useState(0);
+  const [open, setOpen] = useState(false);
+
+  const CurrentTab = TABS[value];
+
+  return (
+    <>
+      <BottomNavigation
+        value={value}
+        onChange={(_, newValue) => {
+          setValue(newValue);
+          setOpen(true);
+        }}
+        sx={{
+          position: "fixed",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          zIndex: 1200,
+          backgroundColor: "rgb(14, 14, 23)",
+        }}
+      >
+        {TABS.map((tab, index) => (
+          <BottomNavigationAction
+            key={tab.key}
+            label={tab.label}
+            icon={<tab.icon size={22} />}
+            value={index}
+          />
+        ))}
+      </BottomNavigation>
+
+      <Dialog
+        fullScreen
+        open={open}
+        onClose={() => setOpen(false)}
+        TransitionComponent={Transition}
+      >
+        <AppBar position="relative">
+          <Toolbar>
+            <IconButton edge="start" onClick={() => setOpen(false)}>
+              <X />
+            </IconButton>
+
+            <Typography sx={{ ml: 2 }} variant="h6">
+              {CurrentTab.label}
+            </Typography>
+          </Toolbar>
+        </AppBar>
+
+        {CurrentTab.content}
+      </Dialog>
+    </>
+  );
+}

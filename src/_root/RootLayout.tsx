@@ -4,7 +4,7 @@ import { useSignOutAccount } from '@/lib/react-query/queriesAndMutation';
 import Avatar from '@/components/ui/avatar';
 import EuModal from '@/components/modals/EuModal';
 import PericiasModal from '@/components/modals/PericiasModal';
-import { ResponsiveTabs } from '@/components/ui/ResponsiveTabs';
+import { ResponsiveTabs } from '@/components/ResponsiveTabs/ResponsiveTabs';
 
 const RootLayout = () => {
   const navigate = useNavigate();

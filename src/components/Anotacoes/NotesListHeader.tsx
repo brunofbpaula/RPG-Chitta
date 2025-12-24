@@ -1,15 +1,13 @@
-import { Box, Divider, IconButton, InputBase, Paper, Typography } from "@mui/material";
+import { Box, Button, Divider, IconButton, InputBase, Paper, Typography } from "@mui/material";
 import { Search } from "lucide-react";
 
-interface ChatListHeaderProps {
+interface Props {
   value: string;
   onSearch: (value: string) => void;
+  onAdd: () => void;
 }
 
-export function ChatListHeader({
-  value,
-  onSearch,
-}: ChatListHeaderProps) {
+export function NotesListHeader({ value, onSearch, onAdd }: Props) {
   return (
     <div className="mb-4">
       <Box display="flex" justifyContent="space-between" mb={2}>
@@ -26,8 +24,23 @@ export function ChatListHeader({
             position: "relative"
           }}
         >
-          <Typography fontWeight={700} className="font-cyberpunk">CONTATOS</Typography>
+          <Typography fontWeight={700} className="font-cyberpunk">ANOTAÇÕES</Typography>
         </Box>
+
+        <Button
+          sx={{
+            px: 4,
+            py: 1,
+            color: "#C5003C",
+            borderRadius: 0,
+            border: "1px solid #C5003C",
+            clipPath: "polygon(10% 0, 100% 0, 100% 100%, 0 100%)",
+          }}
+          className="font-cyberpunk btn-modulo"
+          onClick={onAdd}
+        >
+          ADICIONAR
+        </Button>
       </Box>
       <Paper
         component="form"
@@ -43,8 +56,8 @@ export function ChatListHeader({
         <InputBase
           value={value}
           onChange={(e) => onSearch(e.target.value)}
-          sx={{ ml: 1, flex: 1, color: "#fff" }}
-          placeholder="Buscar contato..."
+          sx={{ ml: 1, flex: 1, color: "#ffffff" }}
+          placeholder="Buscar Anotação..."
         />
 
         <Divider
@@ -57,5 +70,7 @@ export function ChatListHeader({
         </IconButton>
       </Paper>
     </div>
+    
+    
   );
 }

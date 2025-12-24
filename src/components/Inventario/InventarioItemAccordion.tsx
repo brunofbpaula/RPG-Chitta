@@ -7,7 +7,7 @@ import {
   IconButton,
 } from "@mui/material";
 import { ChevronDown, Trash2 } from "lucide-react";
-import { ItemInventario } from "@/types/ItemInventario";
+import { ItemInventario } from "@/types";
 
 interface Props {
   item: ItemInventario;
@@ -27,39 +27,44 @@ export function InventarioItemAccordion({ item, onDelete }: Props) {
       }}
     >
       <AccordionSummary
-        expandIcon={<ChevronDown color="#5EF6FF" />}
+        className="accordion-inventario"
+        expandIcon={<ChevronDown color="#ffffff" />}
         sx={{
-        //   px: 3,
-        //   py: 1.5,
-          background: "#C5003C",
-          color: "#5EF6FF",
-          clipPath:
-            "polygon(0 0, 100% 0, 100% 50%, 96% 100%, 0 100%)",
+          background: "rgb(0 0 0 / 40%)",
+          color: "#ffffff",
+          borderBottom: "1px solid rgb(92 241 250 / 40%)",
+          borderRight: "1px solid rgb(92 241 250 / 40%)"
         }}
       >
-        <Typography flex={1}>{item.nome}</Typography>
+        <Typography flex={1} className="font-cyberpunk">{item.nome}</Typography>
 
         <IconButton
           onClick={(e) => {
             e.stopPropagation();
             onDelete(item);
           }}
+          sx={{
+            paddingBottom: 0,
+            paddingTop: 0,
+            paddingLeft: 0,
+          }}
         >
-          <Trash2 size={18} color="#5EF6FF"/>
+          <Trash2 size={18} color="#ffffff"/>
         </IconButton>
       </AccordionSummary>
 
       <AccordionDetails
+        className="item-accordion-inventario"
         sx={{
-          border: "1px solid #C5003C",
+          border: "1px solid rgb(92 241 250 / 40%)",
           borderTop: "none",
-          background: "rgba(0,0,0,0.4)",
-          color: "#fff",
+          background: "rgb(0 0 0 / 50%)",
+          color: "#ffffff",
         }}
       >
         <Box display="flex" gap={2}>
           <img src={item.imagem} width={100} />
-          <Typography>{item.descricao}</Typography>
+          <Typography className="font-cyberpunk">{item.descricao}</Typography>
         </Box>
       </AccordionDetails>
     </Accordion>

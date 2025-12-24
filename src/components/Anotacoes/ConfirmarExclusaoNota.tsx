@@ -2,22 +2,22 @@ import { ConfirmarExclusaoBase } from "../ui/ConfirmarExclusaoBase";
 
 interface Props {
   open: boolean;
-  description: string;
-  onConfirm: () => void;
+  titulo: string;
   onCancel: () => void;
+  onConfirm: () => void;
 }
 
-export function ConfirmarExclusaoItem({
+export function ConfirmarExclusaoNota({
   open,
-  description,
-  onConfirm,
+  titulo,
   onCancel,
+  onConfirm,
 }: Props) {
   return (
     <ConfirmarExclusaoBase
       open={open}
-      title="Excluir item"
-      description={description}
+      title="Excluir anotação"
+      description={`Deseja excluir a anotação "${titulo}"?`}
       onCancel={onCancel}
       onConfirm={onConfirm}
     />
