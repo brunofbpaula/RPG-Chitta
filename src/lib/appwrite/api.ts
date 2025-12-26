@@ -205,11 +205,15 @@ export async function getPlayerItems(playerId: string) {
             [Query.equal('playerId', playerId)]
         );
 
-        if (!items) {
-            throw Error('No items found');
-        }
+        if (!items.documents.length) return null;
 
-        return items;
+        const doc = items.documents[0];
+
+        return {
+            $id: doc.$id,
+            playerId: doc.playerId,
+            items: doc.items as Record<string, number>,
+        };
     } catch (error) {
         console.log(error);
     };
@@ -224,17 +228,25 @@ export async function getPlayerRelics(playerId: string) {
             [Query.equal('player', playerId)]
         );
 
-        if (!relics.documents || relics.documents.length === 0) {
-            throw new Error('No relics found');
-        }
+        if (!relics.documents.length) return null;
 
-        return relics.documents[0];
+        const doc = relics.documents[0];
+
+        const { $id, player, ...rest } = doc;
+
+        return {
+            $id,
+            player,
+            data: rest as Record<string, number>,
+        };
     } catch (error) {
         console.log(error);
+        throw error;
     };
 }
 
 export async function updateRelics(relicsId: string, relics: Record<string, number>) {
+    console.log(relics);
     try {
         const updatedRelics = await databases.updateDocument(
             appwriteConfig.databaseId,

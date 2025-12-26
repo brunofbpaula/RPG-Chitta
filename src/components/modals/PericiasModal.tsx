@@ -1,158 +1,89 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Box,
   Dialog,
-  Divider,
   Grid,
   IconButton,
-  Stack,
   TextField,
 } from "@mui/material";
 import React from "react";
-import { X } from "lucide-react";
+import { Save, X } from "lucide-react";
 
+
+interface PlayerRelics {
+  [key: string]: number;
+}
 
 interface PericiasModalProps {
   open: boolean;
   onClose: () => void;
-  playerId: string;
+  relics: PlayerRelics | null;
+  onSave: (data: Record<string, number>) => Promise<void>;
 }
 
-const PericiasModal: React.FC<PericiasModalProps> = ({ open, onClose, playerId }) => {
-  const [pericias] = useState({
-    medicina: {
-      label: 'Medicina',
-      valor: 0
-    },
-    investigacao: {
-      label: 'Investigação',
-      valor: 0
-    },
-    hacking: {
-      label: 'Hacking',
-      valor: 0
-    },
-    eletronica: {
-      label: 'Eletrônica',
-      valor: 0
-    },
-    ciencia: {
-      label: 'Ciência',
-      valor: 0
-    },
-    linguisticas: {
-      label: 'Linguísticas',
-      valor: 0
-    },
-    programacao: {
-      label: 'Programação',
-      valor: 0
-    },
-    analise_de_ia: {
-      label: 'Análise de IA',
-      valor: 0
-    },
-    memoria_digital: {
-      label: 'Memoria Digital',
-      valor: 0
-    },
-    negociacao: {
-      label: 'Negociação',
-      valor: 0
-    },
-    intimidacao: {
-      label: 'Intimidação',
-      valor: 0
-    },
-    persuacao: {
-      label: 'Persuação',
-      valor: 0
-    },
-    enganacao: {
-      label: 'Enganação',
-      valor: 0
-    },
-    empatia: {
-      label: 'Empatia',
-      valor: 0
-    },
-    lideranca: {
-      label: 'Liderança',
-      valor: 0
-    },
-    furtividade: {
-      label: 'Furtividade',
-      valor: 0
-    },
-    arrombamento: {
-      label: 'Arrombamento',
-      valor: 0
-    },
-    roubo: {
-      label: 'Roubo',
-      valor: 0
-    },
-    disfarce: {
-      label: 'Disfarce',
-      valor: 0
-    },
-    contra_vigilancia: {
-      label: 'Contra Vigilância',
-      valor: 0
-    },
-    corpo_a_corpo: {
-      label: 'Corpo a Corpo',
-      valor: 0
-    },
-    armas_de_fogo: {
-      label: 'Armas de Fogo',
-      valor: 0
-    },
-    armas_pesadas: {
-      label: 'Armas Pesadas',
-      valor: 0
-    },
-    arremesso: {
-      label: 'Arremesso',
-      valor: 0
-    },
-    pilotagem: {
-      label: 'Pilotagem',
-      valor: 0
-    },
-    acrobacia: {
-      label: 'Acrobacia',
-      valor: 0
-    },
-    resistencia_fisica: {
-      label: 'Resistência Física',
-      valor: 0
-    },
-    cultura_de_rua: {
-      label: 'Cultura de Rua',
-      valor: 0
-    },
-    sobrevivencia_urbana: {
-      label: 'Sobrevivência Urbana',
-      valor: 0
-    },
-    taticas: {
-      label: 'Táticas',
-      valor: 0
-    },
-    controle_de_drones: {
-      label: 'Controle de Drones',
-      valor: 0
-    },
-    mod_de_implantes: {
-      label: 'Mod. de Implantes',
-      valor: 0
-    },
-    explosivos: {
-      label: 'Explosivos',
-      valor: 0
-    },
-  });
+const PericiasModal: React.FC<PericiasModalProps> = ({ open, onClose, relics, onSave }) => {
+
+  const periciasBase: Record<string, string> = {
+    autopsy: "Autópsia",
+    medicine: "Medicina",
+    investigation: "Investigação",
+    hacking: "Hacking",
+    electronics: "Eletrônica",
+    science: "Ciência",
+    linguistics: "Linguísticas",
+    programming: "Programação",
+    aiAnalysis: "Análise de IA",
+    digitalMemory: "Memória Digital",
+    negotiation: "Negociação",
+    intimidation: "Intimidação",
+    persuasion: "Persuasão",
+    deception: "Enganação",
+    empathy: "Empatia",
+    leadership: "Liderança",
+    stealth: "Furtividade",
+    lockpicking: "Arrombamento",
+    theft: "Roubo",
+    disguise: "Disfarce",
+    counterSurveillance: "Contra Vigilância",
+    meleeCombat: "Corpo a Corpo",
+    firearms: "Armas de Fogo",
+    heavyWeapons: "Armas Pesadas",
+    throwing: "Arremesso",
+    piloting: "Pilotagem",
+    acrobatics: "Acrobacia",
+    physicalResistance: "Resistência Física",
+    streetwise: "Cultura de Rua",
+    urbanSurvival: "Sobrevivência Urbana",
+    tactics: "Táticas",
+    droneControl: "Controle de Drones",
+    implantsModification: "Mod. de Implantes",
+    explosives: "Explosivos",
+  };
+
+  const [pericias, setPericias] = useState<Record<string, number>>(
+    Object.keys(periciasBase).reduce((acc, key) => {
+      acc[key] = 0;
+      return acc;
+    }, {} as Record<string, number>)
+  );
+
+  useEffect(() => {
+    if (!relics) return;
+
+    setPericias((prev) => {
+      const updated = { ...prev };
+      
+      Object.keys(periciasBase).forEach((key) => {
+        updated[key] = relics[key] ?? 0;
+      });
+      
+      return updated;
+    });
+  }, [relics, open]);
+
+
+
+
   return (
     <Dialog
       open={open}
@@ -196,26 +127,36 @@ const PericiasModal: React.FC<PericiasModalProps> = ({ open, onClose, playerId }
           }}
           className="form-pericias"
         >
-          {Object.entries(pericias).map(([key, pericia]) => (
-            <Grid>
-            <TextField
-              id={key + "Input"}
-              label={pericia.label}
-              value={pericia.valor}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                event.target.value;
-              }}
-              fullWidth
-              size="small"
-            />
-          </Grid>
+           {Object.entries(periciasBase).map(([key, label]) => (
+            <Grid key={key}>
+              <TextField
+                label={label}
+                type="number"
+                value={pericias[key]}
+                onChange={(e) => {
+                  const value = Math.max(0, Math.min(100, Number(e.target.value)));
+                  setPericias({
+                    ...pericias,
+                    [key]: value,
+                  });
+                }}
+                fullWidth
+                size="small"
+                
+              />
+            </Grid>
           ))}
-          
-          
         </Grid>
-        
       </Box>
-
+      <IconButton
+        color="primary"
+        onClick={async () => {
+          await onSave(pericias);
+          onClose();
+        }}
+      >
+        <Save />
+    </IconButton>
 
     </Dialog>
   );

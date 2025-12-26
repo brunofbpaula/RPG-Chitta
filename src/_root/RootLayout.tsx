@@ -6,16 +6,48 @@ import EuModal from '@/components/modals/EuModal';
 import PericiasModal from '@/components/modals/PericiasModal';
 import { ResponsiveTabs } from '@/components/ui/ResponsiveTabs';
 import { useUserContext } from '@/context/AuthContext';
-import { updateUser } from '@/lib/appwrite/api';
+import { getPlayerItems, getPlayerRelics, updateRelics, updateUser } from '@/lib/appwrite/api';
+import AtributoBar from '@/components/Atributos/Barra';
+import AtributosModal from '@/components/modals/AtributosModal';
+import { SquarePen } from 'lucide-react';
+
+interface RelicsDocument {
+  $id: string;
+  player: string;
+  data: Record<string, number>;
+}
+
+export interface InventarioItem {
+  id: string;
+  nome: string;
+  descricao: string;
+  imagem?: string;
+  quantidade?: number;
+}
+
+interface InventarioDocument {
+  $id: string;
+  player: string;
+  items: InventarioItem[];
+}
+
 
 const RootLayout = () => {
   const navigate = useNavigate();
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  
   const { user, setUser } = useUserContext();
   const { mutate: signOut, isSuccess } = useSignOutAccount();
+  
+  const [relics, setRelics] = useState<RelicsDocument | null>(null);
+  const [items, setItems] = useState<InventarioDocument | null>(null);
+  const [inventario, setInventario] = useState<InventarioItem[]>([]);
+
+
   const [EuModalOpen, setEuModalOpen] = useState(false);
   const [PericiasModalOpen, setPericiasModalOpen] = useState(false);
+  const [AtributosModalOpen, setAtributosModalOpen] = useState(false);
   
   
   const toggleMusic = () => {
@@ -39,16 +71,56 @@ const RootLayout = () => {
       prev ? {...prev, ...data} : prev
     );
   };
-  
+ 
+  const handleSavePericias = async (data: Record<string, number>) => {
+    if (!user || !relics) return;
+
+    // atualiza no backend APENAS o campo data
+    await updateRelics(relics.$id, data);
+
+    // atualiza o estado local
+    setRelics((prev) =>
+      prev
+        ? {
+            ...prev,
+            data,
+          }
+        : prev
+    );
+  };
+
+
   useEffect(() => {
     if (isSuccess) navigate(0);
   }, [isSuccess]);
+
+  useEffect(() => {
+    if (!user) return;
+
+    
+    const loadRelics = async () => {
+      const data = await getPlayerRelics(user.id);
+      if (data) setRelics(data);
+    };
+    
+    const loadItems = async () => {
+      const doc = await getPlayerItems(user.id);
+      if (doc?.items) {
+        setInventario(doc.items);
+      }
+    };
+
+    loadRelics();
+    loadItems();
+  }, [user]);
+
+  
   
   
   return (
     <div className="container-rpg">
       <div className="video-bg">
-        <video autoPlay muted loop playsInline controls>
+        <video autoPlay muted loop playsInline>
           <source src="/src/assets/video/Phantom_Liberty.webm" type="video/mp4"/>
         </video>
       </div>
@@ -60,7 +132,7 @@ const RootLayout = () => {
 
           <div className="personagem">
             <div className="personagem-dados">
-              <Avatar img={user.imageUrl} />
+              <Avatar img={user.imageUrl ?? null} />
               <div className="grupo-btn-personagem">
                 <button className="btn-personagem tp" onClick={() => setEuModalOpen(true)}>
                   EU
@@ -73,24 +145,30 @@ const RootLayout = () => {
 
             <div className="personagem-atributos">
               <div className="titulo-atributos">
-                <h4>ATRIBUTOS</h4>
+                <div className="titulo-atributos-header">
+                  <h4>ATRIBUTOS</h4>
+                  <button
+                    className="btn-editar-atributos cursor-pointer"
+                    onClick={() => setAtributosModalOpen(true)}
+                    title="Editar atributos"
+                  >
+                    <SquarePen size={16} />
+                  </button>
+                </div>
               </div>
               <div className="box-atributos">
-                <div className="atributo">
-                  <p className="label-atributo">Força</p>
-                  <div className="barra-atributo">
-                    <div className="progresso-barra">
-                      <span className='numero-progresso'></span>
-                    </div>
-                  </div>
-                </div>
+                <AtributoBar label="Força" value={user.strength} max={100} />
+                <AtributoBar label="Intelecto" value={user.intelligence} max={100} />
+                <AtributoBar label="Agilidade" value={user.agility} max={100} />
+                <AtributoBar label="Resilência" value={user.resilience} max={100} />
+                <AtributoBar label="Moral" value={user.moral} max={100} />
               </div>
             </div>
           </div>
         </div>
         <div className="divisor">
           <svg width="16" height="928" viewBox="0 0 16 928" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path opacity="0.3" d="M14.5 928L14.5 778L1 764.5L1 132.5L14.5 119L14.5 0" stroke="#FCEE21" stroke-width="2"/>
+            <path opacity="0.3" d="M14.5 928L14.5 778L1 764.5L1 132.5L14.5 119L14.5 0" stroke="#FCEE21" strokeWidth="2"/>
           </svg>
         </div>
         <div className="box-conteudo">
@@ -110,7 +188,14 @@ const RootLayout = () => {
         <PericiasModal
           open={PericiasModalOpen}
           onClose={() => setPericiasModalOpen(false)}
-          playerId={""}
+          relics={relics?.data ?? null}
+          onSave={handleSavePericias}
+        />
+        <AtributosModal
+          open={AtributosModalOpen}
+          onClose={() => setAtributosModalOpen(false)}
+          user={user}
+          onSave={handleUpdateUser}
         />
       </div>
 
@@ -119,41 +204,3 @@ const RootLayout = () => {
 };
 
 export default RootLayout;
-
-// <section className="w-full md:flex relative overflow-hidden">
-//       <video
-//         src="https://drbl5lmt8mq0ufbl.public.blob.vercel-storage.com/Phantom%20Liberty.webm"
-//         autoPlay
-//         loop
-//         muted
-//         className="overlay absolute inset-0 w-full h-full object-cover z-0"
-//       ></video>
-
-//       <audio ref={audioRef}>
-//         <source src="https://drbl5lmt8mq0ufbl.public.blob.vercel-storage.com/Phantom-Liberty.mp3" type="audio/mp3" />
-//       </audio>
-
-//       {/* Botão de Logout */}
-//       <Tooltip title="Sair" arrow>
-//         <button
-//           onClick={() => signOut()}
-//           className="absolute top-4  right-2 p-3 text-white shadow-lg z-20 cursor-pointer flex items-center justify-center"
-//         >
-//           <FiLogOut size={24} />
-//         </button>
-//       </Tooltip>
-
-//       {/* Botão Play/Pause */}
-//       <Tooltip title="Música" arrow>
-//         <button
-//           onClick={toggleMusic}
-//           className="absolute bottom-2 right-4 p-3 bg-red-600 cursor-pointer text-white rounded-full shadow-lg z-20 flex items-center justify-center"
-//         >
-//           {isPlaying ? <FaPause size={15} /> : <FaPlay size={15} />}
-//         </button>
-//       </Tooltip>
-
-//       <div className="content relative z-10 w-full">
-//         <Outlet />
-//       </div>
-//     </section>
