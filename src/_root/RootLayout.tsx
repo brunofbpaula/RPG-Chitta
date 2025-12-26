@@ -37,7 +37,7 @@ const RootLayout = () => {
   return (
     <div className="container-rpg">
       <div className="video-bg">
-        <video autoPlay muted loop playsInline controls>
+        <video autoPlay muted loop playsInline nocontrols>
           <source src="/src/assets/video/Phantom_Liberty.webm" type="video/mp4"/>
         </video>
       </div>
@@ -107,41 +107,3 @@ const RootLayout = () => {
 };
 
 export default RootLayout;
-
-// <section className="w-full md:flex relative overflow-hidden">
-//       <video
-//         src="https://drbl5lmt8mq0ufbl.public.blob.vercel-storage.com/Phantom%20Liberty.webm"
-//         autoPlay
-//         loop
-//         muted
-//         className="overlay absolute inset-0 w-full h-full object-cover z-0"
-//       ></video>
-
-//       <audio ref={audioRef}>
-//         <source src="https://drbl5lmt8mq0ufbl.public.blob.vercel-storage.com/Phantom-Liberty.mp3" type="audio/mp3" />
-//       </audio>
-
-//       {/* Botão de Logout */}
-//       <Tooltip title="Sair" arrow>
-//         <button
-//           onClick={() => signOut()}
-//           className="absolute top-4  right-2 p-3 text-white shadow-lg z-20 cursor-pointer flex items-center justify-center"
-//         >
-//           <FiLogOut size={24} />
-//         </button>
-//       </Tooltip>
-
-//       {/* Botão Play/Pause */}
-//       <Tooltip title="Música" arrow>
-//         <button
-//           onClick={toggleMusic}
-//           className="absolute bottom-2 right-4 p-3 bg-red-600 cursor-pointer text-white rounded-full shadow-lg z-20 flex items-center justify-center"
-//         >
-//           {isPlaying ? <FaPause size={15} /> : <FaPlay size={15} />}
-//         </button>
-//       </Tooltip>
-
-//       <div className="content relative z-10 w-full">
-//         <Outlet />
-//       </div>
-//     </section>

@@ -49,6 +49,7 @@ export function MobileTabs() {
             label={tab.label}
             icon={<tab.icon size={22} />}
             value={index}
+            sx={{ color: "#ffeb00" }}
           />
         ))}
       </BottomNavigation>
@@ -59,18 +60,11 @@ export function MobileTabs() {
         onClose={() => setOpen(false)}
         TransitionComponent={Transition}
       >
-        <AppBar position="relative">
-          <Toolbar>
-            <IconButton edge="start" onClick={() => setOpen(false)}>
-              <X />
-            </IconButton>
 
-            <Typography sx={{ ml: 2 }} variant="h6">
-              {CurrentTab.label}
-            </Typography>
-          </Toolbar>
-        </AppBar>
-
+        <IconButton edge="start" onClick={() => setOpen(false)} sx={{ color: "#ffffff" }}>  
+          <X />
+        </IconButton>
+        
         {CurrentTab.content}
       </Dialog>
     </>

@@ -18,26 +18,26 @@
   line-height: normal !important;
 }
 
-.main{
-  min-height: 100vh;
-  height: 100%;
+.logo {
+  width: auto;
 }
 
 .logo-titulo{
   font-family: RubikGlitch;
-  font-size: 1.2rem;
+  font-size: 2rem;
   color: transparent;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #C5003C;
 }
+
 .container-rpg{
   width: 100%;
   height: 100%;
 }
+
 .content{
   width: 100%;
   height: 100%;
-  min-height: 100vh;
   padding: 20px;
   display: flex;
   flex-direction: row;
@@ -74,6 +74,31 @@
 .content-painel{
   overflow: auto;
   max-height: 100%;
+}
+
+.MuiTextField-root .MuiFormLabel-root{
+  color: #5EF6FF !important;
+  font-family: 'Rajdhani';
+  font-size: 1.2rem;
+}
+
+.MuiTextField-root .MuiInputBase-root{
+  color: #5EF6FF !important;
+  font-family: 'Rajdhani';
+  font-size: 1.5rem;
+}
+
+.MuiTextField-root .MuiInputBase-root:hover:not(.Mui-disabled, .Mui-error):before{
+  border-bottom: 2px solid rgb(255 255 255 / 10%);
+}
+
+.MuiTextField-root .MuiInputBase-root::before{
+  border-bottom: 1px solid rgba(94, 247, 255, 0.582);
+}
+
+
+.MuiOutlinedInput-notchedOutline:hover{
+  border-color: rgb(77 77 77 / 24%);
 }
 
 
@@ -356,32 +381,7 @@
   display: none;
 }
 
-.modal-custom .topo-modal{
-  display: flex;
-  flex-direction: row;
-  justify-content: end;
-  gap: 6px;
-}
 
-.modal-custom .MuiPaper-root{
-  clip-path: polygon(0 4%, 7% 4%, 8% 0, 85% 0%, 100% 0, 100% 15%, 100% 90%, 89% 100%, 72% 100%, 15% 100%, 4% 100%, 0 97%);
-  color: #5EF6FF !important;
-  position: relative !important;
-  padding: 40px !important;
-  padding-top: 14px !important;
-}
-
-.modal-custom .MuiPaper-root::before{
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: rgb(14, 14, 23);
-  clip-path: polygon(0 4%, 7% 4%, 8% 0, 85% 0%, 100% 0, 100% 15%, 100% 90%, 89% 100%, 72% 100%, 15% 100%, 4% 100%, 0 97%);
-  top: 0;
-  left: 0;
-  z-index: -1;
-}
 .titulo-modulo::before{
   content: "";
   position: absolute;
@@ -406,35 +406,7 @@
   z-index: -1;
 }
 
-.MuiInputBase-input{
-  font-family: Rajdhani, sans-serif !important;
-  font-size: 1.25rem !important;
-}
 
-.MuiFormLabel-root{
-  font-family: Rajdhani, sans-serif !important;
-  font-weight: 600 !important;
-  font-size: 1.2rem !important;
-}
-
-.MuiIconButton-colorPrimary{
-  color: #5EF6FF !important;
-}
-
-.modal-custom .MuiBox-root{
-  overflow-y: auto;
-}
-
-.MuiGrid-root{
-  margin-top: 6px;
-}
-
-.bottomNavigation-custom .MuiButtonBase-root{
-  color: #5EF6FF;
-}
-.bottomNavigation-custom .MuiButtonBase-root.Mui-selected{
-  color: #C5003C;
-}
 
 .box-meus-dados{
   display: flex;
@@ -581,6 +553,10 @@ input::-webkit-inner-spin-button {
   color:#C5003C !important;
 }
 
+.MuiBottomNavigationAction-root.Mui-selected {
+  color: #5ef6ff !important;
+}
+
 *::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -658,13 +634,16 @@ input::-webkit-inner-spin-button {
     flex-basis: 100%;
   }
 
+  .MuiDialog-container > .MuiPaper-root{
+    background-color: rgb(12 12 12 / 50%);
+    padding: 20px;
+    backdrop-filter: blur(7px);
+  }
+
+
   .personagem-atributos{
     min-height: auto;
     min-width: 300px;
-  }
-
-  .MuiPaper-root{
-    padding: 20px !important;
   }
 
   .grupo-btn-personagem .btn-personagem{
