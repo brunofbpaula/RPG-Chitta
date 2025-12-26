@@ -31,7 +31,8 @@ export function ChatMessageInput({ onSend }: Props) {
         display: "flex",
         alignItems: "center",
         p: "4px 8px",
-        background: "rgb(0 0 0 / 60%)",
+        background: "rgb(0 0 0 / 40%)",
+        border: "1px solid rgb(92 241 250 / 40%)",
         borderRadius: 0,
       }}
     >
@@ -42,7 +43,7 @@ export function ChatMessageInput({ onSend }: Props) {
         sx={{ ml: 1, flex: 1, color: "#fff" }}
       />
 
-      <IconButton onClick={handleSend}>
+      <IconButton onClick={handleSend} sx={{ color: "rgb(255 255 255)" }}>
         <Send />
       </IconButton>
     </Paper>

@@ -68,3 +68,10 @@ export interface ItemInventario {
   descricao: string;
   imagem: string;
 }
+
+export interface Nota {
+  id: string;
+  titulo: string;
+  conteudo: string;
+  updatedAt: string;
+}

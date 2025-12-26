@@ -4,7 +4,7 @@ import { useSignOutAccount } from '@/lib/react-query/queriesAndMutation';
 import Avatar from '@/components/ui/avatar';
 import EuModal from '@/components/modals/EuModal';
 import PericiasModal from '@/components/modals/PericiasModal';
-import { ResponsiveTabs } from '@/components/ui/ResponsiveTabs';
+import { ResponsiveTabs } from '@/components/ResponsiveTabs/ResponsiveTabs';
 import { useUserContext } from '@/context/AuthContext';
 import { getPlayerItems, getPlayerRelics, updateRelics, updateUser } from '@/lib/appwrite/api';
 import AtributoBar from '@/components/Atributos/Barra';
@@ -103,18 +103,16 @@ const RootLayout = () => {
       if (data) setRelics(data);
     };
     
-    const loadItems = async () => {
-      const doc = await getPlayerItems(user.id);
-      if (doc?.items) {
-        setInventario(doc.items);
-      }
-    };
+    // const loadItems = async () => {
+    //   const doc = await getPlayerItems(user.id);
+    //   if (doc?.items) {
+    //     setInventario(doc.items);
+    //   }
+    // };
 
+    // loadItems();
     loadRelics();
-    loadItems();
-  }, [user]);
-
-  
+  }, [user]);  
   
   
   return (
@@ -147,13 +145,13 @@ const RootLayout = () => {
               <div className="titulo-atributos">
                 <div className="titulo-atributos-header">
                   <h4>ATRIBUTOS</h4>
-                  <button
+                  {/* <button
                     className="btn-editar-atributos cursor-pointer"
                     onClick={() => setAtributosModalOpen(true)}
                     title="Editar atributos"
                   >
                     <SquarePen size={16} />
-                  </button>
+                  </button> */}
                 </div>
               </div>
               <div className="box-atributos">
@@ -172,7 +170,7 @@ const RootLayout = () => {
           </svg>
         </div>
         <div className="box-conteudo">
-          <ResponsiveTabs />
+          <ResponsiveTabs user={user}/>
         </div>
       </div>
 

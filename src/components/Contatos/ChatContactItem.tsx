@@ -26,13 +26,13 @@ export function ChatContactItem({
         background: active
           ? "rgb(255 0 80 / 35%)"
           : "transparent",
-        borderBottom: "1px solid rgb(255 255 255 / 10%)",
+        borderBottom: "1px solid rgb(255 235 0 / 25%)",
         "&:hover": {
-          background: "rgb(255 0 80 / 25%)",
+          background: "rgb(255 235 0 / 40%)",
         },
       }}
     >
-      <Avatar src={contato.avatar}>
+      <Avatar src={contato.avatar} sx={{ bgcolor: "#ff003c" }}>
         {contato.nome[0]}
       </Avatar>
 

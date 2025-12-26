@@ -1,11 +1,14 @@
 import { useState } from "react";
-import { ItemInventario } from "@/types/ItemInventario";
+import { ItemInventario } from "../../types";
 import { InventarioHeaderTop } from "./InventarioHeaderTop";
 import { InventarioSearch } from "./InventarioSearch";
 import { InventarioItemAccordion } from "./InventarioItemAccordion";
 import { ConfirmarExclusaoItem } from "./ConfirmarExclusaoItem";
+import CreateItemModal from "../shared/CreateItemModal";
+import { useGetCurrentUser } from '@/lib/react-query/queriesAndMutation';
 
 export function InventarioContent() {
+  
   const [itens, setItens] = useState<ItemInventario[]>([
     {
       id: "1",
@@ -30,8 +33,10 @@ export function InventarioContent() {
     },
   ]);
 
+  const { data: currentUser } = useGetCurrentUser();
   const [busca, setBusca] = useState("");
   const [itemExcluir, setItemExcluir] = useState<ItemInventario | null>(null);
+  const [addModalOpen, setAddModalOpen] = useState(false);
 
   const itensFiltrados = itens.filter((item) =>
     item.nome.toLowerCase().includes(busca.toLowerCase())
@@ -39,7 +44,7 @@ export function InventarioContent() {
 
   return (
     <>
-      <InventarioHeaderTop onAdd={() => console.log("Adicionar")} />
+      <InventarioHeaderTop onAdd={() => setAddModalOpen(true)} />
       <InventarioSearch value={busca} onChange={setBusca} />
 
       {itensFiltrados.map((item) => (
@@ -66,6 +71,14 @@ export function InventarioContent() {
           setItemExcluir(null);
         }}
       />
+
+      <CreateItemModal
+        open={addModalOpen}
+        onClose={() => setAddModalOpen(false)}
+        playerId={currentUser?.$id || ""}
+      />
+
+      
     </>
   );
 }

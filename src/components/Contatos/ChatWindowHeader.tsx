@@ -19,21 +19,21 @@ export function ChatWindowHeader({
         gap: 1.5,
         px: 1,
         py: 0.5,
-        background: "#C5003C",
+        background: "#ff003c",
         borderRadius: 0,
       }}
     >
-      <IconButton onClick={onBack}>
+      <IconButton onClick={onBack} sx={{ color: "#ffffff", fontWeight: 600 }}>
         <ArrowLeft />
       </IconButton>
 
-      <Avatar src={contato.avatar}>
+      <Avatar src={contato.avatar} className="avatar-chat">
         {contato.nome[0]}
       </Avatar>
 
       <Typography
         variant="subtitle1"
-        sx={{ color: "#fff", fontWeight: 600 }}
+        sx={{ color: "#ffffff", fontWeight: 600 }}
       >
         {contato.nome}
       </Typography>
