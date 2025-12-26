@@ -77,7 +77,7 @@ const EuModal: React.FC<EuModalProps> = ({ open, onClose, player, onSave }) => {
 
 
   /** ESTADO CRÍTICO */
-  const cyberColapso = dadosEditaveis.cyberpsychosis >= 100;
+  const cyberColapso = player.cyberpsychosis >= 100 && dadosEditaveis.cyberpsychosis === 100;
 
   return (
     <Dialog
@@ -208,7 +208,7 @@ const EuModal: React.FC<EuModalProps> = ({ open, onClose, player, onSave }) => {
             variant="caption"
             sx={{ color: "#75ffff", fontFamily: "Rajdhani", fontSize: "1.25rem" }}
           >
-            Cyberpsicose
+            Cyberpsicose ({dadosEditaveis.cyberpsychosis}%)
           </Typography>
 
           <Slider
@@ -216,12 +216,14 @@ const EuModal: React.FC<EuModalProps> = ({ open, onClose, player, onSave }) => {
             min={0}
             max={100}
             step={1}
+            disabled={!editarDados}
             onChange={(_, value) => {
               setDadosEditaveis({
                 ...dadosEditaveis,
                 cyberpsychosis: value as number,
               });
             }}
+            
             sx={{
               mt: 1,
               color: cyberColapso ? "#ff0033" : "#ff003c",

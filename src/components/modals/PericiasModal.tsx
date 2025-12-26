@@ -88,30 +88,38 @@ const PericiasModal: React.FC<PericiasModalProps> = ({ open, onClose, relics, on
     <Dialog
       open={open}
       onClose={onClose}
-      className="modal-custom"
+      maxWidth="md"
+      fullWidth
       PaperProps={{
         sx: {
-          backgroundColor: "rgb(197 0 60)",
-          border: "1px solid #C5003C",
-          borderRadius: "0",
-          padding: "20px",
-          maxWidth: "800px",
-          minHeight: '400px',
-          width: "100%",
+          backgroundColor: "rgb(0 0 0 / 30%)",
+          backdropFilter: "blur(7px)",
+          borderLeft: "18px solid #ff003c",
+          borderRadius: 0,
+          p: 3,
+          clipPath: "polygon(4% 0, 100% 0, 100% 0%, 100% 100%, 4% 100%, 0 95%, 0 6%)",
+          boxShadow: "inset -2px 0px 25px -11px rgb(94 246 255)"
         },
       }}
       BackdropProps={{
-          sx: {
-            backgroundColor: "rgba(0, 0, 0, 0.6)",
-            backdropFilter: "blur(6px)",
-          }
-        }}
+        sx: {
+          backgroundColor: "rgba(0,0,0,0.6)",
+          backdropFilter: "blur(6px)",
+        },
+      }}
     >
-      <div className="topo-modal">
-        <IconButton onClick={onClose} color="primary">
-            <X />
-        </IconButton>
-      </div>
+      <IconButton
+        color="primary"
+        onClick={async () => {
+          await onSave(pericias);
+          onClose();
+        }}
+      >
+        <Save />
+      </IconButton>
+      <IconButton onClick={onClose} color="primary">
+          <X />
+      </IconButton>
       <Box
         component="form"
         noValidate
@@ -148,15 +156,6 @@ const PericiasModal: React.FC<PericiasModalProps> = ({ open, onClose, relics, on
           ))}
         </Grid>
       </Box>
-      <IconButton
-        color="primary"
-        onClick={async () => {
-          await onSave(pericias);
-          onClose();
-        }}
-      >
-        <Save />
-    </IconButton>
 
     </Dialog>
   );
