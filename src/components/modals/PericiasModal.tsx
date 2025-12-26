@@ -108,18 +108,32 @@ const PericiasModal: React.FC<PericiasModalProps> = ({ open, onClose, relics, on
         },
       }}
     >
-      <IconButton
-        color="primary"
-        onClick={async () => {
-          await onSave(pericias);
-          onClose();
+      <Box 
+        sx={{ 
+          alignContent: 'center', 
+          display: 'flex', 
+          justifyContent: 'end', 
+          mb: 2,
+          position: 'sticky',
+          top: 0,
+          backgroundColor: 'rgb(0 0 0 / 30%)',
+          backdropFilter: 'blur(7px)',
+          zIndex: 10,
         }}
       >
-        <Save />
-      </IconButton>
-      <IconButton onClick={onClose} color="primary">
-          <X />
-      </IconButton>
+        <IconButton
+          color="primary"
+          onClick={async () => {
+            await onSave(pericias);
+            onClose();
+          }}
+        >
+          <Save />
+        </IconButton>
+        <IconButton onClick={onClose} color="primary">
+            <X />
+        </IconButton>
+      </Box>
       <Box
         component="form"
         noValidate
@@ -129,14 +143,14 @@ const PericiasModal: React.FC<PericiasModalProps> = ({ open, onClose, relics, on
         <Grid 
           container 
           spacing={{ xs: 2, md: 3 }} 
-          columns= {{ xs: 1, sm: 6, md: 4 }}
+          columns= {{ xs: 4, sm: 8, md: 12 }}
           sx={{
             justifyContent: 'center'
           }}
           className="form-pericias"
         >
            {Object.entries(periciasBase).map(([key, label]) => (
-            <Grid key={key}>
+            <Grid key={key} size={{ xs: 2, sm: 4, md: 4 }}>
               <TextField
                 label={label}
                 type="number"

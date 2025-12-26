@@ -124,7 +124,7 @@ const RootLayout = () => {
       </div>
       <div className="content">
         <div className="box-dados">
-          <div className="logo lg">
+          <div className="logo">
               <h4 className='logo-titulo'>ANJOS DE FERRO</h4>
           </div>
 
