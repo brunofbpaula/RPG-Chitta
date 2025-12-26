@@ -32,7 +32,7 @@ export function ChatContactItem({
         },
       }}
     >
-      <Avatar src={contato.avatar} sx={{ bgcolor: "#c5003c" }}>
+      <Avatar src={contato.avatar} sx={{ bgcolor: "#ff003c" }}>
         {contato.nome[0]}
       </Avatar>
 

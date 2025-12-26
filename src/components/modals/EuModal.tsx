@@ -79,7 +79,7 @@ const EuModal: React.FC<EuModalProps> = ({ open, onClose }) => {
         sx: {
           position: "relative",
           backgroundColor: "rgb(0 0 0 / 30%)",
-          borderLeft: "18px solid #C5003C",
+          borderLeft: "18px solid #ff003c",
           borderRadius: 0,
           p: 3,
           clipPath:
@@ -197,7 +197,7 @@ const EuModal: React.FC<EuModalProps> = ({ open, onClose }) => {
         <Box gridColumn="1 / -1">
           <Typography
             variant="caption"
-            sx={{ color: "#5EF6FF", fontFamily: "Rajdhani", fontSize: "1.25rem" }}
+            sx={{ color: "#75ffff", fontFamily: "Rajdhani", fontSize: "1.25rem" }}
           >
             Cyberpsicose
           </Typography>
@@ -215,7 +215,7 @@ const EuModal: React.FC<EuModalProps> = ({ open, onClose }) => {
             }
             sx={{
               mt: 1,
-              color: cyberColapso ? "#ff0033" : "#C5003C",
+              color: cyberColapso ? "#ff0033" : "#ff003c",
               "& .MuiSlider-thumb": {
                 boxShadow: cyberColapso
                   ? "0 0 25px rgba(255,0,80,1)"

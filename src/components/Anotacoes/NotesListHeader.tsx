@@ -31,9 +31,9 @@ export function NotesListHeader({ value, onSearch, onAdd }: Props) {
           sx={{
             px: 4,
             py: 1,
-            color: "#C5003C",
+            color: "#ff003c",
             borderRadius: 0,
-            border: "1px solid #C5003C",
+            border: "1px solid #ff003c",
             clipPath: "polygon(10% 0, 100% 0, 100% 100%, 0 100%)",
           }}
           className="font-cyberpunk btn-modulo"

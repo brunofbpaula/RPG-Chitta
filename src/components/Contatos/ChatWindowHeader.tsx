@@ -19,7 +19,7 @@ export function ChatWindowHeader({
         gap: 1.5,
         px: 1,
         py: 0.5,
-        background: "#c5003c",
+        background: "#ff003c",
         borderRadius: 0,
       }}
     >

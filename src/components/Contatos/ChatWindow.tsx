@@ -41,7 +41,7 @@ export function ChatWindow({ contato }: Props) {
       sx={{
         display: "flex",
         flexDirection: "column",
-        height: '100%',
+        height: '75dvh',
         background: "rgb(0 0 0 / 40%)",
       }}
     >

@@ -72,7 +72,7 @@ const PericiasModal: React.FC<PericiasModalProps> = ({
         sx: {
           backgroundColor: "rgb(0 0 0 / 30%)",
           backdropFilter: "blur(7px)",
-          borderLeft: "18px solid #C5003C",
+          borderLeft: "18px solid #ff003c",
           borderRadius: 0,
           p: 3,
           clipPath: "polygon(4% 0, 100% 0, 100% 0%, 100% 100%, 4% 100%, 0 95%, 0 6%)",

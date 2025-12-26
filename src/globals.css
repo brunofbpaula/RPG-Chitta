@@ -27,7 +27,7 @@
   font-size: 2rem;
   color: transparent;
   -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #C5003C;
+  -webkit-text-stroke-color: #ff003c;
 }
 
 .container-rpg{
@@ -77,13 +77,13 @@
 }
 
 .MuiTextField-root .MuiFormLabel-root{
-  color: #5EF6FF !important;
+  color: #75ffff !important;
   font-family: 'Rajdhani';
   font-size: 1.2rem;
 }
 
 .MuiTextField-root .MuiInputBase-root{
-  color: #5EF6FF !important;
+  color: #75ffff !important;
   font-family: 'Rajdhani';
   font-size: 1.5rem;
 }
@@ -137,7 +137,7 @@
   position: absolute;
   width: 30px;
   height: 30px;
-  border: 5px solid #C5003C;
+  border: 5px solid #ff003c;
 }
 
 .avatar .tl {
@@ -246,7 +246,7 @@
 }
 
 .titulo-atributos{
-  color: #5EF6FF;
+  color: #75ffff;
   padding: 4px 10px;
   border-bottom: 3px solid #ffeb00;
   clip-path: polygon(0% 100%, 0% 0%, 85% 0%, 70% 100%);
@@ -271,7 +271,7 @@
 }
 
 .atributo .label-atributo{
-  color: #5EF6FF;
+  color: #75ffff;
   font-size: 1.1rem;
   margin-bottom: 2px;
   font-family: Rajdhani;
@@ -288,7 +288,7 @@
   display: block;
   width: 30px;
   height: 30px;
-  border: 3px solid #C5003C;
+  border: 3px solid #ff003c;
 }
 
 .atributo .barra-atributo::after{
@@ -313,7 +313,7 @@
 .atributo .barra-atributo .progresso-barra .numero-progresso{
   content: "";
   position: absolute;
-  background: #C5003C;
+  background: #ff003c;
   width: 50%;
   height: 100%;
   top: 0;
@@ -342,7 +342,7 @@
 }
 
 .tab-cyberpunk div[role="tabpanel"]{
-  border-top: 1px solid #C5003C;
+  border-top: 1px solid #ff003c;
   height: 100%;
   background: linear-gradient(310deg, rgba(5, 10, 15, 0.5),rgba(49, 16, 17, 0.5));
   backdrop-filter: blur(7px);
@@ -350,8 +350,8 @@
 
 .tab-cyberpunk button[role="tab"]{
   clip-path: polygon( 1% 0%,  99% 0%,  99% 60%,  87% 100%,  1% 100%,  1% 58%,  10% 58%,  10% 46%,  13% 46%,  1% 45%  );
-  background-color: #C5003C;
-  color: #5EF6FF;
+  background-color: #ff003c;
+  color: #75ffff;
   position: relative;
   padding: 12px 35px;
   line-height: normal;
@@ -374,7 +374,7 @@
 }
 
 .tab-cyberpunk button[aria-selected="true"]::before{
-  background-color: #C5003C;
+  background-color: #ff003c;
 }
 
 .tab-cyberpunk .MuiTabs-indicator{
@@ -399,7 +399,7 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: #C5003C;
+  background-color: #ff003c;
   clip-path: polygon(10.5% 0%, 0% 0%, -1% 100%, 0% 100%, 0.5% 100%);
   top: 0;
   right: 0;
@@ -427,8 +427,8 @@
   font-size: 1rem;
   font-weight: 800;
   letter-spacing: 3px;  
-  color: #C5003C;
-  border-bottom: 1px solid #C5003C;
+  color: #ff003c;
+  border-bottom: 1px solid #ff003c;
   padding-bottom: 2px;
 }
 
@@ -458,7 +458,7 @@ input::-webkit-inner-spin-button {
 }
 
 .valor-dado .MuiInput-input{
-  color: #5EF6FF !important;
+  color: #75ffff !important;
   font: none;
   font-family: Rajdhani, sans-serif;
   font-size: 1.55rem;
@@ -471,7 +471,7 @@ input::-webkit-inner-spin-button {
 }
 
 .valor-dado .MuiInput-root::after{
-  border-bottom: 2px solid #5EF6FF !important;
+  border-bottom: 2px solid #75ffff !important;
 }
 
 .valor-atributo{
@@ -498,23 +498,23 @@ input::-webkit-inner-spin-button {
 
 .form-pericias .MuiFormControl-root .MuiInputBase-root .MuiOutlinedInput-notchedOutline{
 
-  border-color: #C5003C !important;
+  border-color: #ff003c !important;
 }
 
 .form-pericias .MuiFormControl-root .MuiFormLabel-root{
-  color: #C5003C !important;
+  color: #ff003c !important;
 }
 
 .form-pericias .MuiFormControl-root .MuiInputBase-root.Mui-focused .MuiOutlinedInput-notchedOutline{
-  border-color: #5EF6FF !important;
+  border-color: #75ffff !important;
 }
 
 .form-pericias .MuiFormControl-root .MuiInputLabel-root.Mui-focused{
-  color: #5EF6FF !important;
+  color: #75ffff !important;
 }
 
 .form-pericias .MuiFormControl-root .MuiInputBase-root{
-  color: #5EF6FF !important;
+  color: #75ffff !important;
 }
 
 .form-pericias .MuiFormControl-root .MuiInputBase-root.Mui-focused{
@@ -550,11 +550,11 @@ input::-webkit-inner-spin-button {
   width: 34px !important;
   height: 34px !important;
   background-color: #ffffff !important;
-  color:#C5003C !important;
+  color:#ff003c !important;
 }
 
 .MuiBottomNavigationAction-root.Mui-selected {
-  color: #5ef6ff !important;
+  color: #75ffff !important;
 }
 
 *::-webkit-scrollbar {
@@ -567,7 +567,7 @@ input::-webkit-inner-spin-button {
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: #C5003C;
+  background-color: #ff003c;
   border: 2px solid transparent;
   background-clip: content-box;
 }
