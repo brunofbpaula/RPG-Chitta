@@ -16,7 +16,7 @@ export const getTabs = ({ items, notes }: PlayerTabsProps) => [
     key: "notas",
     label: "NOTAS",
     icon: FileText,
-    content: <div></div>,
+    content: <NotesContent notepad={notes} />,
   },
   {
     key: "inventario",

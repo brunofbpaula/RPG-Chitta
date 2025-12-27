@@ -69,14 +69,26 @@ export interface Note {
   createdAt: string;
 }
 
+export interface CreateItemData {
+  name: string;
+  description: string;
+  image: string;
+}
+
 export interface InventoryActions {
-  create: (item: Item) => void;
+  create: (item: CreateItemData) => Promise<void>;
   delete: (itemId: string) => void;
 }
 
+export interface CreateNoteData {
+  title: string;
+  text: string;
+}
+
 export interface NotesActions {
-  create: (note: Note) => void;
-  delete: (noteId: string) => void;
+  create: (data: CreateNoteData) => Promise<void>;
+  update: (noteId: string, data: Partial<Pick<Note, "title" | "text">>) => void;
+  delete: (noteId: string) => Promise<void>;
 }
 
 export interface InventoryFeature {

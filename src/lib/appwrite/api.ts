@@ -1,5 +1,5 @@
 import { ID, Query } from 'appwrite';
-import { INewPlayer } from '@/types';
+import { CreateItemData, CreateNoteData, INewPlayer } from '@/types';
 import { account, appwriteConfig, databases, storage } from './config';
 
 export async function uploadFile(file: File) {
@@ -290,7 +290,7 @@ export async function getPlayerNotes(playerId: string) {
     }
 }
 
-export async function createItem(item: Record<string, string>, playerId: string) {
+export async function createItem(item: CreateItemData, playerId: string) {
     try {
         const newItem = await databases.createDocument(
             appwriteConfig.databaseId,
@@ -310,25 +310,6 @@ export async function createItem(item: Record<string, string>, playerId: string)
     }
 }
 
-export async function createNote(note: Record<string, string>, playerId: string) {
-    try {
-        const newNote = await databases.createDocument(
-            appwriteConfig.databaseId,
-            appwriteConfig.noteCollection,
-            ID.unique(),
-            {
-                title: note.title,
-                text: note.text,
-                createdAt: note.createdAt,
-                player: playerId 
-            }
-        )
-        return newNote;
-    } catch (error) {
-        console.log(error);
-    }
-}
-
 export async function deleteItem(itemId: string) {
     try {
         await databases.deleteDocument(
@@ -340,6 +321,40 @@ export async function deleteItem(itemId: string) {
     } catch (error) {
         console.log(error);
     }
+}
+
+export async function createNote(note: CreateNoteData, playerId: string) {
+    try {
+        const newNote = await databases.createDocument(
+            appwriteConfig.databaseId,
+            appwriteConfig.noteCollection,
+            ID.unique(),
+            {
+                title: note.title,
+                text: note.text,
+                createdAt: new Date().toISOString(),
+                player: playerId 
+            }
+        )
+        return newNote;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function updateNote( noteId: string, data: { text: string; createdAt: string }) {
+  try {
+    const updatedNote = await databases.updateDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.noteCollection,
+      noteId,
+      data
+    );
+
+    return updatedNote;
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 export async function deleteNote(noteId: string) {

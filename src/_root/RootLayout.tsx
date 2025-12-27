@@ -3,10 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { AudioLines, LogOut } from 'lucide-react';
 import { Box, IconButton } from '@mui/material';
 
-import { InventoryFeature, Item, Note, NotesFeature, RelicsDocument } from '@/types';
+import { CreateItemData, InventoryFeature, Item, 
+         CreateNoteData, NotesFeature, Note,
+         RelicsDocument } from '@/types';
 import { useUserContext } from '@/context/AuthContext';
 import { useSignOutAccount } from '@/lib/react-query/queriesAndMutation';
-import { getPlayerItems, getPlayerNotes, getPlayerRelics, updateRelics, updateUser } from '@/lib/appwrite/api';
+import { createItem, createNote, deleteItem, deleteNote, getPlayerItems, getPlayerNotes, getPlayerRelics, updateNote, updateRelics, updateUser } from '@/lib/appwrite/api';
 
 import EuModal from '@/components/modals/EuModal';
 import PericiasModal from '@/components/modals/PericiasModal';
@@ -61,10 +63,7 @@ const RootLayout = () => {
   const handleSavePericias = async (data: Record<string, number>) => {
     if (!user || !relics) return;
 
-    // atualiza no backend APENAS o campo data
     await updateRelics(relics.$id, data);
-
-    // atualiza o estado local
     setRelics((prev) =>
       prev
         ? {
@@ -79,27 +78,78 @@ const RootLayout = () => {
   const inventoryFeature: InventoryFeature = {
     items,
     actions: {
-      create: (newItem) => {
+      create: async (itemData: CreateItemData) => {
+        const doc = await createItem(itemData, user.id);
+        if (!doc) return;
+
+        const newItem = {
+          id: doc.$id,
+          name: doc.name,
+          description: doc.description,
+          quantity: doc.quantity,
+          image: doc.image ?? null
+        }
+
         setItems((prev) => [newItem, ...prev]);
       },
-      delete: (itemId) => {
-        setItems((prev) => prev.filter((item) => item.id !== itemId));
+
+      delete: async (itemId) => {
+        await deleteItem(itemId);
+
+        setItems((prev) =>
+          prev.filter((item) => item.id !== itemId)
+        );
       },
     },
   };
+
 
 
   const notesFeature: NotesFeature = {
     notes,
     actions: {
-      create: (newNote) => {
+      create: async (data) => {
+        if (!user) return;
+
+        const doc = await createNote(data, user.id);
+        if (!doc) return;
+
+        const newNote: Note = {
+          $id: doc.$id,
+          title: doc.title,
+          text: doc.text,
+          createdAt: doc.createdAt,
+        };
+
         setNotes((prev) => [newNote, ...prev]);
       },
-      delete: (noteId) => {
-        setNotes((prev) => prev.filter((note) => note.$id !== noteId));
+
+      update: (noteId, data) => {
+        console.log(noteId, data);
+        const updatedAt = new Date().toISOString();
+
+        updateNote(noteId, { text: data.text ?? "", createdAt: updatedAt });
+
+        setNotes((prev) =>
+          prev.map((note) =>
+            note.$id === noteId
+              ? { ...note, ...data, createdAt: updatedAt }
+              : note
+          )
+        );
+      },
+
+
+      delete: async (noteId) => {
+        await deleteNote(noteId);
+
+        setNotes((prev) =>
+          prev.filter((n) => n.$id !== noteId)
+        );
       },
     },
   };
+
 
 
 
