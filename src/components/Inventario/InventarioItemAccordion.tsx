@@ -7,11 +7,11 @@ import {
   IconButton,
 } from "@mui/material";
 import { ChevronDown, Trash2 } from "lucide-react";
-import { ItemInventario } from "@/types";
+import { Item } from "@/_root/RootLayout";
 
 interface Props {
-  item: ItemInventario;
-  onDelete: (item: ItemInventario) => void;
+  item: Item;
+  onDelete: (item: Item) => void;
 }
 
 export function InventarioItemAccordion({ item, onDelete }: Props) {
@@ -36,7 +36,7 @@ export function InventarioItemAccordion({ item, onDelete }: Props) {
           borderRight: "1px solid rgb(92 241 250 / 40%)"
         }}
       >
-        <Typography flex={1} className="font-cyberpunk">{item.nome}</Typography>
+        <Typography flex={1} className="font-cyberpunk">{item.name}</Typography>
 
         <IconButton
           onClick={(e) => {
@@ -63,8 +63,8 @@ export function InventarioItemAccordion({ item, onDelete }: Props) {
         }}
       >
         <Box display="flex" gap={2}>
-          <img src={item.imagem} width={100} />
-          <Typography className="font-cyberpunk">{item.descricao}</Typography>
+          <img src={item.image} width={100} />
+          <Typography className="font-cyberpunk">{item.description}</Typography>
         </Box>
       </AccordionDetails>
     </Accordion>

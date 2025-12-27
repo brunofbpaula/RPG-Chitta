@@ -1,17 +1,17 @@
 import { Box, IconButton, Typography } from "@mui/material";
-import { Nota } from "../../types";
 import { Trash2 } from "lucide-react";
+import { Note } from "@/_root/RootLayout";
 
 interface Props {
-  nota: Nota;
-  onSelect: (nota: Nota) => void;
-  onDelete: (id: string) => void;
+  note: Note;
+  onSelect: (note: Note) => void;
+  onDelete: () => void;
 }
 
-export function NotesItem({ nota, onSelect, onDelete }: Props) {
+export function NotesItem({ note, onSelect, onDelete }: Props) {
   return (
     <Box
-      onClick={() => onSelect(nota)}
+      onClick={() => onSelect(note)}
       sx={{
         px: 2,
         py: 1.5,
@@ -26,7 +26,7 @@ export function NotesItem({ nota, onSelect, onDelete }: Props) {
     >
       <Box>
         <Typography sx={{ color: "#fff", fontWeight: 600 }}>
-          {nota.titulo}
+          {note.title}
         </Typography>
 
         <Typography
@@ -36,14 +36,14 @@ export function NotesItem({ nota, onSelect, onDelete }: Props) {
           }}
         >
           Última modificação:{" "}
-          {new Date(nota.updatedAt).toLocaleDateString()}
+          {new Date(note.createdAt).toLocaleDateString()}
         </Typography>
       </Box>
 
       <IconButton
         onClick={(e) => {
           e.stopPropagation();
-          onDelete(nota.id);
+          onDelete();
         }}
         sx={{ color: "rgb(255 255 255 / 70%)" }}
       >

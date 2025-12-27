@@ -1,114 +1,109 @@
-import { useState } from "react";
-import { Nota } from "../../types";
+import { useEffect, useState } from "react";
+import { Box } from "@mui/material";
+import { Note } from "@/_root/RootLayout";
+
 import { NotesListHeader } from "./NotesListHeader";
 import { NotesItem } from "./NotesItem";
 import { NotesWindow } from "./NotesWindow";
 import { NotesWindowHeader } from "./NotesWindowHeader";
 import { ConfirmarExclusaoNota } from "./ConfirmarExclusaoNota";
-import { Box } from "@mui/material";
 
+type NotesContentProps = {
+  notes: Note[];
+};
 
+export function NotesContent({ notes }: NotesContentProps) {
+  const [localNotes, setLocalNotes] = useState<Note[]>(notes);
+  const [search, setSearch] = useState("");
+  const [activeNote, setActiveNote] = useState<Note | null>(null);
+  const [noteToDelete, setNoteToDelete] = useState<Note | null>(null);
 
-export function NotesContent() {
-  const [notas, setNotas] = useState<Nota[]>([
-    {
-      id: "1",
-      titulo: "Ideias de projeto",
-      conteudo: "Criar painel cyberpunk...",
-      updatedAt: "2025-01-12",
-    },
-    {
-      id: "2",
-      titulo: "Checklist",
-      conteudo: "Finalizar chat\nCriar notas",
-      updatedAt: "2025-01-10",
-    },
-  ]);
-
-  const [busca, setBusca] = useState("");
-  const [notaAtiva, setNotaAtiva] = useState<Nota | null>(null);
-  const [notaExcluir, setNotaExcluir] = useState<Nota | null>(null);
-
-  const notasFiltradas = notas.filter((n) =>
-    n.titulo.toLowerCase().includes(busca.toLowerCase())
+  const filteredNotes = localNotes.filter((n) =>
+    n.title.toLowerCase().includes(search.toLowerCase())
   );
 
-  function criarNovaNota() {
-    const novaNota: Nota = {
-      id: crypto.randomUUID(),
-      titulo: "Nova anotação",
-      conteudo: "",
-      updatedAt: new Date().toISOString(),
+  useEffect(() => {
+    setLocalNotes(notes);
+  }, [notes]);
+  
+  function createNewNote() {
+    const newNote: Note = {
+      $id: crypto.randomUUID(),
+      title: "New note",
+      text: "",
+      createdAt: new Date().toISOString(),
     };
 
-    setNotas((prev) => [novaNota, ...prev]);
-    setNotaAtiva(novaNota);
+    setLocalNotes((prev) => [newNote, ...prev]);
+    setActiveNote(newNote);
   }
 
-  function solicitarExclusao(nota: Nota) {
-    setNotaExcluir(nota);
+  function requestDelete(note: Note) {
+    setNoteToDelete(note);
   }
 
-  function confirmarExclusao() {
-    if (!notaExcluir) return;
+  function confirmDelete() {
+    if (!noteToDelete) return;
 
-    setNotas((prev) =>
-      prev.filter((n) => n.id !== notaExcluir.id)
+    setLocalNotes((prev) =>
+      prev.filter((n) => n.$id !== noteToDelete.$id)
     );
 
-    if (notaAtiva?.id === notaExcluir.id) {
-      setNotaAtiva(null);
+    if (activeNote?.$id === noteToDelete.$id) {
+      setActiveNote(null);
     }
 
-    setNotaExcluir(null);
+    setNoteToDelete(null);
   }
 
   return (
     <>
-    <Box sx={{ background: "transparent)", height: "100%", display: "flex", flexDirection: "column" }}>
-      {!notaAtiva ? (
-        <NotesListHeader value={busca} onSearch={setBusca} onAdd={criarNovaNota} />
-      ) : (
-        <NotesWindowHeader
-          nota={notaAtiva}
-          onBack={() => setNotaAtiva(null)}
-        />
-      )}
+      <Box
+        sx={{
+          background: "transparent",
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        {!activeNote ? (
+          <NotesListHeader
+            value={search}
+            onSearch={setSearch}
+            onAdd={createNewNote}
+          />
+        ) : (
+          <NotesWindowHeader
+            note={activeNote}
+            onBack={() => setActiveNote(null)}
+          />
+        )}
 
-        {!notaAtiva ? (
-          notasFiltradas.map((nota) => (
-      
+        {!activeNote ? (
+          filteredNotes.map((note) => (
             <NotesItem
-              key={nota.id}
-              nota={nota}
-              onSelect={setNotaAtiva}
-              onDelete={() => solicitarExclusao(nota)}
+              key={note.$id}
+              note={note}
+              onSelect={setActiveNote}
+              onDelete={() => requestDelete(note)}
             />
           ))
         ) : (
           <NotesWindow
-            nota={notaAtiva}
-            onChange={(conteudo) => {
-              // atualiza a nota ativa (para o editor funcionar)
-              setNotaAtiva((prev) =>
+            note={activeNote}
+            onChange={(text) => {
+              const updatedAt = new Date().toISOString();
+
+              setActiveNote((prev) =>
                 prev
-                  ? {
-                      ...prev,
-                      conteudo,
-                      updatedAt: new Date().toISOString(),
-                    }
+                  ? { ...prev, text, createdAt: updatedAt }
                   : prev
               );
 
-              // sincroniza com a lista
-              setNotas((prev) =>
+              setLocalNotes((prev) =>
                 prev.map((n) =>
-                  n.id === notaAtiva.id
-                    ? {
-                        ...n,
-                        conteudo,
-                        updatedAt: new Date().toISOString(),
-                      }
+                  n.$id === activeNote.$id
+                    ? { ...n, text, createdAt: updatedAt }
                     : n
                 )
               );
@@ -116,11 +111,12 @@ export function NotesContent() {
           />
         )}
       </Box>
+
       <ConfirmarExclusaoNota
-        open={!!notaExcluir}
-        titulo={notaExcluir?.titulo || ""}
-        onCancel={() => setNotaExcluir(null)}
-        onConfirm={confirmarExclusao}
+        open={!!noteToDelete}
+        title={noteToDelete?.title || ""}
+        onCancel={() => setNoteToDelete(null)}
+        onConfirm={confirmDelete}
       />
     </>
   );

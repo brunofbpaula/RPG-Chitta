@@ -3,15 +3,14 @@ import {
   BottomNavigation,
   BottomNavigationAction,
   Dialog,
-  AppBar,
-  Toolbar,
   IconButton,
-  Typography,
   Slide,
 } from "@mui/material";
 import { TransitionProps } from "@mui/material/transitions";
 import { X } from "lucide-react";
-import { TABS } from "./tabs.config";
+import { getTabs } from "./tabs.config";
+import { PlayerInfo } from "./ResponsiveTabs";
+
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & { children: React.ReactElement },
@@ -20,10 +19,11 @@ const Transition = forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export function MobileTabs() {
+export function MobileTabs({ items, notes }: PlayerInfo) {
   const [value, setValue] = useState(0);
   const [open, setOpen] = useState(false);
 
+  const TABS = getTabs({ items, notes });
   const CurrentTab = TABS[value];
 
   return (
@@ -60,11 +60,14 @@ export function MobileTabs() {
         onClose={() => setOpen(false)}
         TransitionComponent={Transition}
       >
-
-        <IconButton edge="start" onClick={() => setOpen(false)} sx={{ color: "#ffffff" }}>  
+        <IconButton
+          edge="start"
+          onClick={() => setOpen(false)}
+          sx={{ color: "#ffffff" }}
+        >
           <X />
         </IconButton>
-        
+
         {CurrentTab.content}
       </Dialog>
     </>

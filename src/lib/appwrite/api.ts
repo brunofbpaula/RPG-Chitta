@@ -196,29 +196,24 @@ export async function updateUser(userId: string, attributes: Record<string, numb
 }
 
 
-export async function getPlayerItems(playerId: string) {
-
+export async function getPlayerItems(playerId: string){
     try {
         const items = await databases.listDocuments(
-            appwriteConfig.databaseId,
-            appwriteConfig.itemCollection,
-            [Query.equal('playerId', playerId)]
+        appwriteConfig.databaseId,
+        appwriteConfig.itemCollection,
+        [Query.equal('player', playerId)]
         );
 
-        if (!items.documents.length) return null;
+        if (!items.documents.length) return [];
 
-        const doc = items.documents[0];
-
-        return {
-            $id: doc.$id,
-            playerId: doc.playerId,
-            items: doc.items as Record<string, number>,
-        };
+        return items.documents ?? [];
+        
     } catch (error) {
-        console.log(error);
-    };
-
+        console.error(error);
+        return [];
+    }
 }
+
 
 export async function getPlayerRelics(playerId: string) {
     try {
@@ -275,6 +270,24 @@ export async function updateItems(itemsId: string,items: Record<string, string>)
     console.error(error);
     throw error;
   }
+}
+
+export async function getPlayerNotes(playerId: string) {
+    try {
+        const notes = await databases.listDocuments(
+            appwriteConfig.databaseId,
+            appwriteConfig.noteCollection,
+            [Query.equal('player', playerId)]
+        );
+
+        if (!notes.documents.length) return [];
+
+        return notes.documents ?? [];
+        
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
 }
 
 export async function createItem(item: Record<string, string>, playerId: string) {

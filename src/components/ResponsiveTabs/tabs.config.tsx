@@ -2,8 +2,14 @@ import { LayoutGrid, FileText, Boxes, Users } from "lucide-react";
 import { NotesContent } from "../Anotacoes/NotesContent";
 import { InventarioContent } from "../Inventario/InventarioContent";
 import { ContatosContent } from "../Contatos/ContatosContent";
+import { Item, Note } from "@/_root/RootLayout";
 
-export const TABS = [
+type TabsConfigProps = {
+  items: Item[];
+  notes: Note[];
+};
+
+export const getTabs = ({ items, notes }: TabsConfigProps) => [
   {
     key: "inicio",
     label: "INÍCIO",
@@ -15,13 +21,13 @@ export const TABS = [
     key: "notas",
     label: "NOTAS",
     icon: FileText,
-    content: <NotesContent />,
+    content: <NotesContent notes={notes} />,
   },
   {
     key: "inventario",
     label: "INVENTÁRIO",
     icon: Boxes,
-    content: <InventarioContent />,
+    content: <InventarioContent items={items} />,
   },
   {
     key: "contatos",
@@ -30,4 +36,3 @@ export const TABS = [
     content: <ContatosContent />,
   },
 ];
-

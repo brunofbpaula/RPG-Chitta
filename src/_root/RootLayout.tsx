@@ -6,10 +6,10 @@ import EuModal from '@/components/modals/EuModal';
 import PericiasModal from '@/components/modals/PericiasModal';
 import { ResponsiveTabs } from '@/components/ResponsiveTabs/ResponsiveTabs';
 import { useUserContext } from '@/context/AuthContext';
-import { getPlayerItems, getPlayerRelics, updateRelics, updateUser } from '@/lib/appwrite/api';
+import { getPlayerItems, getPlayerNotes, getPlayerRelics, updateRelics, updateUser } from '@/lib/appwrite/api';
 import AtributoBar from '@/components/Atributos/Barra';
 import AtributosModal from '@/components/modals/AtributosModal';
-import { SquarePen } from 'lucide-react';
+
 
 interface RelicsDocument {
   $id: string;
@@ -17,19 +17,21 @@ interface RelicsDocument {
   data: Record<string, number>;
 }
 
-export interface InventarioItem {
+export interface Item {
   id: string;
-  nome: string;
-  descricao: string;
-  imagem?: string;
-  quantidade?: number;
+  name: string;
+  description: string;
+  image?: string;
+  quantity: number;
 }
 
-interface InventarioDocument {
+export interface Note {
   $id: string;
-  player: string;
-  items: InventarioItem[];
+  title: string;
+  text: string;
+  createdAt: string;
 }
+
 
 
 const RootLayout = () => {
@@ -41,8 +43,8 @@ const RootLayout = () => {
   const { mutate: signOut, isSuccess } = useSignOutAccount();
   
   const [relics, setRelics] = useState<RelicsDocument | null>(null);
-  const [items, setItems] = useState<InventarioDocument | null>(null);
-  const [inventario, setInventario] = useState<InventarioItem[]>([]);
+  const [items, setItems] = useState<Item[]>([]);
+  const [notes, setNotes] = useState<Note[]>([]);
 
 
   const [EuModalOpen, setEuModalOpen] = useState(false);
@@ -89,7 +91,6 @@ const RootLayout = () => {
     );
   };
 
-
   useEffect(() => {
     if (isSuccess) navigate(0);
   }, [isSuccess]);
@@ -97,20 +98,39 @@ const RootLayout = () => {
   useEffect(() => {
     if (!user) return;
 
-    
     const loadRelics = async () => {
       const data = await getPlayerRelics(user.id);
       if (data) setRelics(data);
     };
     
-    // const loadItems = async () => {
-    //   const doc = await getPlayerItems(user.id);
-    //   if (doc?.items) {
-    //     setInventario(doc.items);
-    //   }
-    // };
+    const loadItems = async () => {
+      const documents = await getPlayerItems(user.id);
+      const parsedItems: Item[] = documents.map((doc) => ({
+        id: doc.$id,
+        name: doc.name,
+        description: doc.description,
+        image: doc.image,
+        quantity: doc.quantity ?? 0,
+      }));
 
-    // loadItems();
+      setItems(parsedItems);
+    };
+
+    const loadNotes = async () => {
+      const documents = await getPlayerNotes(user.id);
+      const parsedNotes: Note[] = documents.map((doc) => ({
+        $id: doc.$id,
+        title: doc.title,
+        text: doc.text,
+        createdAt: doc.createdAt,
+      }));
+
+      setNotes(parsedNotes);
+    };
+
+
+    loadNotes();
+    loadItems();
     loadRelics();
   }, [user]);  
   
@@ -119,7 +139,7 @@ const RootLayout = () => {
     <div className="container-rpg">
       <div className="video-bg">
         <video autoPlay muted loop playsInline>
-          <source src="/src/assets/video/Phantom_Liberty.webm" type="video/mp4"/>
+          <source src={import.meta.env.VITE_VIDEO_BG} type="video/mp4"/>
         </video>
       </div>
       <div className="content">
@@ -170,7 +190,7 @@ const RootLayout = () => {
           </svg>
         </div>
         <div className="box-conteudo">
-          <ResponsiveTabs user={user}/>
+          <ResponsiveTabs items={items} notes={notes}/>
         </div>
       </div>
 

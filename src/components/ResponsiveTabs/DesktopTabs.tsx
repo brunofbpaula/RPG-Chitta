@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Tabs, Tab, Box } from "@mui/material";
-import { TABS } from "./tabs.config";
-
-const DESKTOP_TABS = TABS.filter(tab => !tab.onlyMobile);
+import { getTabs } from "./tabs.config";
+import { PlayerInfo } from "./ResponsiveTabs";
 
 function CustomTabPanel({
   value,
@@ -22,8 +21,11 @@ function CustomTabPanel({
   );
 }
 
-export function DesktopTabs() {
+export function DesktopTabs({ items, notes }: PlayerInfo) {
   const [value, setValue] = useState(0);
+
+  const TABS = getTabs({ items, notes });
+  const DESKTOP_TABS = TABS.filter(tab => !tab.onlyMobile);
 
   return (
     <Box sx={{ width: "100%" }} className="tab-cyberpunk">

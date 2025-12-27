@@ -1,13 +1,13 @@
 import { Box, IconButton, Paper, Typography } from "@mui/material";
 import { ArrowLeft } from "lucide-react";
-import { Nota } from "../../types";
+import { Note } from "@/_root/RootLayout";
 
 interface Props {
-  nota: Nota;
+  note: Note;
   onBack: () => void;
 }
 
-export function NotesWindowHeader({ nota, onBack }: Props) {
+export function NotesWindowHeader({ note, onBack }: Props) {
   return (
     <Paper
       sx={{
@@ -23,20 +23,38 @@ export function NotesWindowHeader({ nota, onBack }: Props) {
       <IconButton onClick={onBack} sx={{ color: "#000000" }}>
         <ArrowLeft />
       </IconButton>
+
       <Box
         sx={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          width: "100%"
+          width: "100%",
         }}
       >
-        <Typography sx={{ color: "#000000", fontWeight: 600, fontFamily: "Rajdhani", fontSize: "1.45rem" }}>
-          {nota.titulo}
+        <Typography
+          sx={{
+            color: "#000000",
+            fontWeight: 600,
+            fontFamily: "Rajdhani",
+            fontSize: "1.45rem",
+          }}
+        >
+          {note.title}
         </Typography>
-        <Typography variant="overline" gutterBottom sx={{ color: "#000000", fontWeight: 600, fontFamily: "Rajdhani", margin: 0  }}>
+
+        <Typography
+          variant="overline"
+          gutterBottom
+          sx={{
+            color: "#000000",
+            fontWeight: 600,
+            fontFamily: "Rajdhani",
+            margin: 0,
+          }}
+        >
           Última modificação:{" "}
-          {new Date(nota.updatedAt).toLocaleString()}
+          {new Date(note.createdAt).toLocaleString()}
         </Typography>
       </Box>
     </Paper>

@@ -1,13 +1,13 @@
 import { Box } from "@mui/material";
-import { Nota } from "../../types";
+import { Note } from "@/_root/RootLayout";
 import { NotesEditor } from "./NotesEditor";
 
 interface Props {
-  nota: Nota;
-  onChange: (conteudo: string) => void;
+  note: Note;
+  onChange: (text: string) => void;
 }
 
-export function NotesWindow({ nota, onChange }: Props) {
+export function NotesWindow({ note, onChange }: Props) {
   return (
     <Box
       sx={{
@@ -17,7 +17,7 @@ export function NotesWindow({ nota, onChange }: Props) {
       }}
     >
       <NotesEditor
-        value={nota.conteudo}
+        value={note.text}
         onChange={onChange}
       />
     </Box>

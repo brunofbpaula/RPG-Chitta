@@ -1,15 +1,20 @@
 import { useTheme, useMediaQuery } from "@mui/material";
 import { DesktopTabs } from "./DesktopTabs";
 import { MobileTabs } from "./MobileTabs";
-import { IPlayer } from "@/types";
+import { Item, Note } from "@/_root/RootLayout";
 
-type ResponsiveTabsProps = {
-  user: IPlayer;
-}
+export type PlayerInfo = {
+  items: Item[];
+  notes: Note[];
+};
 
-export function ResponsiveTabs(ResponsiveTabsProps: ResponsiveTabsProps) {
+export function ResponsiveTabs({ items, notes }: PlayerInfo) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
-  return isMobile ? <MobileTabs /> : <DesktopTabs />;
+  return isMobile ? (
+    <MobileTabs items={items} notes={notes} />
+  ) : (
+    <DesktopTabs items={items} notes={notes} />
+  );
 }
