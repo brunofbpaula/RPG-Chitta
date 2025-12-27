@@ -27,8 +27,15 @@ export function NotesWindowHeader({ nota, onBack }: Props) {
         sx={{
           display: "flex",
           justifyContent: "space-between",
-          alignItems: "center",
-          width: "100%"
+          alignItems: {
+            xs: "flex-start",
+            md: "center",
+          },
+          width: "100%",
+          flexDirection: {
+            xs: "column",
+            md: "row",
+          },
         }}
       >
         <Typography sx={{ color: "#000000", fontWeight: 600, fontFamily: "Rajdhani", fontSize: "1.45rem" }}>
