@@ -5,6 +5,7 @@ import {
   Grid,
   IconButton,
   TextField,
+  Typography,
 } from "@mui/material";
 import React from "react";
 import { Save, X } from "lucide-react";
@@ -92,13 +93,14 @@ const PericiasModal: React.FC<PericiasModalProps> = ({ open, onClose, relics, on
       fullWidth
       PaperProps={{
         sx: {
-          backgroundColor: "rgb(0 0 0 / 30%)",
+          backgroundColor: "rgb(255 255 255 / 12%)",
           backdropFilter: "blur(7px)",
+          border: "1px solid rgba(117, 255, 255, 0.3)",
           borderLeft: "18px solid #ff003c",
           borderRadius: 0,
           p: 3,
           clipPath: "polygon(4% 0, 100% 0, 100% 0%, 100% 100%, 4% 100%, 0 95%, 0 6%)",
-          boxShadow: "inset -2px 0px 25px -11px rgb(94 246 255)"
+          boxShadow: "inset -2px 0px 25px 0px rgb(94 246 255 / 30%)"
         },
       }}
       BackdropProps={{
@@ -108,11 +110,13 @@ const PericiasModal: React.FC<PericiasModalProps> = ({ open, onClose, relics, on
         },
       }}
     >
+      
+
       <Box 
         sx={{ 
-          alignContent: 'center', 
           display: 'flex', 
-          justifyContent: 'end', 
+          alignItems: 'center', 
+          justifyContent: 'space-between', 
           mb: 2,
           position: 'sticky',
           top: 0,
@@ -121,18 +125,31 @@ const PericiasModal: React.FC<PericiasModalProps> = ({ open, onClose, relics, on
           zIndex: 10,
         }}
       >
-        <IconButton
-          color="primary"
-          onClick={async () => {
-            await onSave(pericias);
-            onClose();
+        <Typography
+          variant="h6"
+          fontWeight="bold"
+          sx={{ color: "#ffeb00", fontFamily: "Rajdhani", paddingLeft: 1 }}
+        >
+          PERÍCIAS
+        </Typography>
+        <Box
+          sx={{
+
           }}
         >
-          <Save />
-        </IconButton>
-        <IconButton onClick={onClose} color="primary">
-            <X />
-        </IconButton>
+          <IconButton
+            color="primary"
+            onClick={async () => {
+              await onSave(pericias);
+              onClose();
+            }}
+          >
+            <Save />
+          </IconButton>
+          <IconButton onClick={onClose} color="primary">
+              <X />
+          </IconButton>
+        </Box>
       </Box>
       <Box
         component="form"

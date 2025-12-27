@@ -16,8 +16,8 @@ export function ConfirmarExclusaoNota({
   return (
     <ConfirmarExclusaoBase
       open={open}
-      title="Delete note"
-      description={`Do you want to delete the note "${title}"?`}
+      title="EXCLUIR ANOTAÇÃO"
+      description={`Você tem certeza que deseja excluir "${title}"?`}
       onCancel={onCancel}
       onConfirm={onConfirm}
     />

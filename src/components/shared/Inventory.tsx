@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useGetCurrentUser } from '@/lib/react-query/queriesAndMutation';
-import CreateItemModal from './CreateItemModal';
-import DeleteItemModal from './DeleteItemModal';
+import CreateItemModal from '../Inventario/CreateItemModal';
+import DeleteItemModal from '../Inventario/DeleteItemModal';
 import DeleteNoteModal from './DeleteNoteModal';
 import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'

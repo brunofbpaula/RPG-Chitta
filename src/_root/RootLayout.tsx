@@ -211,7 +211,7 @@ const RootLayout = () => {
             <div className="logo">
                 <h4 className='logo-titulo'>ANJOS DE FERRO</h4>
             </div>
-            <div className="grupo-btn-header">
+            <Box sx={{ textAlign: 'end'}}>
               <IconButton onClick={toggleMusic} title={isPlaying ? "Parar música" : "Tocar música"} color={isPlaying ? "primary" : "warning"}>
                 <AudioLines />
               </IconButton>
@@ -222,7 +222,7 @@ const RootLayout = () => {
               >
                 <LogOut />
               </IconButton>
-            </div>
+            </Box>
           </Box>
 
           <div className="personagem">

@@ -13,7 +13,7 @@
 
 .main{
   background-color: #000;
-  height: 100dvh;
+  min-height: 100dvh;
   position: relative;
 }
 
@@ -103,7 +103,6 @@
   opacity: 0.4;
 }
 
-
 .video-bg {
   position: fixed;
   top: 0;
@@ -120,6 +119,26 @@
   object-fit: cover;
 }
 
+.modal-custom .MuiDialog-paper{
+  background-color: rgb(255 255 255 / 12%);
+  padding: 24px;
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(117, 255, 255, 0.3);
+  box-shadow: inset -2px 0px 25px 0px rgb(94 246 255 / 30%);
+  border-left: 18px solid #ff003c;
+  clip-path: polygon(4% 0, 100% 0, 100% 0%, 100% 100%, 4% 100%, 0 95%, 0 6%);
+  border-radius: 0;
+  width: 100%;
+}
+
+.modal-custom.modal-action .MuiDialog-paper{
+  border-left: 18px solid #FFEB3B !important;
+}
+
+.MuiDialog-paper .MuiInputBase-root.MuiInput-root::after{
+  border-bottom: 2px solid rgb(0 255 255);
+}
+
 .box-conteudo{
   width: 100%;
 }
@@ -133,6 +152,7 @@
   max-height: 100%;
 }
 
+
 .MuiTextField-root .MuiFormLabel-root{
   color: #75ffff !important;
   font-family: 'Rajdhani';
@@ -140,7 +160,22 @@
   font-weight: 800;
 }
 
+.MuiButton-containedPrimary{
+  background-color: #75ffff !important;
+  color: #000000  !important;
+}
+
+.modal-custom .MuiDialog-paper .MuiTextField-root .MuiFormLabel-root{
+  font-weight: 400;
+}
+
 .MuiTextField-root .MuiInputBase-root{
+  color: #75ffff !important;
+  font-family: 'Rajdhani';
+  font-size: 1.5rem;
+}
+
+.MuiTextField-root .MuiInputBase-root .MuiInput-input{
   color: #75ffff !important;
   font-family: 'Rajdhani';
   font-size: 1.5rem;
@@ -615,11 +650,11 @@ input::-webkit-inner-spin-button {
 
 .form-pericias .MuiFormControl-root .MuiInputBase-root .MuiOutlinedInput-notchedOutline{
 
-  border-color: #ff003c !important;
+  border-color: #ffeb00 !important;
 }
 
 .form-pericias .MuiFormControl-root .MuiFormLabel-root{
-  color: #ff003c !important;
+  color: #ffeb00 !important;
 }
 
 .form-pericias .MuiFormControl-root .MuiInputBase-root.Mui-focused .MuiOutlinedInput-notchedOutline{

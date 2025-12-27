@@ -3,8 +3,8 @@ import { InventoryFeature, Item } from "../../types";
 import { InventarioHeaderTop } from "./InventarioHeaderTop";
 import { InventarioSearch } from "./InventarioSearch";
 import { InventarioItemAccordion } from "./InventarioItemAccordion";
-import CreateItemModal from "../shared/CreateItemModal";
-import DeleteItemModal from "../shared/DeleteItemModal";
+import CreateItemModal from "./CreateItemModal";
+import DeleteItemModal from "./DeleteItemModal";
 
 interface Props {
   inventory: InventoryFeature;

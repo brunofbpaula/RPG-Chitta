@@ -6,7 +6,11 @@ import {
   DialogActions,
   Button,
   TextField,
+  Typography,
+  IconButton,
+  Box,
 } from "@mui/material";
+import { X } from "lucide-react";
 
 const imageOptions = [
   "https://fra.cloud.appwrite.io/v1/storage/buckets/67e997fe001920450224/files/6935fa250029c4948262/view?project=67d9eaea00378fb3eb2f&mode=admin",
@@ -44,10 +48,17 @@ const CreateItemModal = ({ open, onClose, onCreate }: CreateItemModalProps) => {
   };
 
   return (
-    <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Adicionar Item</DialogTitle>
+    <Dialog open={open} onClose={onClose} className="modal-custom">
+      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+        <DialogTitle fontSize={"1.25rem"} fontFamily={"Rajdhani"} sx={{ color: "rgb(0 255 255)", padding: 0 }}>
+          ADICIONAR ITEM        
+        </DialogTitle>
+        <IconButton onClick={onClose} sx={{ color: "rgb(0 255 255)" }}>
+          <X />
+        </IconButton>
+      </Box>
 
-      <DialogContent sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+      <DialogContent sx={{ display: "flex", flexDirection: "column", gap: 2, py: 2, px: 0 }}>
         <TextField
           label="Nome do Item"
           name="name"
@@ -55,6 +66,8 @@ const CreateItemModal = ({ open, onClose, onCreate }: CreateItemModalProps) => {
           onChange={(e) =>
             setFormData({ ...formData, name: e.target.value })
           }
+          variant="standard"
+          size="small"
         />
 
         <TextField
@@ -64,6 +77,8 @@ const CreateItemModal = ({ open, onClose, onCreate }: CreateItemModalProps) => {
           onChange={(e) =>
             setFormData({ ...formData, description: e.target.value })
           }
+          variant="standard"
+          size="small"
         />
 
         <div className="flex gap-2">
@@ -81,8 +96,8 @@ const CreateItemModal = ({ open, onClose, onCreate }: CreateItemModalProps) => {
       </DialogContent>
 
       <DialogActions>
-        <Button onClick={onClose}>Cancelar</Button>
-        <Button onClick={handleSubmit} variant="contained" color="error">
+        <Button onClick={onClose} sx={{ color: "#fff"}}>Cancelar</Button>
+        <Button onClick={handleSubmit} variant="contained" color="primary">
           Adicionar
         </Button>
       </DialogActions>

@@ -26,12 +26,11 @@ export function ConfirmarExclusaoBase({
   onCancel,
 }: Props) {
   return (
-    <Dialog open={open} onClose={onCancel} maxWidth="xs" fullWidth>
-      <DialogTitle>
+    <Dialog open={open} onClose={onCancel} maxWidth="xs" fullWidth className="modal-custom modal-action">
+      <DialogTitle sx={{ padding: 0 }}>
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <Box display="flex" gap={1} alignItems="center">
-            <Trash2 size={20} />
-            <Typography fontWeight={600}>{title}</Typography>
+            <Typography fontSize={"1.25rem"} fontFamily={"Rajdhani"} sx={{ color: "rgb(0 255 255)", padding: 0 }}>{title}</Typography>
           </Box>
 
           <IconButton onClick={onCancel}>
@@ -40,13 +39,13 @@ export function ConfirmarExclusaoBase({
         </Box>
       </DialogTitle>
 
-      <DialogContent>
-        <Typography>{description}</Typography>
+      <DialogContent sx={{ paddingLeft: 0 }}>
+        <Typography fontFamily={"Rajdhani"} sx={{ color: "#ffffff" }}>{description}</Typography>
       </DialogContent>
 
       <DialogActions>
-        <Button onClick={onCancel}>Cancelar</Button>
-        <Button color="error" variant="contained" onClick={onConfirm}>
+        <Button onClick={onCancel} sx={{ color: "#ffffff" }}>Cancelar</Button>
+        <Button color="primary" variant="contained" onClick={onConfirm}>
           Excluir
         </Button>
       </DialogActions>

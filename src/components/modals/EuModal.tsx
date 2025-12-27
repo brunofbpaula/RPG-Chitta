@@ -88,13 +88,14 @@ const EuModal: React.FC<EuModalProps> = ({ open, onClose, player, onSave }) => {
       PaperProps={{
         sx: {
           position: "relative",
-          backgroundColor: "rgb(0 0 0 / 30%)",
+          backgroundColor: "rgb(255 255 255 / 12%)",
+          border: "1px solid rgba(117, 255, 255, 0.3)",
           borderLeft: "18px solid #ff003c",
           borderRadius: 0,
           p: 3,
           clipPath:
             "polygon(4% 0, 100% 0, 100% 0%, 100% 100%, 4% 100%, 0 95%, 0 6%)",
-          boxShadow: "inset -2px 0px 25px -11px rgb(94 246 255)",
+          boxShadow: "inset -2px 0px 25px 0px rgb(94 246 255 / 30%)",
 
           ...(cyberColapso && {
             animation: "glitchContainer 0.35s infinite",
