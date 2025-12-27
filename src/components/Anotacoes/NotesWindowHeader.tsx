@@ -28,8 +28,15 @@ export function NotesWindowHeader({ note, onBack }: Props) {
         sx={{
           display: "flex",
           justifyContent: "space-between",
-          alignItems: "center",
+          alignItems: {
+            xs: "flex-start",
+            md: "center",
+          },
           width: "100%",
+          flexDirection: {
+            xs: "column",
+            md: "row",
+          },
         }}
       >
         <Typography

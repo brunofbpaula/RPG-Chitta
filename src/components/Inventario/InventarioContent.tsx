@@ -9,17 +9,17 @@ import { Item } from "@/_root/RootLayout";
 import DeleteItemModal from "../shared/DeleteItemModal";
 
 interface Props {
-  itens: Item[];
-  setItens: (itens: Item[]) => void;
+  items: Item[];
+  setitems: (items: Item[]) => void;
 }
 
-export function InventarioContent( { itens, setItens }: Props ) {
+export function InventarioContent( { items, setitems }: Props ) {
   
   const [busca, setBusca] = useState("");
   const [itemExcluir, setItemExcluir] = useState<Item | null>(null);
   const [addModalOpen, setAddModalOpen] = useState(false);
 
-  const itensFiltrados = itens.filter((item) =>
+  const itemsFiltrados = items.filter((item) =>
     item.name.toLowerCase().includes(busca.toLowerCase())
   );
 
@@ -28,7 +28,7 @@ export function InventarioContent( { itens, setItens }: Props ) {
       <InventarioHeaderTop onAdd={() => setAddModalOpen(true)} />
       <InventarioSearch value={busca} onChange={setBusca} />
 
-      {itensFiltrados.map((item) => (
+      {itemsFiltrados.map((item) => (
         <InventarioItemAccordion
           key={item.id}
           item={item}

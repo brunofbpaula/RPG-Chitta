@@ -33,6 +33,7 @@
 .container-rpg{
   width: 100%;
   height: 100%;
+  position: relative;
 }
 
 .content{
@@ -45,6 +46,54 @@
   background-color: transparent;
   position: relative;
   z-index: 1;
+}
+
+.container-rpg::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(/src/assets/images/1226_4_.gif);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+}
+
+.content::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(/src/assets/images/1226_3_.gif);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+}
+
+.content::after{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(/src/assets/images/1226_2_.gif);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
 }
 
 .video-bg {
@@ -79,7 +128,8 @@
 .MuiTextField-root .MuiFormLabel-root{
   color: #75ffff !important;
   font-family: 'Rajdhani';
-  font-size: 1.2rem;
+  font-size: 1.25rem;
+  font-weight: 800;
 }
 
 .MuiTextField-root .MuiInputBase-root{
@@ -90,6 +140,10 @@
 
 .MuiTextField-root .MuiInputBase-root:hover:not(.Mui-disabled, .Mui-error):before{
   border-bottom: 2px solid rgb(255 255 255 / 10%);
+}
+
+.MuiIconButton-colorPrimary{
+  color: #ffeb00 !important;
 }
 
 .MuiTextField-root .MuiInputBase-root::before{
@@ -172,7 +226,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  max-height: 320px;
+  height: 100%;
 }
 
 .grupo-btn-personagem .btn-personagem{
@@ -185,7 +239,6 @@
   align-items: center;
   justify-content: center;
   transition: all 0.2s;
-  height: 100%;
 
   font-weight: bold;
   font-size: 2rem;
@@ -197,6 +250,7 @@
 
   writing-mode: vertical-rl;
   text-orientation: mixed;
+  flex-basis: 12%;
 }
 
 .grupo-btn-personagem .btn-personagem {
@@ -209,16 +263,16 @@
 
 .grupo-btn-personagem .btn-personagem.tp{
   clip-path: polygon(0 0, 100% 0, 100% 100%, 60% 100%, 0 60%);
-  padding-bottom: 30px;
+  padding-bottom: 40px;
 }
 
 .grupo-btn-personagem .btn-personagem.bt{
-  padding-top: 44px;
+  padding-top: 52px;
   clip-path: polygon(0 24%, 50% 0, 100% 0, 100% 100%, 0 100%);  
 }
 
 .personagem-atributos{
-  min-height: 440px;
+  /* min-height: 440px; */
   position: relative;
 }
 
@@ -228,7 +282,7 @@
   top: 0;
   width: 100%;
   height: 100%;
-  border: 1px solid #ffeb00;
+  border: 3px solid #ffeb00;
   pointer-events: none;
   clip-path: polygon(
     0% 8%,      /* topo esquerdo */
@@ -272,6 +326,7 @@
   display: flex;
   flex-direction: column;
   gap: 0px;
+  padding-bottom: 20px;
 }
 
 .atributo{
@@ -361,13 +416,11 @@
   width: 48px;
 }
 
-
-
 .progresso-barra .texto-progresso {
   position: absolute;
-  right: 6px;
-  top: -18px;
-  font-size: 0.75rem;
+  right: 12px;
+  top: -25px;
+  font-size: 0.85rem;
   color: #ffeb00;
   font-family: Rajdhani;
 }
@@ -595,10 +648,6 @@ input::-webkit-inner-spin-button {
   background: #eee;
 }
 
-.div-tabs-desktop{
-  height: 78%;
-}
-
 .avatar-chat{
   width: 34px !important;
   height: 34px !important;
@@ -608,6 +657,25 @@ input::-webkit-inner-spin-button {
 
 .MuiBottomNavigationAction-root.Mui-selected {
   color: #75ffff !important;
+}
+
+.personagem-status {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px 0;
+}
+
+.vida-status {
+  display: flex;
+  align-items: end;
+  flex-direction: column;
+}
+
+.vida-texto {
+  min-width: 50px;
+  text-align: right;
+  color: #ffffff;
 }
 
 *::-webkit-scrollbar {
@@ -641,11 +709,7 @@ input::-webkit-inner-spin-button {
 
   .box-dados{
     max-width: none;
-  }
-
-  .logo.lg{
-    display: none;
-  }
+  } 
 
   .personagem{
     flex-direction: row;
@@ -663,20 +727,13 @@ input::-webkit-inner-spin-button {
 }
 
 @media screen and (max-width: 900px) {
-  .content {
-    flex-direction: column-reverse;
-    justify-content: start;
-  }
+
   .divisor{
     display: none;
   }
 
   .box-dados{
     max-width: none;
-  }
-
-  .logo.lg{
-    display: none;
   }
 
   .personagem{
@@ -693,7 +750,6 @@ input::-webkit-inner-spin-button {
     backdrop-filter: blur(7px);
   }
 
-
   .personagem-atributos{
     min-height: auto;
     min-width: 300px;
@@ -708,6 +764,9 @@ input::-webkit-inner-spin-button {
     width: 50%;
   }
 
+  .content{
+    padding-bottom: 60px;
+  }
 }
 
 
