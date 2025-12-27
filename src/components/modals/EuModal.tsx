@@ -257,33 +257,6 @@ const EuModal: React.FC<EuModalProps> = ({ open, onClose, player, onSave }) => {
         gap={2}
         gridTemplateColumns={{ xs: "1fr", sm: "repeat(2, 1fr)" }}
       >
-        {/* {Object.entries(atributos).map(([key, atributo]) => (
-            <p className="valor-dado">
-            <img
-              className="svg icon-atributo"
-              src={atributo.icone}
-              alt="ícone de força"
-            />
-            <TextField
-              className="valor-atributo"
-              variant="standard"
-              type="number"
-              value={dadosEditaveis[key as keyof IPlayer]}
-              onChange={(e) =>
-                setDadosEditaveis({
-                  ...dadosEditaveis,
-                  [key]: Number(e.target.value),
-                })
-              }
-              InputProps={{
-                readOnly: !editarDados,
-                disableUnderline: !editarDados,
-              }}
-            />
-            <span>{atributo.label}</span>
-          </p>
-          ))}
-           */}
         {(Object.entries(atributos)).map(([key, atributo]) => {
 
           return (

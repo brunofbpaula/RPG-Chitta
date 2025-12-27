@@ -155,7 +155,7 @@ const RootLayout = () => {
           <source src={import.meta.env.VITE_VIDEO_BG} type="video/mp4"/>
         </video>
       </div>
-      <div className="content">
+      <div className={`content ${user.cyberpsychosis === 100 ? "dead" : ""}`}>
         <div className="box-dados">
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row' }}>
             <div className="logo">
@@ -165,7 +165,11 @@ const RootLayout = () => {
               <IconButton onClick={toggleMusic} title={isPlaying ? "Parar música" : "Tocar música"} color={isPlaying ? "primary" : "warning"}>
                 <AudioLines />
               </IconButton>
-              <IconButton title="Sair" color="primary">
+              <IconButton
+                onClick={() => signOut()}
+                title="Sair"
+                color="primary"
+              >
                 <LogOut />
               </IconButton>
             </div>
