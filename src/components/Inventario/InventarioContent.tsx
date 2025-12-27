@@ -1,20 +1,18 @@
 import { useState } from "react";
-import { ItemInventario } from "../../types";
+import { InventoryFeature, Item } from "../../types";
 import { InventarioHeaderTop } from "./InventarioHeaderTop";
 import { InventarioSearch } from "./InventarioSearch";
 import { InventarioItemAccordion } from "./InventarioItemAccordion";
-import { ConfirmarExclusaoItem } from "./ConfirmarExclusaoItem";
 import CreateItemModal from "../shared/CreateItemModal";
-import { Item } from "@/_root/RootLayout";
 import DeleteItemModal from "../shared/DeleteItemModal";
 
 interface Props {
-  items: Item[];
-  setitems: (items: Item[]) => void;
+  inventory: InventoryFeature;
 }
 
-export function InventarioContent( { items, setitems }: Props ) {
-  
+export function InventarioContent({ inventory }: Props) {
+  const { items, actions } = inventory;
+
   const [busca, setBusca] = useState("");
   const [itemExcluir, setItemExcluir] = useState<Item | null>(null);
   const [addModalOpen, setAddModalOpen] = useState(false);
@@ -32,23 +30,34 @@ export function InventarioContent( { items, setitems }: Props ) {
         <InventarioItemAccordion
           key={item.id}
           item={item}
-          onDelete={setItemExcluir}
+          onDelete={() => setItemExcluir(item)}
         />
       ))}
 
+      {/* MODAL DE CONFIRMAÇÃO */}
       <DeleteItemModal
-        open={itemExcluir !== null}
+        open={!!itemExcluir}
+        itemName={itemExcluir?.name}
         onClose={() => setItemExcluir(null)}
-        itemId={itemExcluir?.id}
+        onConfirm={() => {
+          if (!itemExcluir) return;
+          actions.delete(itemExcluir.id);
+          setItemExcluir(null);
+        }}
       />
 
+      {/* MODAL DE CRIAÇÃO */}
       <CreateItemModal
         open={addModalOpen}
         onClose={() => setAddModalOpen(false)}
-        playerId={""}
+        onCreate={(data) => {
+          actions.create({
+            id: crypto.randomUUID(),
+            quantity: 1,
+            ...data,
+          });
+        }}
       />
-
-      
     </>
   );
 }

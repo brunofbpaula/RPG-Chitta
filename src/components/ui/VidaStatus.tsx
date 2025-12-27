@@ -13,7 +13,7 @@ export function VidaStatus({ atual, max }: VidaStatusProps) {
         </Typography>
 
       <Slider
-        value={atual}
+        value={atual > max ? max : atual}
         min={0}
         max={max}
         sx={{

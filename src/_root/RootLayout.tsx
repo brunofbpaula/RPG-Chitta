@@ -1,39 +1,22 @@
 import { useEffect, useRef, useState } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
-import { useSignOutAccount } from '@/lib/react-query/queriesAndMutation';
-import Avatar from '@/components/ui/avatar';
-import EuModal from '@/components/modals/EuModal';
-import PericiasModal from '@/components/modals/PericiasModal';
-import { ResponsiveTabs } from '@/components/ResponsiveTabs/ResponsiveTabs';
-import { useUserContext } from '@/context/AuthContext';
-import { getPlayerItems, getPlayerNotes, getPlayerRelics, updateRelics, updateUser } from '@/lib/appwrite/api';
-import AtributoBar from '@/components/Atributos/Barra';
-import AtributosModal from '@/components/modals/AtributosModal';
+import { useNavigate } from 'react-router-dom';
 import { AudioLines, LogOut } from 'lucide-react';
-import { VidaStatus } from '@/components/ui/VidaStatus';
 import { Box, IconButton } from '@mui/material';
 
-interface RelicsDocument {
-  $id: string;
-  player: string;
-  data: Record<string, number>;
-}
+import { InventoryFeature, Item, Note, NotesFeature, RelicsDocument } from '@/types';
+import { useUserContext } from '@/context/AuthContext';
+import { useSignOutAccount } from '@/lib/react-query/queriesAndMutation';
+import { getPlayerItems, getPlayerNotes, getPlayerRelics, updateRelics, updateUser } from '@/lib/appwrite/api';
 
-export interface Item {
-  id: string;
-  name: string;
-  description: string;
-  image?: string;
-  quantity: number;
-}
+import EuModal from '@/components/modals/EuModal';
+import PericiasModal from '@/components/modals/PericiasModal';
+import Avatar from '@/components/ui/avatar';
+import AtributoBar from '@/components/Atributos/Barra';
+import AtributosModal from '@/components/modals/AtributosModal';
+import { ResponsiveTabs } from '@/components/ResponsiveTabs/ResponsiveTabs';
+import { VidaStatus } from '@/components/ui/VidaStatus';
 
-export interface Note {
-  $id: string;
-  title: string;
-  text: string;
-  createdAt: string;
-}
-
+import PhantomAudio from '@/assets/audio/Phantom-Liberty.mp3';
 
 
 const RootLayout = () => {
@@ -52,8 +35,6 @@ const RootLayout = () => {
   const [EuModalOpen, setEuModalOpen] = useState(false);
   const [PericiasModalOpen, setPericiasModalOpen] = useState(false);
   const [AtributosModalOpen, setAtributosModalOpen] = useState(false);
-  const [vidaAtual, setVidaAtual] = useState(65);
-  const vidaMaxima = 100;  
   
   const toggleMusic = () => {
     if (!audioRef.current) return;
@@ -93,6 +74,34 @@ const RootLayout = () => {
         : prev
     );
   };
+
+
+  const inventoryFeature: InventoryFeature = {
+    items,
+    actions: {
+      create: (newItem) => {
+        setItems((prev) => [newItem, ...prev]);
+      },
+      delete: (itemId) => {
+        setItems((prev) => prev.filter((item) => item.id !== itemId));
+      },
+    },
+  };
+
+
+  const notesFeature: NotesFeature = {
+    notes,
+    actions: {
+      create: (newNote) => {
+        setNotes((prev) => [newNote, ...prev]);
+      },
+      delete: (noteId) => {
+        setNotes((prev) => prev.filter((note) => note.$id !== noteId));
+      },
+    },
+  };
+
+
 
   useEffect(() => {
     if (isSuccess) navigate(0);
@@ -135,11 +144,12 @@ const RootLayout = () => {
     loadNotes();
     loadItems();
     loadRelics();
-  }, [user]);  
+  }, [user]);
   
   
   return (
     <div className="container-rpg">
+      <audio src={PhantomAudio} ref={audioRef}></audio>
       <div className="video-bg">
         <video autoPlay muted loop playsInline>
           <source src={import.meta.env.VITE_VIDEO_BG} type="video/mp4"/>
@@ -163,7 +173,7 @@ const RootLayout = () => {
 
           <div className="personagem">
             <div className="personagem-status">
-              <VidaStatus atual={vidaAtual} max={vidaMaxima} />
+              <VidaStatus atual={user.currentHealth} max={user.maxHealth} />
             </div>
 
             <div className="personagem-dados">
@@ -182,13 +192,6 @@ const RootLayout = () => {
               <div className="titulo-atributos">
                 <div className="titulo-atributos-header">
                   <h4>ATRIBUTOS</h4>
-                  {/* <button
-                    className="btn-editar-atributos cursor-pointer"
-                    onClick={() => setAtributosModalOpen(true)}
-                    title="Editar atributos"
-                  >
-                    <SquarePen size={16} />
-                  </button> */}
                 </div>
               </div>
               <div className="box-atributos">
@@ -208,7 +211,10 @@ const RootLayout = () => {
           </svg>
         </div>
         <div className="box-conteudo">
-          <ResponsiveTabs items={items} notes={notes}/>
+          <ResponsiveTabs
+            items={inventoryFeature}
+            notes={notesFeature}
+          />        
         </div>
       </div>
 

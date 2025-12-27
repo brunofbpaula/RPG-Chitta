@@ -9,7 +9,7 @@ import {
 import { TransitionProps } from "@mui/material/transitions";
 import { X } from "lucide-react";
 import { getTabs } from "./tabs.config";
-import { PlayerInfo } from "./ResponsiveTabs";
+import { PlayerTabsProps } from "@/types";
 
 
 const Transition = forwardRef(function Transition(
@@ -19,7 +19,7 @@ const Transition = forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export function MobileTabs({ items, notes }: PlayerInfo) {
+export function MobileTabs({ items, notes }: PlayerTabsProps) {
   const [value, setValue] = useState(0);
   const [open, setOpen] = useState(false);
 

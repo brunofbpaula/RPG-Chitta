@@ -5,46 +5,31 @@ import {
   DialogContent,
   DialogActions,
   Button,
-  TextField
+  TextField,
 } from "@mui/material";
 
-import { useCreateItem } from "@/lib/react-query/queriesAndMutation";
+const imageOptions = [
+  "https://fra.cloud.appwrite.io/v1/storage/buckets/67e997fe001920450224/files/6935fa250029c4948262/view?project=67d9eaea00378fb3eb2f&mode=admin",
+  "https://fra.cloud.appwrite.io/v1/storage/buckets/67e997fe001920450224/files/6935f7d80039bf21e491/view?project=67d9eaea00378fb3eb2f&mode=admin",
+  "https://fra.cloud.appwrite.io/v1/storage/buckets/67e997fe001920450224/files/6935f9e60019e281e50e/view?project=67d9eaea00378fb3eb2f&mode=admin",
+];
 
-interface CreateModalProps {
+interface CreateItemModalProps {
   open: boolean;
   onClose: () => void;
-  playerId: string;
+  onCreate: (item: {
+    name: string;
+    description: string;
+    image: string;
+  }) => void;
 }
 
-const CreateItemModal: React.FC<CreateModalProps> = ({ open, onClose, playerId }) => {
-  const createItemMutation = useCreateItem();
-  
-  const imageOptions = [
-      "https://fra.cloud.appwrite.io/v1/storage/buckets/67e997fe001920450224/files/6935fa250029c4948262/view?project=67d9eaea00378fb3eb2f&mode=admin",
-      "https://fra.cloud.appwrite.io/v1/storage/buckets/67e997fe001920450224/files/6935f7d80039bf21e491/view?project=67d9eaea00378fb3eb2f&mode=admin",
-      "https://fra.cloud.appwrite.io/v1/storage/buckets/67e997fe001920450224/files/6935f9e60019e281e50e/view?project=67d9eaea00378fb3eb2f&mode=admin"
-  ];
-
+const CreateItemModal = ({ open, onClose, onCreate }: CreateItemModalProps) => {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    image: ""
+    image: "",
   });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e);
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleSelectImage = (url: string) => {
-    setFormData({
-      ...formData,
-      image: url
-    });
-  };
 
   const handleSubmit = () => {
     if (!formData.name || !formData.description || !formData.image) {
@@ -52,170 +37,56 @@ const CreateItemModal: React.FC<CreateModalProps> = ({ open, onClose, playerId }
       return;
     }
 
-    createItemMutation.mutate(
-      { item: formData, playerId }, // objetos que a mutação espera
-      {
-        onSuccess: () => {
-          setFormData({ name: "", description: "", image: "" });
-          onClose();
-        },
-        onError: (error) => {
-          console.error("Erro ao criar item:", error);
-          alert("Erro ao criar item.");
-        },
-      }
-    );
+    onCreate(formData);
+
+    setFormData({ name: "", description: "", image: "" });
+    onClose();
   };
 
-
   return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-      PaperProps={{
-        sx: {
-          backgroundColor: "rgba(0,0,0,0.8)",
-          border: "1px solid #ef4444",
-          backdropFilter: "blur(6px)",
-          borderRadius: "12px",
-          padding: "16px",
-          maxWidth: "500px",
-          width: "500px",
-        },
-      }}
-      BackdropProps={{
-        style: {
-          backgroundColor: "rgba(0,0,0,0.8)",
-          backdropFilter: "blur(6px)",
-        },
-      }}
-    >
+    <Dialog open={open} onClose={onClose}>
+      <DialogTitle>Adicionar Item</DialogTitle>
 
-      <DialogContent
-        sx={{
-          p: 0, // remove padding padrão
-          display: "flex",
-          flexDirection: "column",
-          gap: 2,
-        }}
-      >
-        <DialogTitle
-          sx={{
-            color: "white",
-            fontWeight: "bold",
-            fontSize: "1.25rem",
-          }}
-        >
-          Adicionar Item
-        </DialogTitle>
+      <DialogContent sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
         <TextField
           label="Nome do Item"
           name="name"
           value={formData.name}
-          onChange={handleChange}
-          fullWidth
-          InputProps={{
-            sx: {
-              color: "white",
-              "& .MuiOutlinedInput-notchedOutline": { borderColor: "#ef4444" },
-              "&:hover .MuiOutlinedInput-notchedOutline": { borderColor: "white" },
-              "&.Mui-focused .MuiOutlinedInput-notchedOutline": { borderColor: "white" },
-              "& input:-webkit-autofill": {
-              WebkitBoxShadow: "0 0 0 1000px rgba(0,0,0,0.8) inset", // mantém o fundo escuro
-              WebkitTextFillColor: "white", // mantém texto branco
-              transition: "background-color 5000s ease-in-out 0s", // remove efeito brusco
-            },
-            },
-          }}
-          InputLabelProps={{
-            sx: {
-              color: "white",
-              fontSize: "0.85rem", // label menor
-              "&.Mui-focused": {
-                color: "white",
-                fontSize: "0.75rem",
-              },
-            },
-          }}
+          onChange={(e) =>
+            setFormData({ ...formData, name: e.target.value })
+          }
         />
 
         <TextField
-          label="Descrição do item"
+          label="Descrição"
           name="description"
           value={formData.description}
-          onChange={handleChange}
-          fullWidth
-          InputProps={{
-            sx: {
-              color: "white",
-              "& .MuiOutlinedInput-notchedOutline": { borderColor: "#ef4444" },
-              "&:hover .MuiOutlinedInput-notchedOutline": { borderColor: "white" },
-              "&.Mui-focused .MuiOutlinedInput-notchedOutline": { borderColor: "white" },
-              "& input:-webkit-autofill": {
-              WebkitBoxShadow: "0 0 0 1000px rgba(0,0,0,0.8) inset", // mantém o fundo escuro
-              WebkitTextFillColor: "white", // mantém texto branco
-              transition: "background-color 5000s ease-in-out 0s", // remove efeito brusco
-            },
-            },
-          }}
-          InputLabelProps={{
-            sx: {
-              color: "white",
-              fontSize: "0.85rem",
-              "&.Mui-focused": {
-                color: "white",
-                fontSize: "0.75rem",
-              },
-            },
-          }}
+          onChange={(e) =>
+            setFormData({ ...formData, description: e.target.value })
+          }
         />
-        <span className="text-white font-semibold mt-2">ÍCONE DO ITEM</span>
-        <div className="flex gap-2 mt-2">
-          {imageOptions.map((img, idx) => (
-            <div
-              key={idx}
-              onClick={() => handleSelectImage(img)}
-              className={`p-1 rounded cursor-pointer transition border-2 ${
-                formData.image === img
-                  ? "border-red-500"
-                  : "border-transparent hover:border-white/40"
+
+        <div className="flex gap-2">
+          {imageOptions.map((img) => (
+            <img
+              key={img}
+              src={img}
+              onClick={() => setFormData({ ...formData, image: img })}
+              className={`h-16 w-16 cursor-pointer border ${
+                formData.image === img ? "border-red-500" : "border-transparent"
               }`}
-            >
-              <img
-                src={img}
-                alt={`Opção ${idx + 1}`}
-                className="h-16 w-16 object-cover"
-              />
-            </div>
+            />
           ))}
         </div>
       </DialogContent>
 
-      <DialogActions sx={{ paddingTop: "12px" }}>
-        <Button
-          onClick={onClose}
-          sx={{
-            color: "white",
-            border: "1px solid gray",
-            "&:hover": { backgroundColor: "rgba(75,85,99,0.2)" },
-          }}
-        >
-          Cancelar
-        </Button>
-        <Button
-          onClick={handleSubmit}
-          sx={{
-            backgroundColor: "#ef4444",
-            color: "white",
-            fontWeight: "500",
-            "&:hover": { backgroundColor: "#dc2626", boxShadow: "0 0 8px #ef4444" },
-          }}
-        >
+      <DialogActions>
+        <Button onClick={onClose}>Cancelar</Button>
+        <Button onClick={handleSubmit} variant="contained" color="error">
           Adicionar
         </Button>
       </DialogActions>
     </Dialog>
-
   );
 };
 

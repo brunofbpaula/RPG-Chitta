@@ -295,12 +295,33 @@ const EuModal: React.FC<EuModalProps> = ({ open, onClose, player, onSave }) => {
                 variant="standard"
                 type="number"
                 value={dadosEditaveis[key as keyof IPlayer]}
-                onChange={(e) =>
-                  setDadosEditaveis({
-                    ...dadosEditaveis,
-                    [key]: Number(e.target.value),
-                  })
-                }
+                onChange={(e) => {
+                  const value = Number(e.target.value);
+
+                  setDadosEditaveis((prev) => {
+                    // Se estiver alterando vida atual
+                    if (key === "currentHealth") {
+                      return {
+                        ...prev,
+                        currentHealth: Math.min(value, prev.maxHealth),
+                      };
+                    }
+
+                    // Se estiver alterando vida máxima
+                    if (key === "maxHealth") {
+                      return {
+                        ...prev,
+                        maxHealth: value,
+                        currentHealth: Math.min(prev.currentHealth, value),
+                      };
+                    }
+
+                    return {
+                      ...prev,
+                      [key]: value,
+                    };
+                  });
+                }}
                 InputProps={{
                   readOnly: !editarDados,
                   disableUnderline: !editarDados,

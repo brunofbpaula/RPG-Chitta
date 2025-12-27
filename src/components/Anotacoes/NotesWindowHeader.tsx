@@ -1,6 +1,6 @@
+import { Note } from "@/types";
 import { Box, IconButton, Paper, Typography } from "@mui/material";
 import { ArrowLeft } from "lucide-react";
-import { Note } from "@/_root/RootLayout";
 
 interface Props {
   note: Note;

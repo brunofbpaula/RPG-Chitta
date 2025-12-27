@@ -48,6 +48,52 @@ export type INewPlayer = {
     resilience: number;
 }
 
+export interface RelicsDocument {
+  $id: string;
+  player: string;
+  data: Record<string, number>;
+}
+
+export interface Item {
+  id: string;
+  name: string;
+  description: string;
+  image?: string;
+  quantity: number;
+}
+
+export interface Note {
+  $id: string;
+  title: string;
+  text: string;
+  createdAt: string;
+}
+
+export interface InventoryActions {
+  create: (item: Item) => void;
+  delete: (itemId: string) => void;
+}
+
+export interface NotesActions {
+  create: (note: Note) => void;
+  delete: (noteId: string) => void;
+}
+
+export interface InventoryFeature {
+  items: Item[];
+  actions: InventoryActions;
+}
+
+export interface NotesFeature {
+  notes: Note[];
+  actions: NotesActions;
+}
+
+export interface PlayerTabsProps {
+  items: InventoryFeature;
+  notes: NotesFeature;
+}
+
 export interface Contato {
   id: string;
   nome: string;
@@ -60,18 +106,4 @@ export interface Mensagem {
   texto: string;
   autor: "eu" | "outro";
   data?: string;
-}
-
-export interface ItemInventario {
-  id: string;
-  nome: string;
-  descricao: string;
-  imagem: string;
-}
-
-export interface Nota {
-  id: string;
-  titulo: string;
-  conteudo: string;
-  updatedAt: string;
 }

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Tabs, Tab, Box } from "@mui/material";
 import { getTabs } from "./tabs.config";
-import { PlayerInfo } from "./ResponsiveTabs";
+import { PlayerTabsProps } from "@/types";
 
 function CustomTabPanel({
   value,
@@ -21,7 +21,7 @@ function CustomTabPanel({
   );
 }
 
-export function DesktopTabs({ items, notes }: PlayerInfo) {
+export function DesktopTabs({ items, notes }: PlayerTabsProps) {
   const [value, setValue] = useState(0);
 
   const TABS = getTabs({ items, notes });

@@ -1,14 +1,9 @@
 import { useTheme, useMediaQuery } from "@mui/material";
 import { DesktopTabs } from "./DesktopTabs";
 import { MobileTabs } from "./MobileTabs";
-import { Item, Note } from "@/_root/RootLayout";
+import { PlayerTabsProps } from "@/types";
 
-export type PlayerInfo = {
-  items: Item[];
-  notes: Note[];
-};
-
-export function ResponsiveTabs({ items, notes }: PlayerInfo) {
+export function ResponsiveTabs({ items, notes }: PlayerTabsProps) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 

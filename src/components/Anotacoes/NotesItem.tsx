@@ -1,6 +1,6 @@
+import { Note } from "@/types";
 import { Box, IconButton, Typography } from "@mui/material";
 import { Trash2 } from "lucide-react";
-import { Note } from "@/_root/RootLayout";
 
 interface Props {
   note: Note;
