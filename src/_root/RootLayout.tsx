@@ -134,6 +134,9 @@ const RootLayout = () => {
               <IconButton onClick={toggleMusic} title={isPlaying ? "Parar música" : "Tocar música"} color={isPlaying ? "primary" : "warning"}>
                 <AudioLines />
               </IconButton>
+              <IconButton title="Sair" color="primary">
+                <LogOut />
+              </IconButton>
             </div>
           </Box>
 
