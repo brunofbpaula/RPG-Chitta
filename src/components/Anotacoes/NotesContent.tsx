@@ -26,7 +26,7 @@ export function NotesContent({ notepad }: Props) {
   function createNewNote() {
     const newNote: Note = {
       $id: crypto.randomUUID(),
-      title: "New note",
+      title: "Nova Anotação",
       text: "",
       createdAt: new Date().toISOString(),
     };
@@ -47,9 +47,11 @@ export function NotesContent({ notepad }: Props) {
     setNoteToDelete(null);
   }
 
+  const [title, setTitle] = useState(activeNote ? activeNote.title : "");
+
   return (
     <>
-      <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
+      <Box sx={{ height: "100%", display: "grid", gridTemplateRows: "auto 1fr" }}>
         {!activeNote ? (
           <NotesListHeader
             value={search}
@@ -60,19 +62,22 @@ export function NotesContent({ notepad }: Props) {
           <NotesWindowHeader
             note={activeNote}
             onBack={() => setActiveNoteId(null)}
-
+            onChange={setTitle}
           />
         )}
 
         {!activeNote ? (
-          filteredNotes.map((note) => (
-            <NotesItem
-              key={note.$id}
-              note={note}
-              onSelect={() => setActiveNoteId(note.$id)}
-              onDelete={() => setNoteToDelete(note)}
-            />
-          ))
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 1, overflowY: "auto", p: 1, maxHeight: "75dvh" }}>
+            {filteredNotes.map((note) => (
+              <NotesItem
+                key={note.$id}
+                note={note}
+                onSelect={() => setActiveNoteId(note.$id)}
+                onDelete={() => setNoteToDelete(note)}
+                />
+            ))}
+          </Box>
+
         ) : (
           <NotesWindow
             note={activeNote}
