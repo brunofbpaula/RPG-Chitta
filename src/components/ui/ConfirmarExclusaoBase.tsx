@@ -32,10 +32,6 @@ export function ConfirmarExclusaoBase({
           <Box display="flex" gap={1} alignItems="center">
             <Typography fontSize={"1.25rem"} fontFamily={"Rajdhani"} sx={{ color: "rgb(0 255 255)", padding: 0 }}>{title}</Typography>
           </Box>
-
-          <IconButton onClick={onCancel}>
-            <X size={18} />
-          </IconButton>
         </Box>
       </DialogTitle>
 

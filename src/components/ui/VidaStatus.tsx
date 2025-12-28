@@ -17,7 +17,7 @@ export function VidaStatus({ atual, max }: VidaStatusProps) {
         min={0}
         max={max}
         sx={{
-          color: "#6fff75",
+          color: "rgb(0 255 255)",
           borderRadius: 0,
           py: 0.5,
           height: 16,

@@ -32,7 +32,7 @@ export function ChatWindow({ contato }: Props) {
         id: crypto.randomUUID(),
         texto,
         autor: "eu",
-        error: true, // 🔴 sempre erro visual
+        error: true,
       },
     ]);
   }

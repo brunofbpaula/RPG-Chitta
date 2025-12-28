@@ -212,7 +212,7 @@ const RootLayout = () => {
                 <h4 className='logo-titulo'>ANJOS DE FERRO</h4>
             </div>
             <Box sx={{ textAlign: 'end'}}>
-              <IconButton onClick={toggleMusic} title={isPlaying ? "Parar música" : "Tocar música"} color={isPlaying ? "primary" : "warning"}>
+              <IconButton onClick={toggleMusic} title={isPlaying ? "Parar música" : "Tocar música"} color={isPlaying ? "primary" : "secondary"}>
                 <AudioLines />
               </IconButton>
               <IconButton

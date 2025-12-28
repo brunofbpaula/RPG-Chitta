@@ -7,7 +7,7 @@ import {
   IconButton,
 } from "@mui/material";
 import { ChevronDown, Trash2 } from "lucide-react";
-import { Item } from "@/_root/RootLayout";
+import { Item } from "@/types";
 
 interface Props {
   item: Item;
@@ -63,7 +63,7 @@ export function InventarioItemAccordion({ item, onDelete }: Props) {
         }}
       >
         <Box display="flex" gap={2}>
-          <img src={item.image} width={100} />
+          <img src={item.image} width={100} className="icon-item" />
           <Typography className="font-cyberpunk">{item.description}</Typography>
         </Box>
       </AccordionDetails>

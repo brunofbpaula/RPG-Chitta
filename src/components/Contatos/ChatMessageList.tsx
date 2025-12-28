@@ -15,6 +15,7 @@ export function ChatMessageList({ mensagens }: Props) {
         display: "flex",
         flexDirection: "column",
         gap: 1,
+        boxShadow: "inset 0px 0px 20px 0px rgb(117 255 255 / 32%)"
       }}
     >
       {mensagens.map((msg) => {
@@ -26,13 +27,13 @@ export function ChatMessageList({ mensagens }: Props) {
             sx={{
               display: "flex",
               flexDirection: "column",
-              alignItems: isMe ? "flex-end" : "flex-start",
+              alignItems: isMe ? "flex-end" : "flex-start"
             }}
           >
             <Box
               sx={{
                 maxWidth: "75%",
-                background: msg.error ? "#2a0000" : "#111",
+                background: msg.error ? "#2a0000" : "rgb(117 255 255 / 40%)",
                 border: msg.error ? "1px solid #d32f2f" : "none",
                 color: msg.error ? "#ff6b6b" : "#fff",
                 px: 1.4,
@@ -50,7 +51,7 @@ export function ChatMessageList({ mensagens }: Props) {
               <Typography
                 sx={{
                   color: "#d32f2f",
-                  fontSize: "0.65rem",
+                  fontSize: "0.75rem",
                   mt: 0.3,
                   maxWidth: "75%",
                   textAlign: isMe ? "right" : "left",

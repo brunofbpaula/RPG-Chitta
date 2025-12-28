@@ -6,16 +6,21 @@ import {
   DialogActions,
   Button,
   TextField,
-  Typography,
   IconButton,
   Box,
 } from "@mui/material";
 import { X } from "lucide-react";
 
 const imageOptions = [
-  "https://fra.cloud.appwrite.io/v1/storage/buckets/67e997fe001920450224/files/6935fa250029c4948262/view?project=67d9eaea00378fb3eb2f&mode=admin",
-  "https://fra.cloud.appwrite.io/v1/storage/buckets/67e997fe001920450224/files/6935f7d80039bf21e491/view?project=67d9eaea00378fb3eb2f&mode=admin",
-  "https://fra.cloud.appwrite.io/v1/storage/buckets/67e997fe001920450224/files/6935f9e60019e281e50e/view?project=67d9eaea00378fb3eb2f&mode=admin",
+  "https://cdn-icons-png.flaticon.com/512/8170/8170283.png",
+  "https://cdn-icons-png.flaticon.com/512/12728/12728932.png",
+  "https://cdn-icons-png.flaticon.com/512/4198/4198134.png",
+  "https://cdn-icons-png.flaticon.com/512/7440/7440105.png",
+  "https://cdn-icons-png.flaticon.com/512/7440/7440082.png",
+  "https://cdn-icons-png.flaticon.com/512/7440/7440109.png",
+  "https://cdn-icons-png.flaticon.com/512/17728/17728078.png",
+  "https://cdn-icons-png.flaticon.com/512/12728/12728907.png",
+  "https://cdn-icons-png.flaticon.com/512/8334/8334481.png"
 ];
 
 interface CreateItemModalProps {
@@ -81,14 +86,14 @@ const CreateItemModal = ({ open, onClose, onCreate }: CreateItemModalProps) => {
           size="small"
         />
 
-        <div className="flex gap-2">
+        <div className="flex gap-2 overflow-x-auto py-2">
           {imageOptions.map((img) => (
             <img
               key={img}
               src={img}
               onClick={() => setFormData({ ...formData, image: img })}
-              className={`h-16 w-16 cursor-pointer border ${
-                formData.image === img ? "border-red-500" : "border-transparent"
+              className={`h-16 w-16 cursor-pointer border icon-item ${
+                formData.image === img ? "border-primary" : "border-transparent"
               }`}
             />
           ))}

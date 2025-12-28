@@ -169,6 +169,11 @@
   font-weight: 400;
 }
 
+.MuiTypography-root{
+  font-family: "rajdhani" !important;
+  font-size: 1rem;
+}
+
 .MuiTextField-root .MuiInputBase-root{
   color: #75ffff !important;
   font-family: 'Rajdhani';
@@ -189,10 +194,30 @@
   color: #ffeb00 !important;
 }
 
+.border-primary{
+  border-color: #ffffff !important;
+}
+
+.icon-item{
+  filter: invert(18%) sepia(100%) saturate(7475%) hue-rotate(345deg) brightness(103%) contrast(104%);
+  padding: 4px;
+}
+
+.MuiListItemText-primary{
+  font-size: 1.1rem !important;
+}
+.MuiListItemText-secondary{
+  color: #ffeb00 !important;
+  font-size: 1rem !important;
+}
+
+.MuiIconButton-colorSecondary{
+  color: rgba(94, 247, 255, 1) !important;
+}
+
 .MuiTextField-root .MuiInputBase-root::before{
   border-bottom: 1px solid rgba(94, 247, 255, 0.582);
 }
-
 
 .MuiOutlinedInput-notchedOutline:hover{
   border-color: rgb(77 77 77 / 24%);
