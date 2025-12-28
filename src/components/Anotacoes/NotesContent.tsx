@@ -47,7 +47,6 @@ export function NotesContent({ notepad }: Props) {
     setNoteToDelete(null);
   }
 
-  const [title, setTitle] = useState(activeNote ? activeNote.title : "");
 
   return (
     <>
@@ -62,7 +61,9 @@ export function NotesContent({ notepad }: Props) {
           <NotesWindowHeader
             note={activeNote}
             onBack={() => setActiveNoteId(null)}
-            onChange={setTitle}
+            onSave={(data) => {
+              actions.update(activeNote.$id, data);
+            }}
           />
         )}
 

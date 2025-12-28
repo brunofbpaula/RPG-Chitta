@@ -7,17 +7,17 @@ import { ChatMessageInput } from "./ChatMessageInput";
 interface Props {
   contato: Contato;
 }
-
 export function ChatWindow({ contato }: Props) {
   const [mensagens, setMensagens] = useState<Mensagem[]>([]);
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Simulação de histórico da conversa
     setMensagens([
-      { id: "1", texto: "Oi!", autor: "outro" },
-      { id: "2", texto: "Tudo bem?", autor: "outro" },
-      { id: "3", texto: "Tudo sim 😄", autor: "eu" },
+      {
+        id: "1",
+        texto: "Zenith, Setor Empresarial, Ambrael, 85º andar, 09:30am 03/01/2068.",
+        autor: "outro",
+      },
     ]);
   }, [contato.id]);
 
@@ -32,6 +32,7 @@ export function ChatWindow({ contato }: Props) {
         id: crypto.randomUUID(),
         texto,
         autor: "eu",
+        error: true, // 🔴 sempre erro visual
       },
     ]);
   }
@@ -41,13 +42,13 @@ export function ChatWindow({ contato }: Props) {
       sx={{
         display: "flex",
         flexDirection: "column",
-        height: '75dvh',
+        height: "75dvh",
         background: "rgb(0 0 0 / 40%)",
       }}
     >
       <ChatMessageList mensagens={mensagens} />
-
       <ChatMessageInput onSend={enviarMensagem} />
     </Box>
   );
 }
+

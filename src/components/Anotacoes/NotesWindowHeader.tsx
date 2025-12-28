@@ -1,14 +1,32 @@
 import { Note } from "@/types";
 import { Box, IconButton, InputBase, Paper, Typography } from "@mui/material";
 import { ArrowLeft } from "lucide-react";
+import { useEffect, useState } from "react";
 
 interface Props {
   note: Note;
   onBack: () => void;
-  onChange: (title: string) => void;
+  onSave: (data: { title: string }) => void;
 }
 
-export function NotesWindowHeader({ note, onBack, onChange }: Props) {
+export function NotesWindowHeader({ note, onBack, onSave }: Props) {
+  const [title, setTitle] = useState(note.title);
+
+  useEffect(() => {
+      setTitle(note.title);
+    }, [note.$id, note.title]);
+  
+  
+    useEffect(() => {
+      const timeout = setTimeout(() => {
+        if (title !== note.title) {
+          onSave({ title });
+        }
+      }, 600); // 600ms é bom para não travar
+  
+      return () => clearTimeout(timeout);
+    }, [title]);
+
   return (
     <Paper
       sx={{
@@ -41,8 +59,8 @@ export function NotesWindowHeader({ note, onBack, onChange }: Props) {
         }}
       >
         <InputBase
-          value={note.title}
-          onChange={(e) => onChange(e.target.value)}
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
           sx={{
             color: "#000000",
             fontWeight: 600,

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AudioLines, LogOut } from 'lucide-react';
-import { Box, IconButton } from '@mui/material';
+import { Box, IconButton, Select } from '@mui/material';
 
 import { CreateItemData, InventoryFeature, Item, 
          CreateNoteData, NotesFeature, Note,
@@ -241,7 +241,6 @@ const RootLayout = () => {
                 </button>
               </div>
             </div>
-
             <div className="personagem-atributos">
               <div className="titulo-atributos">
                 <div className="titulo-atributos-header">
@@ -284,6 +283,7 @@ const RootLayout = () => {
         <PericiasModal
           open={PericiasModalOpen}
           onClose={() => setPericiasModalOpen(false)}
+          player={user}
           relics={relics?.data ?? null}
           onSave={handleSavePericias}
         />

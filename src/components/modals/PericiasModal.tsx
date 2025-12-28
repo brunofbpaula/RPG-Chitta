@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { Save, X } from "lucide-react";
+import { IPlayer } from "@/types";
 
 
 interface PlayerRelics {
@@ -18,12 +19,14 @@ interface PlayerRelics {
 interface PericiasModalProps {
   open: boolean;
   onClose: () => void;
+  player: IPlayer;
   relics: PlayerRelics | null;
   onSave: (data: Record<string, number>) => Promise<void>;
 }
 
-const PericiasModal: React.FC<PericiasModalProps> = ({ open, onClose, relics, onSave }) => {
-
+const PericiasModal: React.FC<PericiasModalProps> = ({ open, onClose, player, relics, onSave }) => {
+  const cyberColapso = player.cyberpsychosis === 100;
+  
   const periciasBase: Record<string, string> = {
     autopsy: "Autópsia",
     medicine: "Medicina",
@@ -100,7 +103,33 @@ const PericiasModal: React.FC<PericiasModalProps> = ({ open, onClose, relics, on
           borderRadius: 0,
           p: 3,
           clipPath: "polygon(4% 0, 100% 0, 100% 0%, 100% 100%, 4% 100%, 0 95%, 0 6%)",
-          boxShadow: "inset -2px 0px 25px 0px rgb(94 246 255 / 30%)"
+          
+          ...(cyberColapso && {
+            animation: "glitchContainer 0.35s infinite",
+            filter:
+              "drop-shadow(-2px 0 red) drop-shadow(2px 0 cyan)",
+          }),
+
+          "@keyframes glitchContainer": {
+            "0%": { transform: "translate(0)" },
+            "20%": { transform: "translate(-2px, 1px)" },
+            "40%": { transform: "translate(2px, -1px)" },
+            "60%": { transform: "translate(-1px, 0)" },
+            "80%": { transform: "translate(1px, 1px)" },
+            "100%": { transform: "translate(0)" },
+          },
+
+          "&::after": cyberColapso
+            ? {
+                content: '""',
+                position: "absolute",
+                inset: 0,
+                pointerEvents: "none",
+                background:
+                  "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,0,0,0.06) 3px)",
+                mixBlendMode: "overlay",
+              }
+            : {},
         },
       }}
       BackdropProps={{
@@ -123,6 +152,18 @@ const PericiasModal: React.FC<PericiasModalProps> = ({ open, onClose, relics, on
           backgroundColor: 'rgb(0 0 0 / 30%)',
           backdropFilter: 'blur(7px)',
           zIndex: 10,
+
+          ...(cyberColapso && {
+              animation: "glitchContainer 0.35s infinite",
+              filter:
+                "drop-shadow(-2px 0 red) drop-shadow(2px 0 cyan)",
+              "@keyframes glitchHeader": {
+                "0%": { transform: "translateX(0)" },
+                "50%": { transform: "translateX(-1px)" },
+                "100%": { transform: "translateX(0)" },
+              },
+            }
+          )
         }}
       >
         <Typography
@@ -162,7 +203,12 @@ const PericiasModal: React.FC<PericiasModalProps> = ({ open, onClose, relics, on
           spacing={{ xs: 2, md: 3 }} 
           columns= {{ xs: 4, sm: 8, md: 12 }}
           sx={{
-            justifyContent: 'center'
+            justifyContent: 'center',
+            ...(cyberColapso && {
+              animation: "glitchContainer 0.35s infinite",
+              filter:
+                "drop-shadow(-2px 0 red) drop-shadow(2px 0 cyan)",
+            })
           }}
           className="form-pericias"
         >

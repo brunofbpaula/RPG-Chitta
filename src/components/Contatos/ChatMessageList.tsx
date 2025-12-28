@@ -14,34 +14,54 @@ export function ChatMessageList({ mensagens }: Props) {
         p: 2,
         display: "flex",
         flexDirection: "column",
-        height: "100%",
         gap: 1,
       }}
     >
-      {mensagens.map((msg) => (
-        <Box
-          key={msg.id}
-          sx={{
-            alignSelf:
-              msg.autor === "eu"
-                ? "flex-end"
-                : "flex-start",
-            maxWidth: "70%",
-            
-            px: 1.5,
-            py: 1,
-            borderRadius: 2,
-            background:
-              msg.autor === "eu"
-                ? "rgb(255 235 0 / 40%)"
-                : "rgb(84 219 228 / 40%)",
-          }}
-        >
-          <Typography sx={{ color: "#fff" }}>
-            {msg.texto}
-          </Typography>
-        </Box>
-      ))}
+      {mensagens.map((msg) => {
+        const isMe = msg.autor === "eu";
+
+        return (
+          <Box
+            key={msg.id}
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: isMe ? "flex-end" : "flex-start",
+            }}
+          >
+            <Box
+              sx={{
+                maxWidth: "75%",
+                background: msg.error ? "#2a0000" : "#111",
+                border: msg.error ? "1px solid #d32f2f" : "none",
+                color: msg.error ? "#ff6b6b" : "#fff",
+                px: 1.4,
+                py: 1,
+                borderRadius: 1.2,
+                wordBreak: "break-word",
+              }}
+            >
+              <Typography sx={{ fontSize: "0.95rem" }}>
+                {msg.texto}
+              </Typography>
+            </Box>
+
+            {msg.error && (
+              <Typography
+                sx={{
+                  color: "#d32f2f",
+                  fontSize: "0.65rem",
+                  mt: 0.3,
+                  maxWidth: "75%",
+                  textAlign: isMe ? "right" : "left",
+                }}
+              >
+                NÃO FOI POSSÍVEL ENVIAR A MENSAGEM.
+              </Typography>
+            )}
+          </Box>
+        );
+      })}
     </Box>
   );
 }

@@ -3,6 +3,7 @@ import { NotesContent } from "../Anotacoes/NotesContent";
 import { InventarioContent } from "../Inventario/InventarioContent";
 import { ContatosContent } from "../Contatos/ContatosContent";
 import { PlayerTabsProps } from "@/types";
+import { ConditionsTransferList } from "@/components/Condicoes/Condicoes";
 
 export const getTabs = ({ items, notes }: PlayerTabsProps) => [
   {
@@ -30,4 +31,10 @@ export const getTabs = ({ items, notes }: PlayerTabsProps) => [
     icon: Users,
     content: <ContatosContent />,
   },
+  {
+    key: "condições",
+    label: "CONDIÇÕES",
+    icon: LayoutGrid,
+    content: <ConditionsTransferList />,
+  }
 ];

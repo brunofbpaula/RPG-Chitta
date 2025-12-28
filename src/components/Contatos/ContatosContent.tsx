@@ -9,15 +9,9 @@ export function ContatosContent() {
   const [contatos] = useState<Contato[]>([
     {
       id: "1",
-      nome: "João",
+      nome: "Número desconhecido",
       avatar: "/avatars/joao.png",
-      ultimaMensagem: "Tudo bem?",
-    },
-    {
-      id: "2",
-      nome: "Maria",
-      avatar: "/avatars/maria.png",
-      ultimaMensagem: "Te envio depois",
+      ultimaMensagem: "Zenith, Setor Empresarial, Ambrael, 85º andar, 09:30am 03/01/2068.",
     },
   ]);
 
