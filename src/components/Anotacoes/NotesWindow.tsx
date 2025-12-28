@@ -25,7 +25,7 @@ export function NotesWindow({ note, onSave }: Props) {
     }, 600); // 600ms é bom para não travar
 
     return () => clearTimeout(timeout);
-  }, [text, note.$id, note.text, onSave]);
+  }, [text]);
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>

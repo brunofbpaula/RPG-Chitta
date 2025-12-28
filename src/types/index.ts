@@ -117,5 +117,6 @@ export interface Mensagem {
   id: string;
   texto: string;
   autor: "eu" | "outro";
-  data?: string;
+  error?: boolean;
 }
+
