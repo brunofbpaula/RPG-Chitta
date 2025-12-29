@@ -1,82 +1,76 @@
-import { getCurrentUser } from '@/lib/appwrite/api'
-import { IContextType, IPlayer } from '@/types'
-import { createContext, useContext, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { getCurrentUser } from "@/lib/appwrite/api";
+import { IContextType, IPlayer } from "@/types";
+import { createContext, useContext, useEffect, useState } from "react";
 
-export const INITIAL_USER = {
-    id: '',
-    email: '',
-    name: '',
-    age: 0,
-    goal: '',
-    conditions: [],
-    maxHealth: 100,
-    currentHealth: 10,
-    cyberpsychosis: 0,
-    imageUrl: '',
-    cyberImageUrl: '',
-    intelligence: 0,
-    strength: 0,
-    agility: 0,
-    moral: 0,
-    resilience: 0
-}
+export const INITIAL_USER: IPlayer = {
+  id: "",
+  email: "",
+  name: "",
+  age: 0,
+  goal: "",
+  conditions: [],
+  maxHealth: 100,
+  currentHealth: 0,
+  cyberpsychosis: 0,
+  imageUrl: "",
+  cyberImageUrl: "",
+  intelligence: 0,
+  strength: 0,
+  agility: 0,
+  moral: 0,
+  resilience: 0,
+};
 
-export const INITIAL_STATE = {
-  user: INITIAL_USER,
-  isLoading: false,
+const AuthContext = createContext<IContextType>({
+  user: null,
+  isLoading: true,
   isAuthenticated: false,
   setUser: () => {},
   setIsAuthenticated: () => {},
-  checkAuthUser: async () => false as boolean
-}
+  checkAuthUser: async () => false,
+});
 
-const AuthContext = createContext<IContextType>(INITIAL_STATE);
-
-const AuthProvider = ({children}: {children: React.ReactNode} ) => {
-  
-  const [user, setUser] = useState<IPlayer>(INITIAL_USER);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  const navigate = useNavigate();
+const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const [user, setUser] = useState<IPlayer | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const checkAuthUser = async () => {
-    setIsLoading(true);
-
     try {
+      setIsLoading(true);
+
       const currentAccount = await getCurrentUser();
 
-      if(currentAccount){
-        setUser({
-          id: currentAccount.$id,
-          email: currentAccount.email,
-          name: currentAccount.name,
-          age: currentAccount.age,
-          goal: currentAccount.goal,
-          conditions: currentAccount.conditions,
-          currentHealth: currentAccount.currentHealth,
-          maxHealth: currentAccount.maxHealth,
-          cyberpsychosis: currentAccount.cyberpsychosis,
-          imageUrl: currentAccount.imageUrl,
-          cyberImageUrl: currentAccount.cyberImageUrl,
-          intelligence: currentAccount.intelligence,
-          strength: currentAccount.strength,
-          agility: currentAccount.agility,
-          moral: currentAccount.moral,
-          resilience: currentAccount.resilience
-        });
-        setIsAuthenticated(true);
-        return true;
-      } else {
-        // Não tem usuário, limpa tudo
-        setUser(INITIAL_USER);
+      if (!currentAccount) {
+        setUser(null);
         setIsAuthenticated(false);
         return false;
       }
 
+      setUser({
+        id: currentAccount.$id,
+        email: currentAccount.email,
+        name: currentAccount.name,
+        age: currentAccount.age,
+        goal: currentAccount.goal,
+        conditions: currentAccount.conditions,
+        currentHealth: currentAccount.currentHealth,
+        maxHealth: currentAccount.maxHealth,
+        cyberpsychosis: currentAccount.cyberpsychosis,
+        imageUrl: currentAccount.imageUrl,
+        cyberImageUrl: currentAccount.cyberImageUrl,
+        intelligence: currentAccount.intelligence,
+        strength: currentAccount.strength,
+        agility: currentAccount.agility,
+        moral: currentAccount.moral,
+        resilience: currentAccount.resilience,
+      });
+
+      setIsAuthenticated(true);
+      return true;
     } catch (error) {
-      console.log("Erro ao verificar usuário:", error);
-      setUser(INITIAL_USER);
+      console.error("Erro ao verificar usuário:", error);
+      setUser(null);
       setIsAuthenticated(false);
       return false;
     } finally {
@@ -85,35 +79,24 @@ const AuthProvider = ({children}: {children: React.ReactNode} ) => {
   };
 
   useEffect(() => {
-    const cookieFallback = localStorage.getItem("cookieFallback");
-    if (
-      cookieFallback === "[]" ||
-      cookieFallback === null ||
-      cookieFallback === undefined
-    ) {
-      navigate("/login");
-    }
-
     checkAuthUser();
   }, []);
 
-  const value = {
-    user,
-    setUser,
-    isLoading,
-    setIsLoading,
-    isAuthenticated,
-    setIsAuthenticated,
-    checkAuthUser
-  }
-
   return (
-    <AuthContext.Provider value={value}>
+    <AuthContext.Provider
+      value={{
+        user,
+        setUser,
+        isLoading,
+        isAuthenticated,
+        setIsAuthenticated,
+        checkAuthUser,
+      }}
+    >
       {children}
     </AuthContext.Provider>
-  )
-}
+  );
+};
 
 export default AuthProvider;
-
 export const useUserContext = () => useContext(AuthContext);

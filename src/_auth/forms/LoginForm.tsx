@@ -116,6 +116,11 @@ const LoginForm = () => {
                 <img src={discord} alt="logo" className="h-5 w-5" />
               </Link>
             </p>
+            <p className="text-small-regular text-center color-white">
+              <Link to="/register" className="text-primary-500 underline hover:text-primary-700">
+                Primeira vez? Clique aqui para criar sua ficha
+              </Link>
+            </p>
           </form>
         </Form>
         </div>

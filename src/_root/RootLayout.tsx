@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { AudioLines, LogOut } from 'lucide-react';
 import { Box, IconButton } from '@mui/material';
 
@@ -25,7 +25,7 @@ const RootLayout = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   
-  const { user, setUser } = useUserContext();
+  const { user, setUser, setIsAuthenticated, isAuthenticated, isLoading } = useUserContext();
   const { mutate: signOut, isSuccess } = useSignOutAccount();
   
   const [relics, setRelics] = useState<RelicsDocument | null>(null);
@@ -50,6 +50,60 @@ const RootLayout = () => {
       setIsPlaying(true);
     }
   };
+
+
+  useEffect(() => {
+  if (isSuccess) {
+    navigate("/login", { replace: true });
+  }
+}, [isSuccess]);
+
+
+useEffect(() => {
+  if (!user) return;
+  
+  const loadRelics = async () => {
+    const data = await getPlayerRelics(user.id);
+      if (data) setRelics(data);
+    };
+    
+    const loadItems = async () => {
+      const documents = await getPlayerItems(user.id);
+      const parsedItems: Item[] = documents.map((doc) => ({
+        id: doc.$id,
+        name: doc.name,
+        description: doc.description,
+        image: doc.image,
+        quantity: doc.quantity ?? 0,
+      }));
+      
+      setItems(parsedItems);
+    };
+    
+    const loadNotes = async () => {
+      const documents = await getPlayerNotes(user.id);
+      const parsedNotes: Note[] = documents.map((doc) => ({
+        $id: doc.$id,
+        title: doc.title,
+        text: doc.text,
+        createdAt: doc.createdAt,
+      }));
+      
+      setNotes(parsedNotes);
+    };
+    
+    loadNotes();
+    loadItems();
+    loadRelics();
+  }, [user]);
+  
+
+  if (isLoading) return null;
+
+  if (!isAuthenticated || !user) {
+    return <Navigate to="/login" replace />;
+  }
+  
   
   const handleUpdateUser = async (data: Partial<IPlayer>) => {
     if (!user) return;
@@ -81,7 +135,7 @@ const RootLayout = () => {
     items,
     actions: {
       create: async (itemData: CreateItemData) => {
-        const doc = await createItem(itemData, user.id);
+        const doc = await createItem(itemData, user!.id);
         if (!doc) return;
 
         const newItem = {
@@ -113,7 +167,7 @@ const RootLayout = () => {
       create: async (data) => {
         if (!user) return;
 
-        const doc = await createNote(data, user.id);
+        const doc = await createNote(data, user!.id);
         if (!doc) return;
 
         const newNote: Note = {
@@ -154,61 +208,15 @@ const RootLayout = () => {
 
 
   const conditionsFeature = {
-    conditions: user.conditions ?? [],
+    conditions: user!.conditions ?? [],
     actions: {
       update: async (conditions: number[]) => {
         console.log(conditions);
         await handleUpdateUser({ conditions });
       },
     },
-};
+  };
 
-
-
-  useEffect(() => {
-    if (isSuccess) navigate(0);
-  }, [isSuccess]);
-
-  useEffect(() => {
-    if (!user) return;
-
-    const loadRelics = async () => {
-      const data = await getPlayerRelics(user.id);
-      if (data) setRelics(data);
-    };
-    
-    const loadItems = async () => {
-      const documents = await getPlayerItems(user.id);
-      const parsedItems: Item[] = documents.map((doc) => ({
-        id: doc.$id,
-        name: doc.name,
-        description: doc.description,
-        image: doc.image,
-        quantity: doc.quantity ?? 0,
-      }));
-
-      setItems(parsedItems);
-    };
-
-    const loadNotes = async () => {
-      const documents = await getPlayerNotes(user.id);
-      const parsedNotes: Note[] = documents.map((doc) => ({
-        $id: doc.$id,
-        title: doc.title,
-        text: doc.text,
-        createdAt: doc.createdAt,
-      }));
-
-      setNotes(parsedNotes);
-    };
-
-
-    loadNotes();
-    loadItems();
-    loadRelics();
-  }, [user]);
-  
-  
   return (
     <div className="container-rpg">
       <audio src={backgroundAudio} ref={audioRef}></audio>
@@ -228,12 +236,19 @@ const RootLayout = () => {
                 <AudioLines />
               </IconButton>
               <IconButton
-                onClick={() => signOut()}
-                title="Sair"
-                color="primary"
-              >
-                <LogOut />
-              </IconButton>
+              onClick={() => {
+                signOut(undefined, {
+                  onSuccess: () => {
+                    setUser(null);
+                    setIsAuthenticated(false);
+                  },
+                });
+              }}
+              title="Sair"
+              color="primary"
+            >
+              <LogOut />
+            </IconButton>
             </Box>
           </Box>
 
