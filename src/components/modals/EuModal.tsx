@@ -18,6 +18,8 @@ interface EuModalProps {
   onSave: (data: Record<string, number>) => Promise<void>;
 }
 
+const iconsFolder = `${import.meta.env.VITE_CLOUDFLARE_ICONS}`;
+
 const EuModal: React.FC<EuModalProps> = ({ open, onClose, player, onSave }) => {
   const [editarDados, setEditarDados] = useState(false);
   const [dadosEditaveis, setDadosEditaveis] = useState<IPlayer>(player);
@@ -29,31 +31,31 @@ const EuModal: React.FC<EuModalProps> = ({ open, onClose, player, onSave }) => {
   const atributos = {
     strength: {
       label: "Força",
-      icone: "/src/assets/icons/icon-atributo-forca.svg",
+      icone: `${iconsFolder}/icon-atributo-forca.svg`
     },
     intelligence: {
       label: "Inteligência",
-      icone: "/src/assets/icons/icon-atributo-inteligencia.svg",
+      icone: `${iconsFolder}/icon-atributo-inteligencia.svg`
     },
     moral: {
       label: "Moral",
-      icone: "/src/assets/icons/icon-atributo-moral.svg",
+      icone: `${iconsFolder}/icon-atributo-moral.svg`,
     },
     resilience: {
       label: "Resiliência",
-      icone: "/src/assets/icons/icon-atributo-resiliencia.svg",
+      icone: `${iconsFolder}/icon-atributo-resiliencia.svg`,
     },
     agility: {
       label: "Agilidade",
-      icone: "/src/assets/icons/icon-atributo-agilidade.svg",
+      icone: `${iconsFolder}/icon-atributo-agilidade.svg`,
     },
     currentHealth: {
       label: "Vida Atual",
-      icone: "/src/assets/icons/icon-atributo-forca.svg",
+      icone: `${iconsFolder}/icon-atributo-forca.svg`,
     },
     maxHealth: {
       label: "Vida Máxima",
-      icone: "/src/assets/icons/icon-atributo-forca.svg",
+      icone: `${iconsFolder}/icon-atributo-forca.svg`,
     },
 
   }
