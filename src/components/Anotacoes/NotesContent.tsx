@@ -68,7 +68,7 @@ export function NotesContent({ notepad }: Props) {
         )}
 
         {!activeNote ? (
-          <Box sx={{ display: "flex", flexDirection: "column", gap: 1, overflowY: "auto", p: 1, maxHeight: "75dvh" }}>
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 1, overflowY: "auto", p: 1, maxHeight: { xs: "70dvh", md: "75dvh" } }}>
             {filteredNotes.map((note) => (
               <NotesItem
                 key={note.$id}

@@ -5,6 +5,7 @@ import { InventarioSearch } from "./InventarioSearch";
 import { InventarioItemAccordion } from "./InventarioItemAccordion";
 import CreateItemModal from "./CreateItemModal";
 import DeleteItemModal from "./DeleteItemModal";
+import { Box } from "@mui/material";
 
 interface Props {
   inventory: InventoryFeature;
@@ -25,14 +26,15 @@ export function InventarioContent({ inventory }: Props) {
     <>
       <InventarioHeaderTop onAdd={() => setAddModalOpen(true)} />
       <InventarioSearch value={busca} onChange={setBusca} />
-
-      {itemsFiltrados.map((item) => (
-        <InventarioItemAccordion
-          key={item.id}
-          item={item}
-          onDelete={() => setItemExcluir(item)}
-        />
-      ))}
+      <Box sx={{ display: "flex", flexDirection: "column", gap: 1, overflowY: "auto", p: 1, maxHeight: { xs: "70dvh", md: "75dvh" } }}>   
+        {itemsFiltrados.map((item) => (
+          <InventarioItemAccordion
+            key={item.id}
+            item={item}
+            onDelete={() => setItemExcluir(item)}
+          />
+        ))}
+      </Box>
 
       {/* MODAL DE CONFIRMAÇÃO */}
       <DeleteItemModal
