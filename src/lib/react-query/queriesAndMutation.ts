@@ -1,4 +1,4 @@
-import { INewPlayer } from '@/types';
+import { CreateItemData, CreateNoteData, INewPlayer } from '@/types';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { createItem, createNote, createUserAccount, deleteItem, deleteNote, getCurrentUser, signInAccount, signOutAccount } from '../appwrite/api';
 import { QUERY_KEYS } from './queryKeys';
@@ -34,7 +34,7 @@ export const useCreateItem = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ item, playerId }: { item: Record<string, string>, playerId: string }) => createItem(item, playerId),
+    mutationFn: ({ item, playerId }: { item: CreateItemData, playerId: string }) => createItem(item, playerId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.GET_CURRENT_USER] });
     },
@@ -45,7 +45,7 @@ export const useCreateNote = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ note, playerId }: { note: Record<string, string>, playerId: string }) => createNote(note, playerId),
+    mutationFn: ({ note, playerId }: { note: CreateNoteData, playerId: string }) => createNote(note, playerId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.GET_CURRENT_USER] });
     },

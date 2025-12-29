@@ -5,10 +5,8 @@ import {
   DialogActions,
   Button,
   Typography,
-  IconButton,
   Box,
 } from "@mui/material";
-import { Trash2, X } from "lucide-react";
 
 interface Props {
   open: boolean;
