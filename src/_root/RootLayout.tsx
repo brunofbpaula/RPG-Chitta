@@ -1,12 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AudioLines, LogOut } from 'lucide-react';
-import { Box, IconButton, Select } from '@mui/material';
+import { Box, IconButton } from '@mui/material';
 
-import { CreateItemData, InventoryFeature, Item, 
-         CreateNoteData, NotesFeature, Note,
-         RelicsDocument, 
-         IPlayer} from '@/types';
+import { CreateItemData, InventoryFeature, Item, NotesFeature, Note, RelicsDocument, IPlayer} from '@/types';
 import { useUserContext } from '@/context/AuthContext';
 import { useSignOutAccount } from '@/lib/react-query/queriesAndMutation';
 import { createItem, createNote, deleteItem, deleteNote, getPlayerItems, getPlayerNotes, getPlayerRelics, updateNote, updateRelics, updateUser } from '@/lib/appwrite/api';
@@ -19,8 +16,9 @@ import AtributosModal from '@/components/modals/AtributosModal';
 import { ResponsiveTabs } from '@/components/ResponsiveTabs/ResponsiveTabs';
 import { VidaStatus } from '@/components/ui/VidaStatus';
 
-import PhantomAudio from '@/assets/audio/Phantom-Liberty.mp3';
 
+const backgroundVideo = import.meta.env.VITE_VIDEO_BG;
+const backgroundAudio = import.meta.env.VITE_AUDIO_BG;
 
 const RootLayout = () => {
   const navigate = useNavigate();
@@ -213,10 +211,10 @@ const RootLayout = () => {
   
   return (
     <div className="container-rpg">
-      <audio src={PhantomAudio} ref={audioRef}></audio>
+      <audio src={backgroundAudio} ref={audioRef}></audio>
       <div className="video-bg">
         <video autoPlay muted loop playsInline>
-          <source src={import.meta.env.VITE_VIDEO_BG} type="video/mp4"/>
+          <source src={backgroundVideo} type="video/mp4"/>
         </video>
       </div>
       <div className={`content ${user.cyberpsychosis === 100 ? "dead" : ""}`}>

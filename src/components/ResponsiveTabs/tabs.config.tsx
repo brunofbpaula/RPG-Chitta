@@ -7,13 +7,6 @@ import { ConditionsContent } from "@/components/Condicoes/CondicoesContent";
 
 export const getTabs = ({ items, notes, conditions }: PlayerTabsProps) => [
   {
-    key: "inicio",
-    label: "INÍCIO",
-    icon: LayoutGrid,
-    content: <div>Início</div>,
-    onlyMobile: true,
-  },
-  {
     key: "notas",
     label: "NOTAS",
     icon: FileText,
