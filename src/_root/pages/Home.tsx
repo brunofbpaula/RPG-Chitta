@@ -1,4 +1,3 @@
-import Inventary from '@/components/shared/Inventory'
 import PlayerCard from '@/components/shared/PlayerCard';
 import SkillChart from '@/components/shared/SkillChart';
 import SkillsModal from '@/components/shared/SkillsModal';
@@ -7,7 +6,7 @@ const Home = () => {
   return (
     <>
       <div className='utility-box'>
-        <Inventary/>
+        <div></div>
         <SkillsModal/>
       </div>
       <div className='player-box'>
