@@ -6,7 +6,7 @@ type LoaderProps = {
 
 const Loader = ({ size }: LoaderProps) => {
   return (
-    <div className='flex-center w-full'>
+    <div className='flex w-full justify-center items-center'>
       <img 
         src={loader}
         width={size}

@@ -1,11 +1,11 @@
 export type IContextType = {
-    user: IPlayer;
-    isLoading: boolean;
-    setUser: React.Dispatch<React.SetStateAction<IPlayer>>;
-    isAuthenticated: boolean;
-    setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
-    checkAuthUser: () => Promise<boolean>;
-}
+  user: IPlayer | null;
+  isLoading: boolean;
+  setUser: React.Dispatch<React.SetStateAction<IPlayer | null>>;
+  isAuthenticated: boolean;
+  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+  checkAuthUser: () => Promise<boolean>;
+};
 
 export type INavLink = {
     imgURL: string;

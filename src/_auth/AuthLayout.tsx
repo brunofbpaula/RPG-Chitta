@@ -1,22 +1,36 @@
-import { useUserContext } from "@/context/AuthContext";
 import { Box } from "@mui/material";
-import { Outlet, Navigate, useLocation } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { useUserContext } from "@/context/AuthContext";
+import Loader from "@/components/shared/Loader";
 
 const AuthLayout = () => {
-  const { isAuthenticated } = useUserContext();
+  const { isAuthenticated, isLoading } = useUserContext();
   const location = useLocation();
-  const isOnRegister = location.pathname === "/register";
+
+  if (isLoading) {
+    return (
+      <Box className="bg-cyberpunk main-auth">
+        <Loader size={70} />
+      </Box>
+    );
+  }
+
+  const path = location.pathname;
+  const isLogin = path === "/login";
+  const isRegister = path === "/register";
+
+  if (!isAuthenticated && !isLogin && !isRegister) {
+    return <Navigate to="/login" replace />;
+  }
+
+  if (isAuthenticated && isLogin) {
+    return <Navigate to="/" replace />;
+  }
 
   return (
     <Box className="bg-cyberpunk main-auth">
-      {isAuthenticated && !isOnRegister ? (
-        <Navigate to="/" />
-      ) : (
-        <Box className="">
-          <Outlet />
-        </Box>
-      )}
-    </ Box>
+      <Outlet />
+    </Box>
   );
 };
 
