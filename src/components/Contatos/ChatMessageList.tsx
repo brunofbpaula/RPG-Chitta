@@ -51,7 +51,7 @@ export function ChatMessageList({ mensagens }: Props) {
               <Typography
                 sx={{
                   color: "#d32f2f",
-                  fontSize: "0.75rem",
+                  fontSize: "0.90rem",
                   mt: 0.3,
                   maxWidth: "75%",
                   textAlign: isMe ? "right" : "left",

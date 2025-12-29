@@ -33,7 +33,7 @@ export function ChatContactItem({
       }}
     >
       <Avatar src={contato.avatar} sx={{ bgcolor: "#ff003c" }}>
-        {contato.nome[0]}
+        {"?"}
       </Avatar>
 
       <Box sx={{ minWidth: 0 }}>

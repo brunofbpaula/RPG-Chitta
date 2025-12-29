@@ -28,7 +28,7 @@ export function ChatWindowHeader({
       </IconButton>
 
       <Avatar src={contato.avatar} className="avatar-chat">
-        {contato.nome[0]}
+        {"?"}
       </Avatar>
 
       <Typography
