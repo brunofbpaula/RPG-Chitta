@@ -19,6 +19,7 @@ export type IPlayer = {
     name: string;
     age: number;
     goal: string;
+    conditions: number[];
     currentHealth: number;
     maxHealth: number;
     imageUrl: string;
@@ -62,13 +63,6 @@ export interface Item {
   quantity: number;
 }
 
-export interface Note {
-  $id: string;
-  title: string;
-  text: string;
-  createdAt: string;
-}
-
 export interface CreateItemData {
   name: string;
   description: string;
@@ -80,9 +74,21 @@ export interface InventoryActions {
   delete: (itemId: string) => void;
 }
 
+export interface InventoryFeature {
+  items: Item[];
+  actions: InventoryActions;
+}
+
 export interface CreateNoteData {
   title: string;
   text: string;
+}
+
+export interface Note {
+  $id: string;
+  title: string;
+  text: string;
+  createdAt: string;
 }
 
 export interface NotesActions {
@@ -91,19 +97,25 @@ export interface NotesActions {
   delete: (noteId: string) => Promise<void>;
 }
 
-export interface InventoryFeature {
-  items: Item[];
-  actions: InventoryActions;
-}
-
 export interface NotesFeature {
   notes: Note[];
   actions: NotesActions;
 }
 
+
+export interface ConditionsActions {
+  update: (conditions: number[]) => Promise<void>;
+}
+
+export interface ConditionsFeature {
+  conditions: number[];
+  actions: ConditionsActions;
+}
+
 export interface PlayerTabsProps {
   items: InventoryFeature;
   notes: NotesFeature;
+  conditions: ConditionsFeature;
 }
 
 export interface Contato {
@@ -119,4 +131,5 @@ export interface Mensagem {
   autor: "eu" | "outro";
   error?: boolean;
 }
+
 

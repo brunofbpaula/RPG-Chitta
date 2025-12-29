@@ -19,11 +19,11 @@ const Transition = forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export function MobileTabs({ items, notes }: PlayerTabsProps) {
+export function MobileTabs({ items, notes, conditions }: PlayerTabsProps) {
   const [value, setValue] = useState(0);
   const [open, setOpen] = useState(false);
 
-  const TABS = getTabs({ items, notes });
+  const TABS = getTabs({ items, notes, conditions });
   const CurrentTab = TABS[value];
 
   return (

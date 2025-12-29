@@ -3,11 +3,16 @@ import { useMemo, useState } from "react";
 import { CONDITIONS } from "@/lib/conditions";
 import { CondicoesHeader } from "./CondicoesHeader";
 import { CondicoesList } from "./CondicoesList";
+import { ConditionsFeature } from "@/types";
 
-export function ConditionsContent() {
+type Props = {
+  feature: ConditionsFeature;
+};
+
+export function ConditionsContent({ feature }: Props) {
+  const { conditions, actions } = feature;
+
   const allIds = Object.keys(CONDITIONS).map(Number);
-
-  const [selected, setSelected] = useState<number[]>([]);
   const [search, setSearch] = useState("");
 
   const filteredIds = useMemo(
@@ -21,24 +26,25 @@ export function ConditionsContent() {
   );
 
   const available = filteredIds.filter(
-    (id) => !selected.includes(id)
+    (id) => !conditions.includes(id)
   );
 
   const active = filteredIds.filter(
-    (id) => selected.includes(id)
+    (id) => conditions.includes(id)
   );
 
   function addCondition(id: number) {
-    setSelected((prev) => [...prev, id]);
+    if (conditions.includes(id)) return;
+    actions.update([...conditions, id]);
   }
 
   function removeCondition(id: number) {
-    setSelected((prev) => prev.filter((c) => c !== id));
+    actions.update(conditions.filter((c) => c !== id));
   }
 
   return (
     <Box>
-      {/* ===== HEADER GLOBAL ===== */}
+      {/* ===== HEADER ===== */}
       <CondicoesHeader
         search={search}
         onSearchChange={setSearch}
@@ -48,16 +54,21 @@ export function ConditionsContent() {
       <Box
         sx={{
           display: "grid",
-          gridTemplateColumns: {
-            xs: "1fr",
-            md: "1fr 1fr",
-          },
+          gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" },
           gap: 2,
         }}
       >
         {/* DISPONÍVEIS */}
         <Paper sx={{ p: 1, backgroundColor: "transparent" }}>
-          <Typography sx={{ fontWeight: 700, fontSize: '1.25rem', fontFamily: "Rajdhani", color: "#FFEB3B", paddingBottom: 1 }}>
+          <Typography
+            sx={{
+              fontWeight: 700,
+              fontSize: "1.25rem",
+              fontFamily: "Rajdhani",
+              color: "#FFEB3B",
+              pb: 1,
+            }}
+          >
             Condições disponíveis
           </Typography>
 
@@ -68,12 +79,18 @@ export function ConditionsContent() {
           />
         </Paper>
 
-        {/* ATIVOS */}
+        {/* ATIVAS */}
         <Paper sx={{ p: 1, backgroundColor: "transparent" }}>
           <Typography
-            sx={{ fontWeight: 700, color: "rgb(0 255 255)", paddingBottom: 1, fontFamily: "Rajdhani", fontSize: '1.25rem'  }}
+            sx={{
+              fontWeight: 700,
+              color: "rgb(0 255 255)",
+              pb: 1,
+              fontFamily: "Rajdhani",
+              fontSize: "1.25rem",
+            }}
           >
-            Condições ativas ({selected.length})
+            Condições ativas ({conditions.length})
           </Typography>
 
           <CondicoesList

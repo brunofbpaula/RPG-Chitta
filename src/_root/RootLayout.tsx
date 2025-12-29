@@ -5,7 +5,8 @@ import { Box, IconButton, Select } from '@mui/material';
 
 import { CreateItemData, InventoryFeature, Item, 
          CreateNoteData, NotesFeature, Note,
-         RelicsDocument } from '@/types';
+         RelicsDocument, 
+         IPlayer} from '@/types';
 import { useUserContext } from '@/context/AuthContext';
 import { useSignOutAccount } from '@/lib/react-query/queriesAndMutation';
 import { createItem, createNote, deleteItem, deleteNote, getPlayerItems, getPlayerNotes, getPlayerRelics, updateNote, updateRelics, updateUser } from '@/lib/appwrite/api';
@@ -52,13 +53,16 @@ const RootLayout = () => {
     }
   };
   
-  const handleUpdateUser = async (data: Record<string, number>) => {
+  const handleUpdateUser = async (data: Partial<IPlayer>) => {
     if (!user) return;
+
     await updateUser(user.id, data);
+
     setUser((prev) =>
-      prev ? {...prev, ...data} : prev
+      prev ? { ...prev, ...data } : prev
     );
   };
+
  
   const handleSavePericias = async (data: Record<string, number>) => {
     if (!user || !relics) return;
@@ -150,6 +154,16 @@ const RootLayout = () => {
     },
   };
 
+
+  const conditionsFeature = {
+    conditions: user.conditions ?? [],
+    actions: {
+      update: async (conditions: number[]) => {
+        console.log(conditions);
+        await handleUpdateUser({ conditions });
+      },
+    },
+};
 
 
 
@@ -265,6 +279,7 @@ const RootLayout = () => {
         </div>
         <div className="box-conteudo">
           <ResponsiveTabs
+            conditions={conditionsFeature}
             items={inventoryFeature}
             notes={notesFeature}
           />        

@@ -5,7 +5,7 @@ import { ContatosContent } from "../Contatos/ContatosContent";
 import { PlayerTabsProps } from "@/types";
 import { ConditionsContent } from "@/components/Condicoes/CondicoesContent";
 
-export const getTabs = ({ items, notes }: PlayerTabsProps) => [
+export const getTabs = ({ items, notes, conditions }: PlayerTabsProps) => [
   {
     key: "inicio",
     label: "INÍCIO",
@@ -35,6 +35,6 @@ export const getTabs = ({ items, notes }: PlayerTabsProps) => [
     key: "condições",
     label: "CONDIÇÕES",
     icon: LayoutGrid,
-    content: <ConditionsContent />,
+    content: <ConditionsContent feature={conditions}/>,
   }
 ];

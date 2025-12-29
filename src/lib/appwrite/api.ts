@@ -1,5 +1,5 @@
 import { ID, Query } from 'appwrite';
-import { CreateItemData, CreateNoteData, INewPlayer } from '@/types';
+import { CreateItemData, CreateNoteData, INewPlayer, IPlayer } from '@/types';
 import { account, appwriteConfig, databases, storage } from './config';
 
 export async function uploadFile(file: File) {
@@ -180,7 +180,7 @@ export async function getCurrentUser() {
     }
 }
 
-export async function updateUser(userId: string, attributes: Record<string, number>) {
+export async function updateUser(userId: string, attributes: Partial<IPlayer>) {
     try {
         const updatedUser = await databases.updateDocument(
             appwriteConfig.databaseId,

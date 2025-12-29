@@ -52,8 +52,6 @@ export function InventarioContent({ inventory }: Props) {
         onClose={() => setAddModalOpen(false)}
         onCreate={(data) => {
           actions.create({
-            id: crypto.randomUUID(),
-            quantity: 1,
             ...data,
           });
         }}

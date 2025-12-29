@@ -21,10 +21,10 @@ function CustomTabPanel({
   );
 }
 
-export function DesktopTabs({ items, notes }: PlayerTabsProps) {
+export function DesktopTabs({ items, notes, conditions }: PlayerTabsProps) {
   const [value, setValue] = useState(0);
 
-  const TABS = getTabs({ items, notes });
+  const TABS = getTabs({ items, notes, conditions });
   const DESKTOP_TABS = TABS.filter(tab => !tab.onlyMobile);
 
   return (
