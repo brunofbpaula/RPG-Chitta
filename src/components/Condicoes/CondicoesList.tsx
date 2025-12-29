@@ -3,6 +3,8 @@ import {
   ListItemButton,
   ListItemText,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import { CONDITIONS } from "@/lib/conditions";
 
@@ -27,11 +29,13 @@ export function CondicoesList({
     );
   }
 
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   return (
     <List dense
         sx={{
             overflowY: "auto", 
-            height: "68dvh",
+            maxHeight:  !isMobile ? "68dvh" : "30dvh" ,
             boxShadow: "inset 0px 0px 20px -5px rgb(0 255 255 / 24%)",
             padding: 2
         }}

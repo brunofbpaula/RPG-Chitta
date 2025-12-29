@@ -1,4 +1,4 @@
-import { Box, Paper, Typography } from "@mui/material";
+import { Box, Paper, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useMemo, useState } from "react";
 import { CONDITIONS } from "@/lib/conditions";
 import { CondicoesHeader } from "./CondicoesHeader";
@@ -11,6 +11,8 @@ type Props = {
 
 export function ConditionsContent({ feature }: Props) {
   const { conditions, actions } = feature;
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const allIds = Object.keys(CONDITIONS).map(Number);
   const [search, setSearch] = useState("");
@@ -49,58 +51,110 @@ export function ConditionsContent({ feature }: Props) {
         search={search}
         onSearchChange={setSearch}
       />
-
-      {/* ===== CONTENT ===== */}
-      <Box
-        sx={{
-          display: "grid",
-          gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" },
-          gap: 2,
-        }}
-      >
-        {/* DISPONÍVEIS */}
-        <Paper sx={{ p: 1, backgroundColor: "transparent" }}>
-          <Typography
+      {
+          !isMobile ?
+          <Box
             sx={{
-              fontWeight: 700,
-              fontSize: "1.25rem",
-              fontFamily: "Rajdhani",
-              color: "#FFEB3B",
-              pb: 1,
+              display: "grid",
+              gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" },
+              gap: 2,
             }}
           >
-            Condições disponíveis
-          </Typography>
+            
+            {/* DISPONÍVEIS */}
+            <Paper sx={{ p: 1, backgroundColor: "transparent" }}>
+              <Typography
+                sx={{
+                  fontWeight: 700,
+                  fontSize: "1.25rem",
+                  fontFamily: "Rajdhani",
+                  color: "#FFEB3B",
+                  pb: 1,
+                }}
+              >
+                Condições disponíveis
+              </Typography>
 
-          <CondicoesList
-            ids={available}
-            onItemClick={addCondition}
-            emptyText="Nenhuma condição disponível"
-          />
-        </Paper>
+              <CondicoesList
+                ids={available}
+                onItemClick={addCondition}
+                emptyText="Nenhuma condição disponível"
+              />
+            </Paper>
 
-        {/* ATIVAS */}
-        <Paper sx={{ p: 1, backgroundColor: "transparent" }}>
-          <Typography
+            {/* ATIVAS */}
+            <Paper sx={{ p: 1, backgroundColor: "transparent" }}>
+              <Typography
+                sx={{
+                  fontWeight: 700,
+                  color: "rgb(0 255 255)",
+                  pb: 1,
+                  fontFamily: "Rajdhani",
+                  fontSize: "1.25rem",
+                }}
+              >
+                Condições ativas ({conditions.length})
+              </Typography>
+
+              <CondicoesList
+                ids={active}
+                onItemClick={removeCondition}
+                emptyText="Nenhuma condição ativa"
+                active
+              />
+            </Paper>
+          </Box> :
+          <Box
             sx={{
-              fontWeight: 700,
-              color: "rgb(0 255 255)",
-              pb: 1,
-              fontFamily: "Rajdhani",
-              fontSize: "1.25rem",
+              display: "grid",
+              gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" },
+              gap: 2,
             }}
           >
-            Condições ativas ({conditions.length})
-          </Typography>
+            {/* ATIVAS */}
+            <Paper sx={{ p: 1, backgroundColor: "transparent" }}>
+              <Typography
+                sx={{
+                  fontWeight: 700,
+                  color: "rgb(0 255 255)",
+                  pb: 1,
+                  fontFamily: "Rajdhani",
+                  fontSize: "1.25rem",
+                }}
+              >
+                Condições ativas ({conditions.length})
+              </Typography>
 
-          <CondicoesList
-            ids={active}
-            onItemClick={removeCondition}
-            emptyText="Nenhuma condição ativa"
-            active
-          />
-        </Paper>
-      </Box>
+              <CondicoesList
+                ids={active}
+                onItemClick={removeCondition}
+                emptyText="Nenhuma condição ativa"
+                active
+              />
+            </Paper>
+            
+            {/* DISPONÍVEIS */}
+            <Paper sx={{ p: 1, backgroundColor: "transparent" }}>
+              <Typography
+                sx={{
+                  fontWeight: 700,
+                  fontSize: "1.25rem",
+                  fontFamily: "Rajdhani",
+                  color: "#FFEB3B",
+                  pb: 1,
+                }}
+              >
+                Condições disponíveis
+              </Typography>
+
+              <CondicoesList
+                ids={available}
+                onItemClick={addCondition}
+                emptyText="Nenhuma condição disponível"
+              />
+            </Paper>
+          </Box>
+      }
     </Box>
   );
 }

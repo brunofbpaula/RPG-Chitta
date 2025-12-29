@@ -213,7 +213,7 @@ const PericiasModal: React.FC<PericiasModalProps> = ({ open, onClose, player, re
           className="form-pericias"
         >
            {Object.entries(periciasBase).map(([key, label]) => (
-            <Grid key={key} size={{ xs: 2, sm: 4, md: 4 }}>
+            <Grid key={key} size={{ xs: 12, sm: 4, md: 4 }}>
               <TextField
                 label={label}
                 type="number"
