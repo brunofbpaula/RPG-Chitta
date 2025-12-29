@@ -1,4 +1,5 @@
 import { useUserContext } from "@/context/AuthContext";
+import { Box } from "@mui/material";
 import { Outlet, Navigate, useLocation } from "react-router-dom";
 
 const AuthLayout = () => {
@@ -7,15 +8,15 @@ const AuthLayout = () => {
   const isOnRegister = location.pathname === "/register";
 
   return (
-    <>
+    <Box className="bg-cyberpunk main-auth">
       {isAuthenticated && !isOnRegister ? (
         <Navigate to="/" />
       ) : (
-        <section className="flex flex-1 justify-center items-center flex-col py-10 bg-cyberpunk">
+        <Box className="">
           <Outlet />
-        </section>
+        </Box>
       )}
-    </>
+    </ Box>
   );
 };
 

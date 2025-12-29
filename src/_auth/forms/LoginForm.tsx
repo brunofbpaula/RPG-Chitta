@@ -55,25 +55,25 @@ const LoginForm = () => {
 
 
   return (
-    <div className="form-black flex items-center justify-center text-center text-white gap-x-30">
+    <div className="content-auth">
       <div>
         <img src={logo} alt="logo" className="h-68 w-auto mx-auto" />
-        <h2 className="h3-bold md:h2-bold pt-5 sm:pt-5">
+        <h2 className="h3-bold md:h2-bold pt-5 sm:pt-5 color-white text-center">
           Pague o preço da liberdade.
         </h2> 
       </div>
 
-      <div className="flex flex-col items-center justify-center w-80">
+      <div className="form-auth">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSignIn)}
-            className="flex flex-col gap-5 w-full mt-4">
+            className="flex flex-col gap-5 w-full">
             <FormField
               control={form.control}
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="shad-form_label">Email</FormLabel>
+                  <FormLabel className="shad-form_label color-white">Email</FormLabel>
                   <FormControl>
                     <Input placeholder="player@rpg.com" type="text" className="shad-input bg-white text-black" {...field} />
                   </FormControl>
@@ -87,7 +87,7 @@ const LoginForm = () => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="shad-form_label">Senha</FormLabel>
+                  <FormLabel className="shad-form_label color-white">Senha</FormLabel>
                   <FormControl>
                     <Input placeholder="••••••••••" type="password" className="shad-input bg-white text-black rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500" {...field} />
                   </FormControl>
@@ -96,7 +96,7 @@ const LoginForm = () => {
               )}
               />
 
-            <Button type="submit" className="shad-button_primary bg-gray-400 text-black rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500">
+            <Button type="submit" className="shad-button_primary bg-gray-400 cursor-pointer text-black rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500">
               {isSigningIn ? (
                 <div className="flex-center gap-2">
                   <Loader size={24}/>
@@ -106,7 +106,7 @@ const LoginForm = () => {
               )}
             </Button>
 
-            <p className="text-small-regular text-light-2 text-center mt-2">
+            <p className="text-small-regular text-light-2 text-center mt-2 color-white">
               Consulte seu login no Discord.
             </p>
             <p className='flex justify-center'>
@@ -116,7 +116,7 @@ const LoginForm = () => {
                 <img src={discord} alt="logo" className="h-5 w-5" />
               </Link>
             </p>
-            <p className="text-small-regular text-center">
+            <p className="text-small-regular text-center color-white">
               <Link to="/register" className="text-primary-500 underline hover:text-primary-700">
                 Primeira vez? Clique aqui para criar sua ficha
               </Link>

@@ -63,7 +63,7 @@ export function MobileTabs({ items, notes, conditions }: PlayerTabsProps) {
         <IconButton
           edge="start"
           onClick={() => setOpen(false)}
-          sx={{ color: "#ffffff" }}
+          sx={{ color: "#ffffff", position: "sticky", top: 0, zIndex: 900, p: 1, backdropFilter: 'blur(10px)', borderRadius: 0, backgroundColor: 'rgba(0,0,0,0.4)' }}
         >
           <X />
         </IconButton>

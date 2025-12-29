@@ -8,7 +8,7 @@ import SignUpForm from './_auth/forms/SignUp/SignUpForm';
 
 const App = () => {
   return (
-    <main className='main flex'>
+    <main className='main'>
         <Routes>
             {/*Public Routes*/}
             <Route element={<AuthLayout/>}>
