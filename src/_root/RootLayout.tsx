@@ -17,8 +17,8 @@ import { ResponsiveTabs } from '@/components/ResponsiveTabs/ResponsiveTabs';
 import { VidaStatus } from '@/components/ui/VidaStatus';
 
 
-const backgroundVideo = import.meta.env.VITE_VIDEO_BG;
-const backgroundAudio = import.meta.env.VITE_AUDIO_BG;
+const backgroundVideo = "https://media.githubusercontent.com/media/brunofbpaula/RPG-Chitta/refs/heads/Yara/src/assets/video/Phantom_Liberty.webm";
+const backgroundAudio = "https://fra.cloud.appwrite.io/v1/storage/buckets/67e997fe001920450224/files/6951d6e600396373e93b/view?project=67d9eaea00378fb3eb2f&mode=admin";
 
 const RootLayout = () => {
   const navigate = useNavigate();
