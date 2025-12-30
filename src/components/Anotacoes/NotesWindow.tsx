@@ -6,8 +6,9 @@ import { Note } from "@/types";
 
 interface Props {
   note: Note;
-  onSave: (data: { text: string }) => void;
+  onSave: (data: Note) => void;
 }
+
 
 export function NotesWindow({ note, onSave }: Props) {
   const [text, setText] = useState(note.text);
@@ -20,12 +21,16 @@ export function NotesWindow({ note, onSave }: Props) {
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (text !== note.text) {
-        onSave({ text });
+        onSave({
+          ...note,
+          text,
+        });
       }
-    }, 600); // 600ms é bom para não travar
+    }, 600);
 
     return () => clearTimeout(timeout);
-  }, [text]);
+  }, [text, note]);
+
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>

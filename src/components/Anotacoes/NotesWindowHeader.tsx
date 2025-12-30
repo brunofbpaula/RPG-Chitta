@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 interface Props {
   note: Note;
   onBack: () => void;
-  onSave: (data: { title: string }) => void;
+  onSave: (data: Note) => void;
 }
 
 export function NotesWindowHeader({ note, onBack, onSave }: Props) {
@@ -17,15 +17,19 @@ export function NotesWindowHeader({ note, onBack, onSave }: Props) {
     }, [note.$id, note.title]);
   
   
-    useEffect(() => {
-      const timeout = setTimeout(() => {
-        if (title !== note.title) {
-          onSave({ title });
-        }
-      }, 600); // 600ms é bom para não travar
-  
-      return () => clearTimeout(timeout);
-    }, [title]);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (title !== note.title) {
+        onSave({
+          ...note,
+          title,
+        });
+      }
+    }, 600);
+
+    return () => clearTimeout(timeout);
+  }, [title, note]);
+
 
   return (
     <Paper
