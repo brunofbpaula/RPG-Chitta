@@ -184,7 +184,7 @@ useEffect(() => {
         console.log(noteId, data);
         const updatedAt = new Date().toISOString();
 
-        updateNote(noteId, { text: data.text ?? "", createdAt: updatedAt });
+        updateNote(noteId, { title: data.title ?? "", text: data.text ?? "", createdAt: updatedAt });
 
         setNotes((prev) =>
           prev.map((note) =>
@@ -275,11 +275,11 @@ useEffect(() => {
                 </div>
               </div>
               <div className="box-atributos">
-                <AtributoBar label="Força" value={user.strength} max={100} />
-                <AtributoBar label="Intelecto" value={user.intelligence} max={100} />
-                <AtributoBar label="Agilidade" value={user.agility} max={100} />
-                <AtributoBar label="Resilência" value={user.resilience} max={100} />
-                <AtributoBar label="Moral" value={user.moral} max={100} />
+                <AtributoBar label="Força" value={user.strength} max={5} />
+                <AtributoBar label="Intelecto" value={user.intelligence} max={5} />
+                <AtributoBar label="Agilidade" value={user.agility} max={5} />
+                <AtributoBar label="Resilência" value={user.resilience} max={5} />
+                <AtributoBar label="Moral" value={user.moral} max={5} />
               </div>
             </div>
           </div>

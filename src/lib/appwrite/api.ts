@@ -342,7 +342,7 @@ export async function createNote(note: CreateNoteData, playerId: string) {
     }
 }
 
-export async function updateNote( noteId: string, data: { text: string; createdAt: string }) {
+export async function updateNote( noteId: string, data: { title: string; text: string; createdAt: string }) {
   try {
     const updatedNote = await databases.updateDocument(
       appwriteConfig.databaseId,

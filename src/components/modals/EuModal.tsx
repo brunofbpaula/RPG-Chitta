@@ -273,7 +273,7 @@ const EuModal: React.FC<EuModalProps> = ({ open, onClose, player, onSave }) => {
                 value={dadosEditaveis[key as keyof IPlayer]}
                 onChange={(e) => {
                   const value = Number(e.target.value);
-
+                  
                   setDadosEditaveis((prev) => {
                     // Se estiver alterando vida atual
                     if (key === "currentHealth") {
@@ -291,10 +291,12 @@ const EuModal: React.FC<EuModalProps> = ({ open, onClose, player, onSave }) => {
                         currentHealth: Math.min(prev.currentHealth, value),
                       };
                     }
+                    
+                    const clampedValue = Math.max(0, Math.min(value, 5));
 
                     return {
                       ...prev,
-                      [key]: value,
+                      [key]: clampedValue,
                     };
                   });
                 }}
